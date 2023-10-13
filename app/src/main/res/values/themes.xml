@@ -1,5 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
+<<<<<<< HEAD
     <style name="Base.Theme.Traveling_App" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
@@ -26,4 +27,12 @@
         <item name="boxStrokeWidth">2dp</item>
     </style>
 
+=======
+    <style name="Base.Theme.Traveling_App" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.Traveling_App" parent="Base.Theme.Traveling_App" />
+>>>>>>> 72f393d (Create new App)
 </resources>

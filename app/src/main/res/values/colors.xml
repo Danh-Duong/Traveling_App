@@ -2,8 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+<<<<<<< HEAD
     <color name="primaryColor">#0C9FEE</color>
 
     <!--    màu border mặc định của InputTextLayout-->
     <color name="mtrl_textinput_default_box_stroke_color">#C2C2C2</color>
+=======
+>>>>>>> 72f393d (Create new App)
 </resources>
