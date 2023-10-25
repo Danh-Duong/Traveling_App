@@ -14,6 +14,11 @@ import android.view.ViewGroup;
 import com.example.traveling_app.R;
 import com.example.traveling_app.model.TourInformationAdapter;
 
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link SearchResultFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
 public class SearchResultFragment extends Fragment {
 
     SearchFragment.OnFilterChangeListener listener;
