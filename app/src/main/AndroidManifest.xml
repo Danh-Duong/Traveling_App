@@ -48,6 +48,11 @@
         <activity
             android:name=".AdminCreateActivity"
             android:exported="false" />
+        <activity android:name=".CreateBlog_activity"
+            android:exported="false">
+        </activity>
+        <activity android:name=".Status_activity"
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
