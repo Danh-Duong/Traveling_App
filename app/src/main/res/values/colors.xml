@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
+    <color name="grey">#AAA</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#F00</color>
+    <color name="background">@color/white</color>
+    <color name="text_foreground">@color/black</color>
+    <color name="text_placeholder">@color/grey</color>
+    <color name="primary_color">#1e90ff</color>
+    <color name="primary_color_dark">#116289</color>
+    <color name="navigation_bar_color">@color/black</color>
 <<<<<<< HEAD
     <color name="primaryColor">#0C9FEE</color>
 

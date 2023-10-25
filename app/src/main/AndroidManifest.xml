@@ -58,6 +58,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 =======
             android:name=".MainActivity"
+            android:name=".DebugActivity"
+            android:label="Debug Traveler"
             android:exported="true">
 >>>>>>> 72f393d (Create new App)
             <intent-filter>
@@ -65,6 +67,18 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".SearchAndFilterActivity"
+            android:exported="true"
+            android:label="@string/search_and_filter"
+            android:theme="@style/Base.Theme.Traveling_App" />
+        <activity
+            android:name=".MenuActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false">
         </activity>
     </application>
 

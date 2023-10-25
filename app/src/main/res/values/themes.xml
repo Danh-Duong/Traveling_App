@@ -1,5 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
+    <style name="Base.Theme.Traveling_App" parent="Theme.Material3.Light">
 <<<<<<< HEAD
     <style name="Base.Theme.Traveling_App" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -31,6 +32,27 @@
     <style name="Base.Theme.Traveling_App" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:colorPrimary">@color/primary_color</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="actionBarStyle">@style/Base.Theme.Traveling_App.ActionBar</item>
+        <item name="android:navigationBarColor" tools:targetApi="O_MR1">@color/navigation_bar_color</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="O_MR1">true</item>
+        <!-- Change navigate up button icon in action bar
+        <item name="homeAsUpIndicator">@drawable/baseline_settings_24</item>
+        -->
+    </style>
+
+    <!-- Base theme without actionbar -->
+    <style name="Base.Theme.Traveling_App.NoActionBar" parent="Base.Theme.Traveling_App">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!--Style for ActionBar -->
+    <style name="Base.Theme.Traveling_App.ActionBar" parent="@style/Widget.Material3.Light.ActionBar.Solid">
+        <item name="background">@color/background</item>
     </style>
 
     <style name="Theme.Traveling_App" parent="Base.Theme.Traveling_App" />

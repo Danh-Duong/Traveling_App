@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.example.traveling_app"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.traveling_app"
@@ -40,6 +40,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
 >>>>>>> 72f393d (Create new App)
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
