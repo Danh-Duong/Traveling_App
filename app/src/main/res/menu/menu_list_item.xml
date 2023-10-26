@@ -6,7 +6,7 @@
         android:title="@string/saved"/>
     <item android:icon="@drawable/baseline_directions_car_24"
         android:title="@string/place_went"/>
-    <item android:icon="@drawable/baseline_share_24"
+    <item android:icon="@drawable/baseline_share_24_1"
         android:title="@string/share_app"/>
     <item android:icon="@drawable/baseline_star_border_24"
         android:title="@string/rate_app"/>
