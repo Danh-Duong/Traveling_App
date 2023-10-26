@@ -74,7 +74,13 @@
         <activity
             android:name="Batdau_Activity"
             android:label="@string/get_started"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
+        <activity
+            android:name=".activity_acpemail"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name="Blog_activity"
             android:label="@string/blog"

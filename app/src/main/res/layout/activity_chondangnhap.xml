@@ -31,6 +31,8 @@
         android:layout_below="@+id/at2_img"
         android:text="Chào mừng bạn trở lại!"
         android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:textStyle="bold"
         android:textSize="25dp"
         android:textColor="@color/black"/>
@@ -42,6 +44,8 @@
         android:layout_marginTop="2dp"
         android:text="Truy cập ưu đãi riêng cho thành viên, thông báo giá và nhiều hơn nữa."
         android:textSize="14dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:paddingEnd="40dp"
         android:textColor="@color/black"/>
     <Button
@@ -70,7 +74,7 @@
         android:background="@drawable/stroke_button"
         android:text="Đăng ký"
         android:textAllCaps="false"
-        android:textColor="#0099ff"/>
+        android:textColor="@color/white"/>
 
     <TextView
         android:layout_width="match_parent"

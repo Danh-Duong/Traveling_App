@@ -2,8 +2,11 @@ package com.example.traveling_app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class CreateBlog_activity extends AppCompatActivity {
@@ -19,7 +22,21 @@ public class CreateBlog_activity extends AppCompatActivity {
             }
         });
 
+        // nút Back
+        ActionBar actionBar=getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24);
+        actionBar.setTitle("");
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId()==android.R.id.home){
+            this.finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

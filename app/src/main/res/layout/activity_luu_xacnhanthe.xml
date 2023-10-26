@@ -97,13 +97,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="Việt Nam"
+                app:hintEnabled="false"
                 android:textColorHint="#D9D9D9"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:endIconMode="custom"
                 app:endIconDrawable="@drawable/luu_xacnhanthe_dropic">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
+                    android:hint="Việt Nam"
                     android:layout_height="wrap_content"
                     android:inputType="number"/>
             </com.google.android.material.textfield.TextInputLayout>
