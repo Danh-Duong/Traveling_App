@@ -97,7 +97,7 @@ public class FilterFragment extends Fragment {
     public void updateSelectedFilterCountToActionBar() {
         if (getActivity() instanceof AppCompatActivity && ((AppCompatActivity)getActivity()).getSupportActionBar() != null) {
             ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-            actionBar.setTitle(getString(R.string.search_result));
+            actionBar.setTitle(getString(R.string.filter));
             int selectedFilterCount = (int)listener.getStreamOfSelectedFilterItem().count();
             actionBar.setSubtitle(selectedFilterCount == 0 ? "" : getString(R.string.item_count, selectedFilterCount));
         }

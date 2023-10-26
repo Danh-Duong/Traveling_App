@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.stream.Stream;
 
 public class SearchAndFilterActivity extends AppCompatActivity implements SearchFragment.OnFilterChangeListener {
-
+    // Một mớ hổ lốn đang tồn tại và cần được dọn dẹp sạch sẽ, để dungleanh297 lo phần này.
     private ArrayList<FilterItemGroup> filterGroups = new ArrayList<>();;
     private SearchFragment searchFragment = new SearchFragment();
     private FilterFragment filterFragment = new FilterFragment();

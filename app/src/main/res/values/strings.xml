@@ -1,4 +1,19 @@
 <resources>
+    <string name="sign_in">Đăng nhập</string>
+    <string name="sign_up">Đăng ký</string>
+    <string name="forgotten_password">Quên mật khẩu</string>
+    <string name="reset_password">Đặt lại mật khẩu</string>
+    <string name="successful">Thành công</string>
+    <string name="failed">Thất bại</string>
+    <string name="administrator">Quản trị viên</string>
+    <string name="get_started">Bắt đầu</string>
+    <string name="blog">Blog</string>
+    <string name="create_blog">Tạo blog</string>
+    <string name="detail">Chi tiết</string>
+    <string name="tour_history">Lịch sử tour</string>
+    <string name="coupon">Mã giảm giá</string>
+    <string name="notification">Thông báo</string>
+    <string name="status">Trạng thái</string>
     <string name="app_name">Traveling_App</string>
     <string name="profile_page">Trang cá nhân</string>
     <string name="saved">Đã lưu</string>
@@ -29,4 +44,9 @@
     <string name="rate_count">%1$d đánh giá</string>
     <string name="search_result">Kết quả tìm kiếm</string>
     <string name="result_found_count">%1$d tìm thấy</string>
+    <string name="menu">Menu</string>
+    <string name="post">Bài viết</string>
+    <string name="user_infomation">Thông tin người dùng</string>
+    <string name="add_new_post">Thêm bài viết mới</string>
+    <string name="edit_profile">Chỉnh sửa trang cá nhân</string>
 </resources>

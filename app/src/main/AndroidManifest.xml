@@ -2,15 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-<<<<<<< HEAD
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="true" />
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
-=======
->>>>>>> 72f393d (Create new App)
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -21,70 +18,126 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Traveling_App"
         tools:targetApi="31">
+
         <activity
-<<<<<<< HEAD
-            android:name=".luu_xacnhanthe"
-            android:exported="false" />
-        <activity
-            android:name=".luu_notifysuccess"
-            android:exported="false" />
-        <activity
-            android:name=".luu_notifyfailed"
-            android:exported="false" />
-        <activity
-            android:name=".luu_magiamgia"
-            android:exported="false" />
-        <activity
-            android:name=".luu_lichsutour"
-            android:exported="false" />
-        <activity
-            android:name=".luu_book_tour"
-            android:exported="false" />
-        <activity
-            android:name=".NotificationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AdminActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AdminCreateActivity"
-            android:exported="false" />
-        <activity android:name=".CreateBlog_activity"
-            android:exported="false">
-        </activity>
-        <activity android:name=".Status_activity"
-            android:exported="false"/>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-=======
-            android:name=".MainActivity"
-            android:name=".DebugActivity"
-            android:label="Debug Traveler"
+            android:name="DebugActivity"
             android:exported="true">
->>>>>>> 72f393d (Create new App)
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".SearchAndFilterActivity"
-            android:exported="true"
-            android:label="@string/search_and_filter"
-            android:theme="@style/Base.Theme.Traveling_App" />
-        <activity
-            android:name=".MenuActivity"
-            android:exported="true" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false">
+            android:name="MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+
+        <activity
+            android:name="activity_dangky"
+            android:label="@string/sign_up"
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar"
+            android:exported="false" />
+        <activity
+            android:name="activity_dangnhap"
+            android:label="@string/sign_in"
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar"
+            android:exported="false" />
+        <activity
+            android:name="activity_quenmk"
+            android:label="@string/forgotten_password"
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar"
+            android:exported="false" />
+        <activity
+            android:name="activity_resetmk"
+            android:label="@string/reset_password"
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar"
+            android:exported="false" />
+        <activity
+            android:name="activity_succesful"
+            android:label="@string/successful"
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar"
+            android:exported="false" />
+        <activity
+            android:name="AdminActivity"
+            android:label="@string/administrator"
+            android:exported="false" />
+        <activity
+            android:name="AdminCreateActivity"
+            android:exported="false" />
+        <activity
+            android:name="Batdau_Activity"
+            android:label="@string/get_started"
+            android:exported="false" />
+        <activity
+            android:name="Blog_activity"
+            android:label="@string/blog"
+            android:exported="false" />
+        <activity
+            android:name="Chondangnhap_Activity"
+            android:exported="false" />
+        <activity
+            android:name="CreateBlog_activity"
+            android:label="@string/create_blog"
+            android:exported="false" />
+
+        <activity
+            android:name="DetailActivity"
+            android:label="@string/detail"
+            android:exported="false" />
+        <activity
+            android:name="luu_book_tour"
+            android:exported="false" />
+        <activity
+            android:name="luu_lichsutour"
+            android:label="@string/tour_history"
+            android:exported="false" />
+        <activity
+            android:name="luu_magiamgia"
+            android:label="@string/coupon"
+            android:exported="false" />
+        <activity
+            android:name="luu_notifyfailed"
+            android:label="@string/failed"
+            android:exported="false" />
+        <activity
+            android:name="luu_notifysuccess"
+            android:label="@string/successful"
+            android:exported="false" />
+        <activity
+            android:name="luu_xacnhanthe"
+            android:exported="false" />
+
+        <activity
+            android:name="MenuActivity"
+            android:label="@string/menu"
+            android:exported="false"
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar"/>
+        <activity
+            android:name="NotificationActivity"
+            android:label="@string/notification"
+            android:exported="false" />
+        <activity
+            android:name="ProfileActivity"
+            android:label="@string/profile_page"
+            android:exported="false" />
+        <activity
+            android:name="SearchAndFilterActivity"
+            android:label="@string/search_and_filter"
+            android:exported="false" />
+        <activity
+            android:name="Status_activity"
+            android:label="@string/status"
+            android:exported="false" />
+        <activity
+            android:name="ThongTinTichDiem_activity"
+            android:exported="false" />
     </application>
 
 </manifest>
