@@ -18,138 +18,140 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Traveling_App"
         tools:targetApi="31">
-
         <activity
-            android:name="DebugActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name="MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Base.Theme.Traveling_App.NoActionBar"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name="activity_dangky"
-            android:label="@string/sign_up"
-            android:theme="@style/Base.Theme.Traveling_App.NoActionBar"
-            android:exported="false" />
-        <activity
-            android:name="activity_dangnhap"
-            android:label="@string/sign_in"
-            android:theme="@style/Base.Theme.Traveling_App.NoActionBar"
-            android:exported="false" />
-        <activity
-            android:name="activity_quenmk"
-            android:label="@string/forgotten_password"
-            android:theme="@style/Base.Theme.Traveling_App.NoActionBar"
-            android:exported="false" />
-        <activity
-            android:name="activity_resetmk"
-            android:label="@string/reset_password"
-            android:theme="@style/Base.Theme.Traveling_App.NoActionBar"
-            android:exported="false" />
-        <activity
-            android:name="activity_succesful"
-            android:label="@string/successful"
-            android:theme="@style/Base.Theme.Traveling_App.NoActionBar"
-            android:exported="false" />
-        <activity
-            android:name="AdminActivity"
-            android:label="@string/administrator"
-            android:exported="false" />
-        <activity
-            android:name="AdminCreateActivity"
-            android:exported="false" />
-        <activity
-            android:name="Batdau_Activity"
-            android:label="@string/get_started"
+            android:name=".AboutActivity"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:label="@string/about_us"/>
+        <activity
+            android:name=".DebugActivity"
+            android:exported="false">
 
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name=".Batdau_Activity"
+            android:exported="true"
+            android:label="@string/get_started"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:label="@string/app_name"
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar"></activity>
+        <activity
+            android:name=".activity_dangky"
+            android:exported="false"
+            android:label="@string/sign_up"
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar" />
+        <activity
+            android:name=".activity_dangnhap"
+            android:exported="false"
+            android:label="@string/sign_in"
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar" />
+        <activity
+            android:name=".activity_quenmk"
+            android:exported="false"
+            android:label="@string/forgotten_password"
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar" />
+        <activity
+            android:name=".activity_resetmk"
+            android:exported="false"
+            android:label="@string/reset_password"
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar" />
+        <activity
+            android:name=".activity_succesful"
+            android:exported="false"
+            android:label="@string/successful"
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar" />
+        <activity
+            android:name=".AdminActivity"
+            android:exported="false"
+            android:label="@string/administrator" />
+        <activity
+            android:name=".AdminCreateActivity"
+            android:exported="false" />
         <activity
             android:name=".activity_acpemail"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="Blog_activity"
-            android:label="@string/blog"
+            android:name=".Blog_activity"
+            android:exported="false"
+            android:label="@string/blog" />
+        <activity
+            android:name=".Chondangnhap_Activity"
             android:exported="false" />
         <activity
-            android:name="Chondangnhap_Activity"
+            android:name=".CreateBlog_activity"
+            android:exported="false"
+            android:label="@string/create_blog" />
+        <activity
+            android:name=".DetailActivity"
+            android:exported="false"
+            android:label="@string/detail" />
+        <activity
+            android:name=".luu_book_tour"
             android:exported="false" />
         <activity
-            android:name="CreateBlog_activity"
-            android:label="@string/create_blog"
-            android:exported="false" />
-
+            android:name=".luu_lichsutour"
+            android:exported="false"
+            android:label="@string/tour_history" />
         <activity
-            android:name="DetailActivity"
-            android:label="@string/detail"
-            android:exported="false" />
+            android:name=".luu_magiamgia"
+            android:exported="false"
+            android:label="@string/coupon" />
         <activity
-            android:name="luu_book_tour"
-            android:exported="false" />
+            android:name=".luu_notifyfailed"
+            android:exported="false"
+            android:label="@string/failed" />
         <activity
-            android:name="luu_lichsutour"
-            android:label="@string/tour_history"
-            android:exported="false" />
+            android:name=".luu_notifysuccess"
+            android:exported="false"
+            android:label="@string/successful" />
         <activity
-            android:name="luu_magiamgia"
-            android:label="@string/coupon"
-            android:exported="false" />
-        <activity
-            android:name="luu_notifyfailed"
-            android:label="@string/failed"
+            android:name=".luu_xacnhanthe"
             android:exported="false" />
         <activity
-            android:name="luu_notifysuccess"
-            android:label="@string/successful"
-            android:exported="false" />
-        <activity
-            android:name="luu_xacnhanthe"
-            android:exported="false" />
-
-        <activity
-            android:name="MenuActivity"
+            android:name=".MenuActivity"
+            android:exported="false"
             android:label="@string/menu"
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar" />
+        <activity
+            android:name=".NotificationActivity"
             android:exported="false"
-            android:theme="@style/Base.Theme.Traveling_App.NoActionBar"/>
+            android:label="@string/notification" />
         <activity
-            android:name="NotificationActivity"
-            android:label="@string/notification"
-            android:exported="false" />
+            android:name=".ProfileActivity"
+            android:exported="false"
+            android:label="@string/profile_page" />
         <activity
-            android:name="ProfileActivity"
-            android:label="@string/profile_page"
-            android:exported="false" />
+            android:name=".SearchAndFilterActivity"
+            android:exported="false"
+            android:label="@string/search_and_filter" />
         <activity
-            android:name="SearchAndFilterActivity"
-            android:label="@string/search_and_filter"
-            android:exported="false" />
-        <activity
-            android:name="Status_activity"
+            android:name=".Status_activity"
+            android:exported="false"
             android:label="@string/status"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="ThongTinTichDiem_activity"
+            android:name=".ThongTinTichDiem_activity"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".GioiThieuBanBe"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 
 </manifest>

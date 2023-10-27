@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.example.traveling_app.AdminActivity;
 import com.example.traveling_app.MainActivity;
 import com.example.traveling_app.R;
 import com.example.traveling_app.SearchAndFilterActivity;
@@ -47,6 +48,7 @@ public class Menu_Home extends Fragment {
     private View view;
 
     private EditText searchInput;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

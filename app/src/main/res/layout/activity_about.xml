@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity">
-    <fragment
-        android:id="@+id/userProfileTabViewPager"
-        android:name="com.example.traveling_app.fragment.UserProfileFragment"
+    tools:context=".AboutActivity">
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@+id/editProfileButton" />
+        android:gravity="center"
+        android:text="@string/about_us_infomation"/>
+
 </FrameLayout>

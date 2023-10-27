@@ -48,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private BottomNavigationView bottomNavigationView;
 
+    public void goToAdmin(View v) {
+        startActivity(new Intent(getApplicationContext(), AdminActivity.class));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,12 +79,9 @@ public class MainActivity extends AppCompatActivity {
                         bottomNavigationView.getMenu().findItem(R.id.menu_blog).setChecked(true);
                         break;
                     case 2:
-                        bottomNavigationView.getMenu().findItem(R.id.menu_love).setChecked(true);
-                        break;
-                    case 3:
                         bottomNavigationView.getMenu().findItem(R.id.menu_noti).setChecked(true);
                         break;
-                    case 4:
+                    case 3:
                         bottomNavigationView.getMenu().findItem(R.id.menu_menu).setChecked(true);
                         break;
 
@@ -100,12 +101,10 @@ public class MainActivity extends AppCompatActivity {
                     viewPager.setCurrentItem(0);
                 else if (item.getItemId()==R.id.menu_blog)
                     viewPager.setCurrentItem(1);
-                else if (item.getItemId()==R.id.menu_love)
-                    viewPager.setCurrentItem(2);
                 else if (item.getItemId()==R.id.menu_noti)
-                    viewPager.setCurrentItem(3);
+                    viewPager.setCurrentItem(2);
                 else if (item.getItemId()==R.id.menu_menu)
-                    viewPager.setCurrentItem(4);
+                    viewPager.setCurrentItem(3);
 
                 return true;
             }

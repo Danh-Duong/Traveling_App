@@ -65,6 +65,7 @@
                         android:layout_width="80px"
                         android:layout_height="80px"
                         android:layout_toRightOf="@+id/textView2"
+                        android:onClick="goToAdmin"
                         android:src="@drawable/main_avatar" />
 
                 </LinearLayout>

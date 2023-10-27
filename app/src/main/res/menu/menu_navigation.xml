@@ -6,9 +6,6 @@
     <item android:id="@+id/menu_blog"
         android:title="Blog"
         android:icon="@drawable/main_news_regular"/>
-    <item android:id="@+id/menu_love"
-        android:title="Love"
-        android:icon="@drawable/main_heart_regular_footer"/>
     <item android:id="@+id/menu_noti"
         android:title="Notification"
         android:icon="@drawable/main_bell_regular"/>
