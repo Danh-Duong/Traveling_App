@@ -39,6 +39,14 @@ public class activity_dangnhap extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.at2_btn1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(activity_dangnhap.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
