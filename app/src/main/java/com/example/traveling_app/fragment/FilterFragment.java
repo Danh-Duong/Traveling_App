@@ -10,9 +10,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.traveling_app.R;
+import com.example.traveling_app.model.Common;
 import com.example.traveling_app.model.FilterItem;
 import com.example.traveling_app.model.FilterItemGroup;
 import com.google.android.flexbox.FlexboxLayout;
@@ -34,13 +38,26 @@ public class FilterFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_filter, container, false);
-        listener.getStreamOfFilterItemGroups().forEach( filterItemGroup -> {
+        TextView getCurrentLocationTextView = rootView.findViewById(R.id.getCurrentLocationButton);
+        listener.getStreamOfFilterItemGroups().forEach(filterItemGroup -> {
             LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.filter_selector_layout, rootView, false);
             FlexboxLayout filterItemContainer = linearLayout.findViewById(R.id.filterItemContainer);
             TextView title = linearLayout.findViewById(R.id.title);
             title.setText(filterItemGroup.getTitle());
             initFilterItemGroupContainer(filterItemGroup, filterItemContainer);
             rootView.addView(linearLayout);
+        });
+        getCurrentLocationTextView.setOnClickListener(v -> {
+            Toast.makeText(getContext(), getString(R.string.getting_current_location_status), Toast.LENGTH_SHORT).show();
+            Common.getCurrentAddress(getActivity(),
+                () -> {
+                    Toast.makeText(getContext(), getString(R.string.getting_current_location_status), Toast.LENGTH_SHORT).show();
+                },
+                (address) -> {
+                    String postalCode = address.getPostalCode();
+                    String province = address.getAdminArea();
+                    listener.getStreamOfFilterItemGroups().filter(g -> g.getKey().equals("province")).forEach(g -> g.add(postalCode, province).selectSelf());
+                });
         });
         return rootView;
     }

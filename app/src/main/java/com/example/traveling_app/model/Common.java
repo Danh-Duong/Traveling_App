@@ -1,11 +1,23 @@
 package com.example.traveling_app.model;
 
-import android.view.Menu;
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 
+import com.example.traveling_app.R;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import com.example.traveling_app.R;
+import java.util.Locale;
+import java.util.function.Consumer;
+
 public class Common {
 
     static {
@@ -21,5 +33,30 @@ public class Common {
         menuSectionItems.add(new MenuSectionItem(R.drawable.baseline_logout_24, R.string.log_out, com.example.traveling_app.activity_dangnhap.class));
         MENU_SECTION_ITEMS = Collections.unmodifiableList(menuSectionItems);
     }
+
     public static final List<MenuSectionItem> MENU_SECTION_ITEMS;
+
+    public static final void getCurrentAddress(Activity activity, Runnable onFailedListener, Consumer<Address> onSuccessListener) {
+        if (activity.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity);
+            fusedLocationProviderClient.getCurrentLocation(Priority.PRIORITY_LOW_POWER, null).addOnSuccessListener(activity, location -> {
+                if (location != null) {
+                    Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
+                    Address address;
+                    try {
+                        address = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1).get(0);
+                        onSuccessListener.accept(address);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {
+                    onFailedListener.run();
+                }
+
+            });
+
+        } else {
+            activity.requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+        }
+    }
 }

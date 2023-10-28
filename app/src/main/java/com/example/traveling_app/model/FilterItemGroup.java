@@ -1,5 +1,6 @@
 package com.example.traveling_app.model;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 
 // Group FilterItem by category;
@@ -29,8 +30,13 @@ public class FilterItemGroup {
     }
 
     public FilterItem add(String value, String title) {
-        FilterItem filterItem = new FilterItem(this, size(),  value, title);
-        filterItems.add(filterItem);
+        FilterItem filterItem;
+        try {
+            filterItem = filterItems.stream().filter(item -> item.getValue().equals(value)).findFirst().get();
+        } catch (NoSuchElementException e) {
+            filterItem = new FilterItem(this, size(),  value, title);
+            filterItems.add(filterItem);
+        }
         return filterItem;
     }
 

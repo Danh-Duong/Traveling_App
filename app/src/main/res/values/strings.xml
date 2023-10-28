@@ -64,4 +64,7 @@
         \n
         Lê Anh Dũng - 21115053120112
     </string>
+    <string name="get_current_location">Lấy vị trí hiện tại</string>
+    <string name="getting_current_location_status">Đang truy cập vào vị trí hiện tại</string>
+    <string name="get_location_failed">Lấy vị trí hiện tại thất bại</string>
 </resources>
