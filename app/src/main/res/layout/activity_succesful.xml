@@ -26,7 +26,7 @@
         android:id="@+id/succes_tv2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bạn đã đổi mật khâủ thành công."
+        android:text="Bạn đã đổi mật khẩu thành công."
         android:textSize="14dp"
         android:textColor="#817A7A"
         android:layout_below="@+id/succes_tv1"
