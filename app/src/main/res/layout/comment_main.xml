@@ -46,6 +46,7 @@
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         android:inputType="textShortMessage"
+        android:imeOptions="actionSend"
         android:maxLines="1"/>
 </LinearLayout>
 
