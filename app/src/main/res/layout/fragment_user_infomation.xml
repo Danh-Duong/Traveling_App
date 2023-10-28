@@ -1,15 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#0000FF"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.UserInfomationFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment" />
+        style="@style/HeadingTitle"
+        android:text="@string/user_infomation"
+        android:layout_marginBottom="15dp"/>
 
-</FrameLayout>
+    <!-- TODO: Update blank fragment layout -->
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:flexWrap="wrap">
+
+        <TextView
+            style="@style/SmallClickableTextView"
+            android:text="user0"
+            android:drawableStart="@drawable/baseline_person_outline_24"/>
+
+        <TextView
+            style="@style/SmallClickableTextView"
+            android:drawableStart="@drawable/baseline_female_24"
+            android:text="Nữ"/>
+
+        <TextView
+            style="@style/SmallClickableTextView"
+            android:text="30 tuổi"
+            android:drawableStart="@drawable/baseline_cake_24"/>
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+</LinearLayout>

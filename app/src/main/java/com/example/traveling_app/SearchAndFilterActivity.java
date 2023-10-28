@@ -40,9 +40,9 @@ public class SearchAndFilterActivity extends AppCompatActivity implements Search
         geographical.add("bien", "Biển");
         geographical.add("nui", "Núi");
         geographical.add("dangoai", "Dã ngoại");
-        province.add("1", "Đà Nẵng");
-        province.add("2", "Hà Nội");
-        province.add("3", "Thành phố Hồ Chí Minh");
+        province.add("550000", "Đà Nẵng");
+        province.add("66000", "Lâm Đồng");
+        province.add("25000", "Lạng Sơn");
         filterGroups.add(prices);
         filterGroups.add(purpose);
         filterGroups.add(geographical);

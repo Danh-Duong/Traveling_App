@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:text="Thêm tour du lịch"
+        android:text="Tour du lịch"
         android:textSize="22sp"
         android:gravity="center"
         android:background="@color/primaryColor"
@@ -104,6 +104,7 @@
                     android:layout_height="40dp"
                     android:padding="0dp"
                     android:hint="SĐT"
+                    android:inputType="number"
                     android:textCursorDrawable="@drawable/color_cursor"
                     android:textColorHint="#AFAFAF"></com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
@@ -241,6 +242,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:padding="0dp"
+                        android:inputType="number"
                         android:hint="Giá"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textColorHint="#AFAFAF"></com.google.android.material.textfield.TextInputEditText>
@@ -283,6 +285,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:padding="0dp"
+                        android:inputType="number"
                         android:hint="Khuyến mại"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textColorHint="#AFAFAF"></com.google.android.material.textfield.TextInputEditText>
@@ -327,9 +330,9 @@
 
 
             <Button
-                android:layout_width="150dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:text="Tạo mới"
+                android:text="Lưu"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
                 android:layout_marginTop="10dp"

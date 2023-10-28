@@ -1,7 +1,9 @@
 package com.example.traveling_app.entity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.example.traveling_app.AdminCreateActivity;
 import com.example.traveling_app.R;
 
 import java.util.List;
@@ -57,6 +60,22 @@ public class AdminTourAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 popupMenu.show();
+            }
+        });
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId()==R.id.update_tour_admin)
+                    activity.startActivity(new Intent(activity, AdminCreateActivity.class));
+                if(item.getItemId()==R.id.detail_tour_admin)
+                    activity.startActivity(new Intent(activity, AdminCreateActivity.class));
+                if(item.getItemId()==R.id.delete_tour_admin){
+                    tours.remove(position);
+                    notifyDataSetChanged();
+                }
+
+                return true;
             }
         });
 

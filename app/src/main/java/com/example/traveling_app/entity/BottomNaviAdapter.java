@@ -25,8 +25,10 @@ public class BottomNaviAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new Menu_Blog();
             case 2:
-                return new Menu_Notification();
+                return new Menu_Love();
             case 3:
+                return new Menu_Notification();
+            case 4:
                 return new Menu_Menu();
         }
         return null;
@@ -34,6 +36,6 @@ public class BottomNaviAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+        return 5;
     }
 }

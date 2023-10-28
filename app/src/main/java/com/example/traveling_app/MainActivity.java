@@ -33,18 +33,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-//    private RecyclerView tour_hint_rcv, recent_rcv, voucher_rcv, hot_rcv, near_rcv;
-//
-//    private SliderView sliderView;
-//    private ImageButton btnNotification;
-//    private HintTourAdapter hintTourAdapter;
-//    private RecentTourAdapter recentTourAdapter;
-//    private VoucherTourAdapter voucherTourAdapter;
-//    private HotTourAdapter hotTourAdapter;
-//    private NearTourAdapter nearTourAdapter;
-//    private List<Tour> tours=new ArrayList<>();
-//    private List<Voucher> vouchers=new ArrayList<>();
-
     private ViewPager viewPager;
     private BottomNavigationView bottomNavigationView;
 
@@ -79,9 +67,12 @@ public class MainActivity extends AppCompatActivity {
                         bottomNavigationView.getMenu().findItem(R.id.menu_blog).setChecked(true);
                         break;
                     case 2:
-                        bottomNavigationView.getMenu().findItem(R.id.menu_noti).setChecked(true);
+                        bottomNavigationView.getMenu().findItem(R.id.menu_love).setChecked(true);
                         break;
                     case 3:
+                        bottomNavigationView.getMenu().findItem(R.id.menu_noti).setChecked(true);
+                        break;
+                    case 4:
                         bottomNavigationView.getMenu().findItem(R.id.menu_menu).setChecked(true);
                         break;
 
@@ -101,10 +92,12 @@ public class MainActivity extends AppCompatActivity {
                     viewPager.setCurrentItem(0);
                 else if (item.getItemId()==R.id.menu_blog)
                     viewPager.setCurrentItem(1);
-                else if (item.getItemId()==R.id.menu_noti)
+                else if (item.getItemId()==R.id.menu_love)
                     viewPager.setCurrentItem(2);
-                else if (item.getItemId()==R.id.menu_menu)
+                else if (item.getItemId()==R.id.menu_noti)
                     viewPager.setCurrentItem(3);
+                else if (item.getItemId()==R.id.menu_menu)
+                    viewPager.setCurrentItem(4);
 
                 return true;
             }

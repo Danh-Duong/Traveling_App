@@ -20,7 +20,8 @@
                 android:id="@+id/backgroundImage"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:src="@color/grey"
+                android:src="@drawable/main_anh2"
+                android:scaleType="centerCrop"
                 app:layout_constraintDimensionRatio="3:1"
                 app:layout_constraintTop_toTopOf="parent" />
 

@@ -59,7 +59,8 @@
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="#CCC"
+            android:src="@drawable/bgrtravel"
+            android:scaleType="centerCrop"
             app:layout_constraintTop_toBottomOf="@+id/avatarImage" />
     </androidx.cardview.widget.CardView>
 
