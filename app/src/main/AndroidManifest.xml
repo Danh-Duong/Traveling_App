@@ -21,17 +21,12 @@
         <activity
             android:name=".AboutActivity"
             android:exported="false"
-            android:label="@string/about_us"/>
+            android:label="@string/about_us"
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar.popMe"/>
         <activity
             android:name=".DebugActivity"
             android:exported="false">
 
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
         </activity>
         <activity
             android:name=".Batdau_Activity"
@@ -40,7 +35,6 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -48,7 +42,8 @@
             android:name=".MainActivity"
             android:exported="false"
             android:label="@string/app_name"
-            android:theme="@style/Base.Theme.Traveling_App.NoActionBar"></activity>
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar">
+        </activity>
         <activity
             android:name=".activity_dangky"
             android:exported="false"
@@ -126,7 +121,9 @@
             android:name=".MenuActivity"
             android:exported="false"
             android:label="@string/menu"
-            android:theme="@style/Base.Theme.Traveling_App.NoActionBar" />
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar">
+
+        </activity>
         <activity
             android:name=".NotificationActivity"
             android:exported="false"

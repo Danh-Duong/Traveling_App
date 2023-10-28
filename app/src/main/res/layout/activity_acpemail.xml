@@ -41,7 +41,7 @@
          <EditText
              android:layout_width="50dp"
              android:layout_height="50dp"
-             android:hint="2"
+             android:hint="0"
              android:gravity="center"
              android:layout_margin="7dp"
              android:background="@drawable/stroke_acpemail"/>
@@ -49,7 +49,7 @@
          <EditText
              android:layout_width="50dp"
              android:layout_height="50dp"
-             android:hint="5"
+             android:hint="0"
              android:gravity="center"
              android:layout_margin="7dp"
              android:background="@drawable/stroke_acpemail"/>
@@ -57,9 +57,11 @@
              android:layout_width="50dp"
              android:layout_height="50dp"
              android:gravity="center"
+             android:hint="0"
              android:layout_margin="7dp"
              android:background="@drawable/stroke_acpemail"/>
          <EditText
+             android:hint="0"
              android:layout_width="50dp"
              android:layout_height="50dp"
              android:gravity="center"

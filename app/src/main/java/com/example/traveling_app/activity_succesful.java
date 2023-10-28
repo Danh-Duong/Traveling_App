@@ -19,7 +19,7 @@ public class activity_succesful extends AppCompatActivity {
         at2_btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(activity_succesful.this, MainActivity.class);
+                Intent intent=new Intent(activity_succesful.this, activity_dangnhap.class);
                 startActivity(intent);
             }
         });
