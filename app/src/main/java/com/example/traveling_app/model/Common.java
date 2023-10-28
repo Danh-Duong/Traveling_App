@@ -7,6 +7,7 @@ import android.location.Address;
 import android.location.Geocoder;
 
 import com.example.traveling_app.R;
+import com.example.traveling_app.ThongTinTichDiem_activity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
@@ -28,6 +29,7 @@ public class Common {
         menuSectionItems.add(new MenuSectionItem(R.drawable.baseline_share_24_1, R.string.share_app, com.example.traveling_app.GioiThieuBanBe.class));
         menuSectionItems.add(new MenuSectionItem(R.drawable.baseline_star_border_24, R.string.rate_app, null));
         menuSectionItems.add(new MenuSectionItem(R.drawable.baseline_support_agent_24, R.string.support_center, null));
+        menuSectionItems.add(new MenuSectionItem(R.drawable.luu_xacnhanthe_cardsecurityic, R.string.accumulate_points_infomation, ThongTinTichDiem_activity.class));
         menuSectionItems.add(new MenuSectionItem(R.drawable.baseline_settings_24, R.string.settings, null));
         menuSectionItems.add(new MenuSectionItem(R.drawable.baseline_info_24_1, R.string.about_us, com.example.traveling_app.AboutActivity.class));
         menuSectionItems.add(new MenuSectionItem(R.drawable.baseline_logout_24, R.string.log_out, com.example.traveling_app.activity_dangnhap.class));
