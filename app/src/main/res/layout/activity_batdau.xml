@@ -10,7 +10,8 @@
         android:id="@+id/img"
         android:scaleType="centerCrop"
         android:layout_width="wrap_content"
-        android:layout_height="570dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="200dp"
         android:src="@drawable/bgrtravel1"/>
 
     <ImageView
@@ -27,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/img"
         android:paddingStart="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="-170dp"
         android:paddingEnd="30dp"
         android:text="Khám phá thế giới với ứng dụng du lịch hàng đầu!"
         android:textSize="25dp"
@@ -53,7 +54,7 @@
         android:text="Bắt đầu"
         android:textAllCaps="false"
         android:layout_below="@id/tv2"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/stroke_button1"
         android:textColor="@color/white"
         android:layout_marginLeft="10dp"

@@ -68,4 +68,5 @@
     <string name="getting_current_location_status">Đang truy cập vào vị trí hiện tại</string>
     <string name="get_location_failed">Lấy vị trí hiện tại thất bại</string>
     <string name="accumulate_points_infomation">Thông tin tích lũy điểm</string>
+    <string name="write_comment_here">Viết bình luận tại đây</string>
 </resources>
