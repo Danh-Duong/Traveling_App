@@ -31,13 +31,13 @@ public class Batdau_Activity extends AppCompatActivity {
         Button button= findViewById(R.id.btn1);
 
         Animation slideUp = new TranslateAnimation(0, 0, 300, 0);
-        slideUp.setDuration(4000);
+        slideUp.setDuration(1800);
 
         Animation slideDown1 = new TranslateAnimation(0, 0, -300, 0);
-        slideDown1.setDuration(4000);
+        slideDown1.setDuration(1800);
 
         Animation slideDown2 = new TranslateAnimation(0, 0, -300, 0);
-        slideDown2.setDuration(1500);
+        slideDown2.setDuration(1000);
         // Áp dụng animation cho chữ và hình ảnh.
         textView1.startAnimation(slideUp);
         button.startAnimation(slideUp);
