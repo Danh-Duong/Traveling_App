@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "91927375842",
+    "firebase_url": "https://traveling-app-7d1f0-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "traveling-app-7d1f0",
+    "storage_bucket": "traveling-app-7d1f0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:91927375842:android:37ca53662e35bc8ee793bb",
+        "android_client_info": {
+          "package_name": "com.example.traveling_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYxV58z5TUvu0oAvTnvz5Q-CQT15TtiyM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
