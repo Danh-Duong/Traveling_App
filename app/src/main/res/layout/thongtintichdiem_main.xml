@@ -61,17 +61,32 @@
                 android:background="@drawable/round_no_color"
                 android:orientation="vertical"
                 >
-
-                <TextView
-                    android:id="@+id/textView4"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:gravity="center"
-                    android:text="1132 ĐIỂM "
-                    android:textColor="#0C9FEE"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+                    android:layout_height="64dp"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <TextView
+                        android:id="@+id/point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:text="1132"
+                        android:textColor="#0C9FEE"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:text=" ĐIỂM "
+                        android:textColor="#0C9FEE"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
 
                 <TextView
                     android:id="@+id/textView10"
@@ -102,13 +117,6 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:orientation="horizontal">
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/imageView6"-->
-<!--                    android:layout_width="10dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:src="@drawable/star" />-->
 
                 <TextView
                     android:id="@+id/textView18"
@@ -266,6 +274,18 @@
 
 
         </LinearLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/use_btn"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="50dp"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:text="Sử dụng điểm"
+            android:background="@drawable/luu_dattour_buttonblue"
+            android:layout_gravity="center"
+            />
 
     </LinearLayout>
     </ScrollView>

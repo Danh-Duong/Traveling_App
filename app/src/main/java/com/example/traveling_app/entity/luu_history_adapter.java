@@ -1,66 +1,61 @@
 package com.example.traveling_app.entity;
 
-import android.content.Context;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.traveling_app.R;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.util.List;
-
-public class luu_history_adapter extends RecyclerView.Adapter<luu_history_adapter.historyViewHolder> {
-
-    private Context mContext;
-    private List<luu_history_obj> mListhistory;
-
-    public luu_history_adapter(Context mContext) {
-        this.mContext = mContext;
+public class luu_history_adapter extends FirebaseRecyclerAdapter<luu_history_obj,luu_history_adapter.myviewholder> {
+    public luu_history_adapter(@NonNull FirebaseRecyclerOptions<luu_history_obj> options) {
+        super(options);
+    }
+    @Override
+    protected void onBindViewHolder(@NonNull myviewholder holder, int position, @NonNull luu_history_obj model) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("tours");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String name = snapshot.child(model.getIdtour()).child("name").getValue(String.class);
+                holder.name.setText(name);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+        holder.price.setText(model.getPrice()+"");
+        holder.dateStart.setText(model.getStartDate());
+        holder.dateEnd.setText(model.getEndDate());
     }
 
-    public void setData(List<luu_history_obj> list) {
-        this.mListhistory = list;
-        notifyDataSetChanged();
-    }
     @NonNull
     @Override
-    public historyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_luu_lichsu,parent,false);
-        return new historyViewHolder(view);
+        return new luu_history_adapter.myviewholder(view);
     }
-
-    @Override
-    public void onBindViewHolder(@NonNull historyViewHolder holder, int position) {
-        luu_history_obj historyObj = mListhistory.get(position);
-        if (historyObj==null)
-            return;
-        holder.name.setText(historyObj.getName());
-        holder.price.setText(historyObj.getPrice());
-        holder.date.setText(historyObj.getDate());
-        holder.state.setText(historyObj.getState());
-
-    }
-
-    @Override
-    public int getItemCount() {
-        if (mListhistory!=null)
-            return mListhistory.size();
-        return 0;
-    }
-
-    public class historyViewHolder extends RecyclerView.ViewHolder{
-
-        private TextView name, price, date, state;
-        public historyViewHolder(@NonNull View itemView) {
+    public class myviewholder extends RecyclerView.ViewHolder{
+        private TextView name, price, dateStart, dateEnd;
+        public myviewholder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.tv_name_histour);
-            price = itemView.findViewById(R.id.tv_price_histour);
-            date = itemView.findViewById(R.id.tv_date_histour);
-            state = itemView.findViewById(R.id.tv_state_histour);
+            name = itemView.findViewById(R.id.name);
+            price = itemView.findViewById(R.id.price);
+            dateStart = itemView.findViewById(R.id.dateStart);
+            dateEnd = itemView.findViewById(R.id.dateEnd);
         }
+    }
+    private void showPopupMenu(View view) {
+
     }
 }
 

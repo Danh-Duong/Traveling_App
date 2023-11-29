@@ -13,24 +13,28 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.traveling_app.entity.luu_discount_adapter;
 import com.example.traveling_app.entity.luu_discount_obj;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class luu_magiamgia extends AppCompatActivity {
-    private RecyclerView rcvDiscount;
-    private luu_discount_adapter disAdapter;
+    RecyclerView recyclerView;
+    luu_discount_adapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_luu_magiamgia);
-        rcvDiscount = findViewById(R.id.rcv_discount);
-        disAdapter = new luu_discount_adapter(this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        rcvDiscount.setLayoutManager(linearLayoutManager);
+        recyclerView = (RecyclerView) findViewById(R.id.rcv_discount);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        disAdapter.setData(getListDiscount());
-        rcvDiscount.setAdapter(disAdapter);
+        FirebaseRecyclerOptions<luu_discount_obj> options =
+                new FirebaseRecyclerOptions.Builder<luu_discount_obj>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("vouchers"), luu_discount_obj.class)
+                        .build();
+
+        adapter = new luu_discount_adapter(options, this);
+        recyclerView.setAdapter(adapter);
+
 
 
         ActionBar actionBar=getSupportActionBar();
@@ -38,27 +42,15 @@ public class luu_magiamgia extends AppCompatActivity {
         actionBar.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24);
         actionBar.setTitle("Thanh toán");
     }
-
-    private List<luu_discount_obj> getListDiscount() {
-        List<luu_discount_obj> list = new ArrayList<>();
-        list.add(new luu_discount_obj(R.drawable.luu_magiamgia_pic1, "Giảm 555k","608 đánh giá 5 sao","Có hiệu lực từ 10.9.2023-00:00"));
-        list.add(new luu_discount_obj(R.drawable.luu_magiamgia_pic2, "Giảm 500k","48 đánh giá 5 sao","Có hiệu lực từ 10.9.2023-00:00"));
-        list.add(new luu_discount_obj(R.drawable.luu_magiamgia_pic3, "Giảm 500k","48 đánh giá 5 sao","Có hiệu lực từ 10.9.2023-00:00"));
-        list.add(new luu_discount_obj(R.drawable.luu_magiamgia_pic4, "Giảm 500k","48 đánh giá 5 sao","Có hiệu lực từ 10.9.2023-00:00"));
-        list.add(new luu_discount_obj(R.drawable.luu_magiamgia_pic5, "Giảm 500k","48 đánh giá 5 sao","Có hiệu lực từ 10.9.2023-00:00"));
-
-        list.add(new luu_discount_obj(R.drawable.luu_magiamgia_pic1, "Giảm 555k","608 đánh giá 5 sao","Có hiệu lực từ 10.9.2023-00:00"));
-        list.add(new luu_discount_obj(R.drawable.luu_magiamgia_pic2, "Giảm 500k","48 đánh giá 5 sao","Có hiệu lực từ 10.9.2023-00:00"));
-        list.add(new luu_discount_obj(R.drawable.luu_magiamgia_pic3, "Giảm 500k","48 đánh giá 5 sao","Có hiệu lực từ 10.9.2023-00:00"));
-        list.add(new luu_discount_obj(R.drawable.luu_magiamgia_pic4, "Giảm 500k","48 đánh giá 5 sao","Có hiệu lực từ 10.9.2023-00:00"));
-        list.add(new luu_discount_obj(R.drawable.luu_magiamgia_pic5, "Giảm 500k","48 đánh giá 5 sao","Có hiệu lực từ 10.9.2023-00:00"));
-
-        list.add(new luu_discount_obj(R.drawable.luu_magiamgia_pic1, "Giảm 555k","608 đánh giá 5 sao","Có hiệu lực từ 10.9.2023-00:00"));
-        list.add(new luu_discount_obj(R.drawable.luu_magiamgia_pic2, "Giảm 500k","48 đánh giá 5 sao","Có hiệu lực từ 10.9.2023-00:00"));
-        list.add(new luu_discount_obj(R.drawable.luu_magiamgia_pic3, "Giảm 500k","48 đánh giá 5 sao","Có hiệu lực từ 10.9.2023-00:00"));
-        list.add(new luu_discount_obj(R.drawable.luu_magiamgia_pic4, "Giảm 500k","48 đánh giá 5 sao","Có hiệu lực từ 10.9.2023-00:00"));
-        list.add(new luu_discount_obj(R.drawable.luu_magiamgia_pic5, "Giảm 500k","48 đánh giá 5 sao","Có hiệu lực từ 10.9.2023-00:00"));
-        return list;
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
 
 

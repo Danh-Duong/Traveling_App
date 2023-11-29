@@ -1,5 +1,6 @@
 package com.example.traveling_app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,27 +12,38 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.traveling_app.entity.LoadVoucher;
+import com.example.traveling_app.entity.VoucherHelper;
+import com.example.traveling_app.entity.luu_discount_adapter;
+import com.example.traveling_app.entity.luu_discount_obj;
 import com.example.traveling_app.entity.luu_history_adapter;
 import com.example.traveling_app.entity.luu_history_obj;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class luu_lichsutour extends AppCompatActivity {
 
-    private RecyclerView rcvHistory;
-    private luu_history_adapter historyAdapter;
+    private RecyclerView recyclerView;
+    private luu_history_adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_luu_lichsutour);
-        rcvHistory = findViewById(R.id.rcv_history);
-        historyAdapter = new luu_history_adapter(this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        rcvHistory.setLayoutManager(linearLayoutManager);
-        historyAdapter.setData(getListHistory());
-        rcvHistory.setAdapter(historyAdapter);
+        LoadVoucher.load();
+        recyclerView = (RecyclerView) findViewById(R.id.rcv_history);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        FirebaseRecyclerOptions<luu_history_obj> options =
+                new FirebaseRecyclerOptions.Builder<luu_history_obj>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("booking"), luu_history_obj.class)
+                        .build();
+
+        adapter = new luu_history_adapter(options);
+        recyclerView.setAdapter(adapter);
 
 
         ActionBar actionBar=getSupportActionBar();
@@ -40,23 +52,16 @@ public class luu_lichsutour extends AppCompatActivity {
         actionBar.setTitle("Lịch sử tour");
     }
 
-    private List<luu_history_obj> getListHistory() {
-        List<luu_history_obj> list = new ArrayList<>();
-        list.add(new luu_history_obj("Tour VinOasis Phú Quốc", "VND 1.500.000", "27 June 2023 - 28 June 2019","Active"));
-        list.add(new luu_history_obj("Tour VinOasis Phú Quốc", "VND 1.500.000", "27 June 2023 - 28 June 2019","Active"));
-        list.add(new luu_history_obj("Tour VinOasis Phú Quốc", "VND 1.500.000", "27 June 2023 - 28 June 2019","Active"));
-        list.add(new luu_history_obj("Tour VinOasis Phú Quốc", "VND 1.500.000", "27 June 2023 - 28 June 2019","Active"));
-        list.add(new luu_history_obj("Tour VinOasis Phú Quốc", "VND 1.500.000", "27 June 2023 - 28 June 2019","Active"));
-        list.add(new luu_history_obj("Tour VinOasis Phú Quốc", "VND 1.500.000", "27 June 2023 - 28 June 2019","Active"));
 
-
-        list.add(new luu_history_obj("Tour VinOasis Phú Quốc", "VND 1.500.000", "27 June 2023 - 28 June 2019","Active"));
-        list.add(new luu_history_obj("Tour VinOasis Phú Quốc", "VND 1.500.000", "27 June 2023 - 28 June 2019","Active"));
-        list.add(new luu_history_obj("Tour VinOasis Phú Quốc", "VND 1.500.000", "27 June 2023 - 28 June 2019","Active"));
-        list.add(new luu_history_obj("Tour VinOasis Phú Quốc", "VND 1.500.000", "27 June 2023 - 28 June 2019","Active"));
-        list.add(new luu_history_obj("Tour VinOasis Phú Quốc", "VND 1.500.000", "27 June 2023 - 28 June 2019","Active"));
-        list.add(new luu_history_obj("Tour VinOasis Phú Quốc", "VND 1.500.000", "27 June 2023 - 28 June 2019","Active"));
-        return list;
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
 
 
