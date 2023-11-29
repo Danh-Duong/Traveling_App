@@ -39,34 +39,40 @@
          android:layout_marginTop="70dp">
 
          <EditText
+             android:id="@+id/xt1"
              android:layout_width="50dp"
              android:layout_height="50dp"
-             android:hint="0"
-             android:gravity="center"
              android:layout_margin="7dp"
-             android:background="@drawable/stroke_acpemail"/>
+             android:background="@drawable/stroke_acpemail"
+             android:gravity="center"
+             android:hint="0" />
 
          <EditText
+             android:id="@+id/xt2"
              android:layout_width="50dp"
              android:layout_height="50dp"
-             android:hint="0"
-             android:gravity="center"
              android:layout_margin="7dp"
-             android:background="@drawable/stroke_acpemail"/>
+             android:background="@drawable/stroke_acpemail"
+             android:gravity="center"
+             android:hint="0" />
+
          <EditText
+             android:id="@+id/xt3"
              android:layout_width="50dp"
              android:layout_height="50dp"
-             android:gravity="center"
-             android:hint="0"
              android:layout_margin="7dp"
-             android:background="@drawable/stroke_acpemail"/>
+             android:background="@drawable/stroke_acpemail"
+             android:gravity="center"
+             android:hint="0" />
+
          <EditText
-             android:hint="0"
+             android:id="@+id/xt4"
              android:layout_width="50dp"
              android:layout_height="50dp"
-             android:gravity="center"
              android:layout_margin="7dp"
-             android:background="@drawable/stroke_acpemail"/>
+             android:background="@drawable/stroke_acpemail"
+             android:gravity="center"
+             android:hint="0" />
 
      </LinearLayout>
 

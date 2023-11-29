@@ -39,26 +39,36 @@
                         android:layout_marginLeft="3dp"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
+                        android:tag="1"
+                        android:visibility="invisible"
                         android:src="@drawable/main_star_solid"></ImageView>
                     <ImageView
                         android:id="@+id/star2_review"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
+                        android:tag="2"
+                        android:visibility="invisible"
                         android:src="@drawable/main_star_solid"></ImageView>
                     <ImageView
                         android:id="@+id/star3_review"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
+                        android:tag="3"
+                        android:visibility="invisible"
                         android:src="@drawable/main_star_solid"></ImageView>
                     <ImageView
                         android:id="@+id/star4_review"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
+                        android:tag="4"
+                        android:visibility="invisible"
                         android:src="@drawable/main_star_solid"></ImageView>
                     <ImageView
                         android:id="@+id/star5_review"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
+                        android:tag="5"
+                        android:visibility="invisible"
                         android:src="@drawable/main_star_solid"></ImageView>
                 </LinearLayout>
                 <TextView
@@ -88,28 +98,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:id="@+id/img_review1"
                     android:scaleType="centerCrop"
                     android:layout_marginRight="6dp"
                     android:layout_width="80dp"
+                    android:visibility="gone"
                     android:layout_height="50dp"
-                    android:src="@drawable/main_anh3"></ImageView>
+                    ></ImageView>
                 <ImageView
+                    android:id="@+id/img_review2"
                     android:scaleType="centerCrop"
                     android:layout_width="80dp"
                     android:layout_height="50dp"
                     android:layout_marginRight="6dp"
-                    android:src="@drawable/main_anh3"></ImageView>
+                    android:visibility="gone"
+                    ></ImageView>
                 <ImageView
+                    android:id="@+id/img_review3"
                     android:layout_marginRight="6dp"
                     android:scaleType="centerCrop"
                     android:layout_width="80dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/main_anh3"></ImageView>
+                    android:visibility="gone"
+                   ></ImageView>
                 <ImageView
+                    android:id="@+id/img_review4"
                     android:scaleType="centerCrop"
                     android:layout_width="80dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/main_anh3"></ImageView>
+                    android:visibility="gone"
+                    ></ImageView>
 
             </LinearLayout>
         </HorizontalScrollView>

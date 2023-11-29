@@ -54,19 +54,22 @@
     <string name="about_us_infomation">
         Thực hiện bởi
         \n
-        Dương Ngọc Danh - 21115053120109
-        \n
-        Bùi Quốc Vương - 21115053120163
-        \n
-        Lê Quang Lưu - 21115053120126
-        \n
-        Hồ Văn Thắng - 21115053120144
-        \n
-        Lê Anh Dũng - 21115053120112
-    </string>
+    Dương Ngọc Danh - 21115053120109
+    \n
+    Bùi Quốc Vương - 21115053120163
+    \n
+    Lê Quang Lưu - 21115053120126
+    \n
+    Hồ Văn Thắng - 21115053120144
+    \n
+    Lê Anh Dũng - 21115053120112
+</string>
     <string name="get_current_location">Lấy vị trí hiện tại</string>
     <string name="getting_current_location_status">Đang truy cập vào vị trí hiện tại</string>
     <string name="get_location_failed">Lấy vị trí hiện tại thất bại</string>
     <string name="accumulate_points_infomation">Thông tin tích lũy điểm</string>
     <string name="write_comment_here">Viết bình luận tại đây</string>
+    <string name="facebook_app_id">3312377312341073</string>
+    <string name="fb_login_protocol_scheme">fb3312377312341073</string>
+    <string name="facebook_client_token">b6c86bb3382f89f98066d409ced7f443</string>
 </resources>
