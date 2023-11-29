@@ -1,6 +1,11 @@
 package com.example.traveling_app.entity;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +15,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.traveling_app.DetailActivity;
 import com.example.traveling_app.R;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class HintTourAdapter extends RecyclerView.Adapter<HintTourAdapter.TourHintViewHolder>{
 
+    private Bitmap[] images;
+    private boolean isLoadedBitmaps[];
     private List<Tour> tours;
     private Context context;
     public HintTourAdapter(Context context, List<Tour> tours) {
@@ -25,7 +39,6 @@ public class HintTourAdapter extends RecyclerView.Adapter<HintTourAdapter.TourHi
         notifyDataSetChanged();
     }
 
-    // set style và dữ liệu
     @NonNull
     @Override
     public TourHintViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,11 +52,19 @@ public class HintTourAdapter extends RecyclerView.Adapter<HintTourAdapter.TourHi
         if (tour==null)
             return;
         DecimalFormat formatter = new DecimalFormat("###,###,###");
+        DecimalFormat rateFormatter = new DecimalFormat("#.##");
         holder.txtName.setText(tour.getName());
-        holder.txtRate.setText(tour.getNumStar()+"");
+        holder.txtRate.setText(rateFormatter.format(tour.getNumStar()).replace(',','.'));
         holder.txtPrice.setText(formatter.format(tour.getPrice())+" đ");
-        holder.img.setImageResource(tour.getMainImage());
-
+        ImageLoader.loadImage(tours.get(position).getMainImageUrl(), holder.img);
+        holder.img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context, DetailActivity.class);
+                intent.putExtra("id", tour.getId());
+                context.startActivity(intent);
+            }
+        });
     }
     @Override
     public int getItemCount() {

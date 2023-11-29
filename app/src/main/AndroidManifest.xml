@@ -10,6 +10,9 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -64,9 +67,11 @@
             android:theme="@style/Base.Theme.Traveling_App.NoActionBar" />
         <activity
             android:name=".activity_quenmk"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/forgotten_password"
-            android:theme="@style/Base.Theme.Traveling_App.NoActionBar" />
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar">
+
+        </activity>
         <activity
             android:name=".activity_resetmk"
             android:exported="false"
@@ -80,10 +85,15 @@
         <activity
             android:name=".AdminActivity"
             android:exported="false"
-            android:label="@string/administrator" />
+            android:label="@string/administrator">
+
+        </activity>
+
         <activity
             android:name=".AdminCreateActivity"
-            android:exported="false" />
+            android:exported="false">
+
+        </activity>
         <activity
             android:name=".activity_acpemail"
             android:exported="false"

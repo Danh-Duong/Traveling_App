@@ -32,6 +32,7 @@
         />
     <EditText
         android:id="@+id/resetmk_mkmoi"
+        android:inputType="textPassword"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/bgr_editext_dangnhap"
@@ -43,7 +44,7 @@
         android:textSize="14dp"
         android:textColorHint="#817A7A"
         android:drawableLeft="@drawable/baseline_lock_24"
-        android:drawableRight="@drawable/baseline_remove_red_eye_24"
+
         android:drawablePadding="10dp"
         android:paddingLeft="15dp"
         android:paddingRight="20dp"/>
@@ -60,8 +61,8 @@
         android:textSize="14dp"
         android:textColorHint="#817A7A"
         android:drawableLeft="@drawable/baseline_lock_24"
-        android:drawableRight="@drawable/baseline_remove_red_eye_24"
         android:drawablePadding="10dp"
+        android:inputType="textPassword"
         android:paddingLeft="15dp"
         android:paddingRight="20dp"/>
     <Button

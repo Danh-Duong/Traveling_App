@@ -1,54 +1,75 @@
 package com.example.traveling_app.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.traveling_app.AdminActivity;
 import com.example.traveling_app.MainActivity;
 import com.example.traveling_app.R;
 import com.example.traveling_app.SearchAndFilterActivity;
+import com.example.traveling_app.entity.AdminTourAdapter;
 import com.example.traveling_app.entity.BannerTourAdapter;
+import com.example.traveling_app.entity.CurrentUser;
+import com.example.traveling_app.entity.DataCallback;
 import com.example.traveling_app.entity.HintTourAdapter;
 import com.example.traveling_app.entity.HotTourAdapter;
 import com.example.traveling_app.entity.NearTourAdapter;
 import com.example.traveling_app.entity.RecentTourAdapter;
+import com.example.traveling_app.entity.Review;
 import com.example.traveling_app.entity.Tour;
+import com.example.traveling_app.entity.User;
 import com.example.traveling_app.entity.Voucher;
 import com.example.traveling_app.entity.VoucherTourAdapter;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class Menu_Home extends Fragment {
-
     private RecyclerView tour_hint_rcv, recent_rcv, voucher_rcv, hot_rcv, near_rcv;
     private SliderView sliderView;
-    private ImageButton btnNotification;
     private HintTourAdapter hintTourAdapter;
     private RecentTourAdapter recentTourAdapter;
     private VoucherTourAdapter voucherTourAdapter;
     private HotTourAdapter hotTourAdapter;
     private NearTourAdapter nearTourAdapter;
-    private List<Tour> tours=new ArrayList<>();
+    HashMap<String, Tour> tours=new HashMap<>();
     private List<Voucher> vouchers=new ArrayList<>();
     private MainActivity mainActivity;
     private View view;
-
     private EditText searchInput;
+    FirebaseDatabase database=FirebaseDatabase.getInstance();
+    DatabaseReference ref=database.getReference();
 
+    TextView username1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,6 +78,7 @@ public class Menu_Home extends Fragment {
         view= inflater.inflate(R.layout.fragment_menu__home, container, false);
 
         searchInput=view.findViewById(R.id.searchInput);
+        username1=view.findViewById(R.id.username1);
         searchInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,25 +87,11 @@ public class Menu_Home extends Fragment {
             }
         });
 
-        tours.add(new Tour("Vịnh Hạ Long","Quảng Ninh","0121267",R.drawable.main_anh1,"Đầm được hình thành do tuyến đê tả ngạn sông Đáy nhằm ngăn lũ lụt từ đó biển Vân Long trở thành 1 vùng trù phú",4,1000000,500000, 100,100));
-        tours.add(new Tour("Vịnh Hạ Long","Quảng Ninh","0121267",R.drawable.main_anh5,"Đầm được hình thành do tuyến đê tả ngạn sông Đáy nhằm ngăn lũ lụt từ đó biển Vân Long trở thành 1 vùng trù phú",4,1000000,500000, 100,100));
-        tours.add(new Tour("Vịnh Hạ Long","Quảng Ninh","0121267",R.drawable.main_anh2,"Đầm được hình thành do tuyến đê tả ngạn sông Đáy nhằm ngăn lũ lụt từ đó biển Vân Long trở thành 1 vùng trù phú",4,1000000,500000, 100,100));
-        tours.add(new Tour("Vịnh Hạ Long","Quảng Ninh","0121267",R.drawable.main_anh4,"Đầm được hình thành do tuyến đê tả ngạn sông Đáy nhằm ngăn lũ lụt từ đó biển Vân Long trở thành 1 vùng trù phú",4,1000000,500000, 100,100));
-
         mainActivity= (MainActivity) getActivity();
-
+        CurrentUser currentUser=new CurrentUser(mainActivity,"danh");
+        username1.setText(currentUser.getCurrentUser().getUsername());
         tour_hint_rcv=view.findViewById(R.id.tour_hint_rcv);
-        hintTourAdapter =new HintTourAdapter(mainActivity,tours);
-        LinearLayoutManager ln1=new LinearLayoutManager(mainActivity,RecyclerView.HORIZONTAL,false);;
-        tour_hint_rcv.setLayoutManager(ln1);
-        tour_hint_rcv.setAdapter(hintTourAdapter);
-
-        LinearLayoutManager ln2=new LinearLayoutManager(mainActivity,RecyclerView.HORIZONTAL,false);
         recent_rcv=view.findViewById(R.id.recent_rcv);
-        recentTourAdapter =new RecentTourAdapter(mainActivity,tours);
-        recent_rcv.setLayoutManager(ln2);
-        recent_rcv.setAdapter(recentTourAdapter);
-
         vouchers.add(new Voucher("Giảm giá",R.drawable.main_voucher1));
         vouchers.add(new Voucher("Giảm giá",R.drawable.main_voucher1));
         vouchers.add(new Voucher("Giảm giá",R.drawable.main_voucher1));
@@ -92,33 +100,88 @@ public class Menu_Home extends Fragment {
         voucherTourAdapter =new VoucherTourAdapter(mainActivity,vouchers);
         voucher_rcv.setLayoutManager(ln3);
         voucher_rcv.setAdapter(voucherTourAdapter);
-
         hot_rcv=view.findViewById(R.id.hot_rcv);
-        hotTourAdapter =new HotTourAdapter(mainActivity,tours);
-        LinearLayoutManager ln4=new LinearLayoutManager(mainActivity,RecyclerView.HORIZONTAL,false);;
-        hot_rcv.setLayoutManager(ln4);
-        hot_rcv.setAdapter(hotTourAdapter);
-
         near_rcv=view.findViewById(R.id.near_rcv);
-        nearTourAdapter=new NearTourAdapter(mainActivity,tours);
-        LinearLayoutManager ln5=new LinearLayoutManager(mainActivity,RecyclerView.VERTICAL,false);;
-        near_rcv.setLayoutManager(ln5);
-        near_rcv.setAdapter(nearTourAdapter);
-
-
         sliderView = view.findViewById(R.id.imageSlider);
-        BannerTourAdapter adapter = new BannerTourAdapter(mainActivity,tours);
-        sliderView.setSliderAdapter(adapter);
-
-        // kiểu của các dot trong navigator
         sliderView.setIndicatorAnimation(IndicatorAnimationType.SWAP); //set indicator animation by using IndicatorAnimationType. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
         sliderView.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
         sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_RIGHT);
-//        sliderView.setIndicatorSelectedColor(R.color.primaryColor);
-//        sliderView.setIndicatorUnselectedColor(R.color.black);
-        sliderView.setScrollTimeInSec(4); //set scroll delay in seconds :
+        sliderView.setScrollTimeInSec(4);
         sliderView.startAutoCycle();
 
+        getData(new DataCallback() {
+            @Override
+            public void onDataLoaded(List<Tour> tours) {
+                LinearLayoutManager ln1=new LinearLayoutManager(mainActivity,RecyclerView.HORIZONTAL,false);;
+                tour_hint_rcv.setLayoutManager(ln1);
+                hintTourAdapter =new HintTourAdapter(mainActivity,tours);
+                tour_hint_rcv.setAdapter(hintTourAdapter);
+
+                LinearLayoutManager ln2=new LinearLayoutManager(mainActivity,RecyclerView.HORIZONTAL,false);
+                recent_rcv.setLayoutManager(ln2);
+                recentTourAdapter =new RecentTourAdapter(mainActivity,tours);
+                recent_rcv.setAdapter(recentTourAdapter);
+
+                LinearLayoutManager ln4=new LinearLayoutManager(mainActivity,RecyclerView.HORIZONTAL,false);;
+                hot_rcv.setLayoutManager(ln4);
+                hotTourAdapter =new HotTourAdapter(mainActivity,tours);
+                hot_rcv.setAdapter(hotTourAdapter);
+
+                LinearLayoutManager ln5=new LinearLayoutManager(mainActivity,RecyclerView.VERTICAL,false);;
+                near_rcv.setLayoutManager(ln5);
+                nearTourAdapter=new NearTourAdapter(mainActivity,tours);
+                near_rcv.setAdapter(nearTourAdapter);
+
+                BannerTourAdapter adapter = new BannerTourAdapter(mainActivity, tours);
+                sliderView.setSliderAdapter(adapter);
+            }
+
+            @Override
+            public void onTourLoaded(Tour Tour) {
+
+            }
+
+        });
+
+
         return view;
+    }
+
+    public void getData(final DataCallback callback){
+        ref.child("tours").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Tour tour=snapshot.getValue(Tour.class);
+                String id=snapshot.getKey();
+                tour.setId(id);
+                tours.put(id, tour);
+                callback.onDataLoaded(new ArrayList<>(tours.values()));
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                String idTourModified=snapshot.getKey();
+                Tour tourModified=snapshot.getValue(Tour.class);
+                tours.put(idTourModified, tourModified);
+                callback.onDataLoaded(new ArrayList<>(tours.values()));
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                String idTourDeleted=snapshot.getKey();
+                tours.remove(idTourDeleted);
+                callback.onDataLoaded(new ArrayList<>(tours.values()));
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
