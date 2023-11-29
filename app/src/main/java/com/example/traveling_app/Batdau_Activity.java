@@ -44,9 +44,7 @@ public class Batdau_Activity extends AppCompatActivity {
         textview2.startAnimation(slideUp);
         imageView1.startAnimation(slideDown1);
         imageView2.startAnimation(slideDown2);
-
-
-
+        
         spinner=(Spinner)findViewById(R.id.spinner);
         btn1= (Button) findViewById(R.id.btn1);
         btn1.setOnClickListener(new View.OnClickListener() {

@@ -42,7 +42,6 @@ public class LoveTourAdapter extends RecyclerView.Adapter<LoveTourAdapter.LoveTo
         holder.txtComment.setText(tour.getNumComment()+"");
         holder.txtBook.setText(tour.getNumBooking()+"k đã đặt");
         holder.txtComment.setText("(" +tour.getNumComment()+" đánh giá)");
-        holder.img.setImageResource(tour.getMainImage());
     }
 
     @Override

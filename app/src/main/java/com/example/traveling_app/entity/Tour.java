@@ -1,13 +1,15 @@
 package com.example.traveling_app.entity;
 
+import java.util.Date;
+
 public class Tour {
+    private String id;
     private String name;
     private String address;
     private String phone;
-    private int mainImage;
+    private String mainImageUrl;
     private String content;
-    private int numStar;
-
+    private double numStar;
     private double price;
 
     private double salePrice;
@@ -16,21 +18,92 @@ public class Tour {
 
     private int numBooking;
 
-    public Tour(String name, String address, String phone, int mainImage, String content, int numStar, double price, double salePrice, int numComment, int numBooking) {
+    private String createdTime;
+
+    private String dateStart;
+    private String dateEnd;
+
+    private String type;
+
+    public Tour() {
+        // khởi tạo để lấy dữ liệu từ firebase về
+    }
+
+    public Tour(String name, String address, String phone, String mainImageUrl, String content, int numStar, double price, double salePrice, int numComment, int numBooking, String id,String type, String dateStart, String dateEnd, String createdTime) {
         this.name = name;
         this.address = address;
         this.phone = phone;
-        this.mainImage = mainImage;
+        this.mainImageUrl = mainImageUrl;
         this.content = content;
         this.numStar = numStar;
         this.price = price;
         this.salePrice = salePrice;
         this.numComment = numComment;
         this.numBooking = numBooking;
+        this.id=id;
+        this.type=type;
+        this.dateEnd=dateEnd;
+        this.dateStart=dateStart;
+        this.createdTime=createdTime;
+    }
+
+    public Tour(String name, String address, String phone, String content, String dateStart, String dateEnd, double price, double salePrice, String createdTime,String mainImageUrl, String id,String type) {
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.content = content;
+        this.price = price;
+        this.salePrice = salePrice;
+        this.createdTime = createdTime;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.mainImageUrl=mainImageUrl;
+        this.id=id;
+        this.type=type;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCreatedTime() {
+        return createdTime;
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setCreatedTime(String createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public String getDateStart() {
+        return dateStart;
+    }
+
+    public void setDateStart(String dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public String getDateEnd() {
+        return dateEnd;
+    }
+
+    public void setDateEnd(String dateEnd) {
+        this.dateEnd = dateEnd;
     }
 
     public String getContent() {
@@ -61,19 +134,19 @@ public class Tour {
         this.phone = phone;
     }
 
-    public int getMainImage() {
-        return mainImage;
+    public String getMainImageUrl() {
+        return mainImageUrl;
     }
 
-    public void setMainImage(int mainImage) {
-        this.mainImage = mainImage;
+    public void setMainImageUrl(String mainImageUrl) {
+        this.mainImageUrl = mainImageUrl;
     }
 
-    public int getNumStar() {
+    public double getNumStar() {
         return numStar;
     }
 
-    public void setNumStar(int numStar) {
+    public void setNumStar(double numStar) {
         this.numStar = numStar;
     }
 
@@ -107,5 +180,24 @@ public class Tour {
 
     public void setSalePrice(double salePrice) {
         this.salePrice = salePrice;
+    }
+
+    @Override
+    public String toString() {
+        return "Tour{" +
+                "name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", mainImageUrl='" + mainImageUrl + '\'' +
+                ", content='" + content + '\'' +
+                ", numStar=" + numStar +
+                ", price=" + price +
+                ", salePrice=" + salePrice +
+                ", numComment=" + numComment +
+                ", numBooking=" + numBooking +
+                ", createdTime=" + createdTime +
+                ", dateStart=" + dateStart +
+                ", dateEnd=" + dateEnd +
+                '}';
     }
 }

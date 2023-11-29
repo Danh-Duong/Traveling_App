@@ -7,15 +7,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.traveling_app.DetailActivity;
 import com.example.traveling_app.R;
+import com.example.traveling_app.entity.ImageLoader;
 import com.example.traveling_app.entity.Service;
 import com.example.traveling_app.entity.ServiceTourAdapter;
+import com.example.traveling_app.entity.Tour;
 import com.example.traveling_app.luu_book_tour;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +34,9 @@ public class DetailFragment extends Fragment {
     private View view;
     private DetailActivity detailActivity;
 
-    private TextView book_tour;
+    private TextView book_tour,tour_detail_des;
+
+    DatabaseReference ref= FirebaseDatabase.getInstance().getReference("tours");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,6 +46,8 @@ public class DetailFragment extends Fragment {
         view= inflater.inflate(R.layout.fragment_detail, container, false);
 
         book_tour=view.findViewById(R.id.book_tour);
+        tour_detail_des=view.findViewById(R.id.tour_detail_des);
+        bindingData();
         book_tour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +57,7 @@ public class DetailFragment extends Fragment {
         });
 
         service_rcv=view.findViewById(R.id.service_rcv);
-        services.add(new Service(R.drawable.face_smile,"Vé vào cổng điểm tham quan: công viên nước WaterCin Phú Quốc"));
+        services.add(new Service(R.drawable.face_smile,"Được hỗ trợ miễn phí phương tiện di chuyển"));
         services.add(new Service(R.drawable.face_smile,"Thưởng thức bữa sáng miễn phí"));
         services.add(new Service(R.drawable.face_smile,"Ngủ 1 đêm tại khách sạn tại phòng Standard"));
         services.add(new Service(R.drawable.face_smile,"Nhận voucher 500.000 đ"));
@@ -55,5 +67,22 @@ public class DetailFragment extends Fragment {
         service_rcv.setLayoutManager(ln);
         service_rcv.setAdapter(serviceTourAdapter);
         return view;
+    }
+
+    public void bindingData(){
+        String idTour= detailActivity.getIntent().getStringExtra("id");
+        ref.child(idTour).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Tour tour=snapshot.getValue(Tour.class);
+                tour_detail_des.setText(tour.getContent());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }

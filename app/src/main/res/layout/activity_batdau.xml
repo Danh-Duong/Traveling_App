@@ -8,10 +8,11 @@
 
     <ImageView
         android:id="@+id/img"
-        android:scaleType="centerCrop"
         android:layout_width="wrap_content"
-        android:layout_height="570dp"
-        android:src="@drawable/bgrtravel1"/>
+        android:layout_height="match_parent"
+        android:layout_marginBottom="210dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bgrtravel1" />
 
     <ImageView
         android:id="@+id/img1"
@@ -26,15 +27,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/img"
+        android:layout_marginTop="-180dp"
+        android:gravity="center"
         android:paddingStart="30dp"
-        android:layout_marginTop="10dp"
         android:paddingEnd="30dp"
         android:text="Khám phá thế giới với ứng dụng du lịch hàng đầu!"
-        android:textSize="25dp"
-        android:textStyle="bold"
         android:textColor="@color/black"
-        android:gravity="center"
-        />
+        android:textSize="25dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tv2"

@@ -1,6 +1,7 @@
 package com.example.traveling_app.entity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.traveling_app.DetailActivity;
 import com.example.traveling_app.R;
 
 import java.text.DecimalFormat;
@@ -38,13 +40,23 @@ public class HotTourAdapter extends RecyclerView.Adapter<HotTourAdapter.HotTourV
             return;
 
         DecimalFormat formatter = new DecimalFormat("###,###,###");
+        DecimalFormat rateFormatter = new DecimalFormat("#.##");
         holder.txtTitle.setText(tour.getName());
-        holder.txtRate.setText(tour.getNumStar()+"");
+        holder.txtRate.setText(rateFormatter.format(tour.getNumStar()).replace(',','.'));
         holder.txtReview.setText("(" +tour.getNumComment()+" đánh giá)");
         holder.txtPrice.setText(formatter.format(tour.getPrice())+" đ");
         holder.txtSale.setText(formatter.format(tour.getSalePrice())+" đ");
         holder.txtPercent.setText("("+(tour.getSalePrice()/tour.getPrice())*100+"%)");
-        holder.img.setImageResource(tour.getMainImage());
+        ImageLoader.loadImage(tours.get(position).getMainImageUrl(), holder.img);
+
+        holder.img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context, DetailActivity.class);
+                intent.putExtra("id", tour.getId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

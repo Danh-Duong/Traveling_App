@@ -1,12 +1,14 @@
 package com.example.traveling_app.entity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.traveling_app.DetailActivity;
 import com.example.traveling_app.R;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
@@ -33,10 +35,21 @@ public class BannerTourAdapter extends SliderViewAdapter<BannerTourAdapter.Banne
     public void onBindViewHolder(BannerTourViewHolder viewHolder, int position) {
         Tour tour = tours.get(position);
         DecimalFormat formatter = new DecimalFormat("###,###,###");
-        viewHolder.txtContent.setText(tour.getContent().substring(0,32) +"...");
+        if (tour.getContent().length()>32)
+            viewHolder.txtContent.setText(tour.getContent().substring(0,32) +"...");
+        else
+            viewHolder.txtContent.setText(tour.getContent());
         viewHolder.txtTitle.setText(tour.getName());
         viewHolder.txtPrice.setText(formatter.format(tour.getPrice())+" đ");
-        viewHolder.img.setImageResource(tour.getMainImage());
+        ImageLoader.loadImage(tours.get(position).getMainImageUrl(), viewHolder.img);
+        viewHolder.img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context, DetailActivity.class);
+                intent.putExtra("id", tour.getId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
