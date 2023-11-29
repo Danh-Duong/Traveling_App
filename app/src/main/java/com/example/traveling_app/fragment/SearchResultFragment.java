@@ -12,18 +12,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.traveling_app.R;
+import com.example.traveling_app.SearchAndFilterActivity;
 import com.example.traveling_app.model.TourInformationAdapter;
 
 public class SearchResultFragment extends Fragment {
 
-    SearchFragment.OnFilterChangeListener listener;
+    private SearchAndFilterActivity listener;
 
     @Override
     public void onAttach(Context context) {
-        if (context instanceof SearchFragment.OnFilterChangeListener)
-            this.listener = (SearchFragment.OnFilterChangeListener)context;
+        if (context instanceof SearchAndFilterActivity)
+            this.listener = (SearchAndFilterActivity)context;
         else
-            throw new RuntimeException(context.getClass().getName() + " must implement " + SearchFragment.OnFilterChangeListener.class.getName());
+            throw new RuntimeException(context.getClass().getName() + " must implement " + SearchAndFilterActivity.class.getName());
         super.onAttach(context);
     }
 

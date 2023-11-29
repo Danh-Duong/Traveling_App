@@ -1,13 +1,19 @@
-package com.example.traveling_app.model;
+package com.example.traveling_app.common;
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
+
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 
 import com.example.traveling_app.R;
 import com.example.traveling_app.ThongTinTichDiem_activity;
+import com.example.traveling_app.model.MenuSectionItem;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
@@ -19,7 +25,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.function.Consumer;
 
-public class Common {
+public class Constants {
+
+
 
     static {
         ArrayList<MenuSectionItem> menuSectionItems = new ArrayList<>();
@@ -61,4 +69,9 @@ public class Common {
             activity.requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         }
     }
+
+    public static final String DEFAULT_USERNAME = "defaultuser0";
+
+    public static final PickVisualMediaRequest PICK_PHOTO_REQUEST = new PickVisualMediaRequest.Builder().setMediaType(new ActivityResultContracts.PickVisualMedia.SingleMimeType("image/jpeg")).build();
+    public static final ActivityResultContract<PickVisualMediaRequest, Uri> PICK_PHOTO_RESULT_CONTRACT = new ActivityResultContracts.PickVisualMedia();
 }

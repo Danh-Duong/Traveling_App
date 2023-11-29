@@ -6,7 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.traveling_app.R;
 import com.example.traveling_app.fragment.UserPostFragment;
-import com.example.traveling_app.fragment.UserInfomationFragment;
+import com.example.traveling_app.fragment.UserInformationFragment;
 
 public class ProfileViewPageAdapter extends FragmentStateAdapter {
 
@@ -27,9 +27,9 @@ public class ProfileViewPageAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0:
-                return UserPostFragment.newInstance(profileId);
+                return new UserPostFragment();
             case 1:
-                return UserInfomationFragment.newInstance(profileId);
+                return new UserInformationFragment();
             default:
                 return null;
         }
@@ -47,7 +47,7 @@ public class ProfileViewPageAdapter extends FragmentStateAdapter {
             case 1:
                 return R.string.user_infomation;
             default:
-                return -1;
+                return 0;
         }
     }
 }

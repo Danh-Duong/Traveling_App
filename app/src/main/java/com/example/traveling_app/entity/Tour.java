@@ -7,13 +7,9 @@ public class Tour {
     private int mainImage;
     private String content;
     private int numStar;
-
     private double price;
-
     private double salePrice;
-
     private int numComment;
-
     private int numBooking;
 
     public Tour(String name, String address, String phone, int mainImage, String content, int numStar, double price, double salePrice, int numComment, int numBooking) {

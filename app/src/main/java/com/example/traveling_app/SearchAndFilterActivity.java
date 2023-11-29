@@ -17,8 +17,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.stream.Stream;
 
-public class SearchAndFilterActivity extends AppCompatActivity implements SearchFragment.OnFilterChangeListener {
-    // Một mớ hổ lốn đang tồn tại và cần được dọn dẹp sạch sẽ, để dungleanh297 lo phần này.
+public class SearchAndFilterActivity extends AppCompatActivity {
+
     private ArrayList<FilterItemGroup> filterGroups = new ArrayList<>();;
     private SearchFragment searchFragment = new SearchFragment();
     private FilterFragment filterFragment = new FilterFragment();
@@ -88,32 +88,31 @@ public class SearchAndFilterActivity extends AppCompatActivity implements Search
         return super.onOptionsItemSelected(menuItem);
     }
 
-    @Override
+
     public Stream<FilterItem> getStreamOfSelectedFilterItem() {
         return filterGroups.stream().map(group -> group.getSelectedItem()).filter(item -> item != null);
     }
 
-    @Override
+
     public Stream<String> getStreamOfRecentSearch() {
         return Arrays.stream(recentSearch);
     }
 
-    @Override
+
     public void switchToFilterFragment() {
         getSupportFragmentManager().beginTransaction().replace(R.id.content, filterFragment).addToBackStack(null).commit();
     }
 
-    @Override
     public void switchToSearchResultFragment() {
         getSupportFragmentManager().beginTransaction().replace(R.id.content, SearchResultFragment.class, null).addToBackStack(null).commit();
     }
-    @Override
+
     public Stream<FilterItemGroup> getStreamOfFilterItemGroups() {
         return filterGroups.stream();
     }
 
 
-    @Override
+
     public ArrayList<TourInformation> getSearchResult(String keyword, FilterItem[] filterItems) {
         return this.resultList;
     }

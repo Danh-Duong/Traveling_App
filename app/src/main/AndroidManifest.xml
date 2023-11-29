@@ -123,8 +123,8 @@
             android:exported="false"
             android:label="@string/menu"
             android:theme="@style/Base.Theme.Traveling_App.NoActionBar">
-
         </activity>
+
         <activity
             android:name=".NotificationActivity"
             android:exported="false"
@@ -150,6 +150,13 @@
             android:name=".GioiThieuBanBe"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <activity android:name=".UpdateUserInformationActivity"
+            android:exported="false"
+            android:label="@string/update_user_information"/>
+
+        <activity android:name=".SetDefaultSharedPreferences"
+            android:exported="false"/>
     </application>
 
 </manifest>

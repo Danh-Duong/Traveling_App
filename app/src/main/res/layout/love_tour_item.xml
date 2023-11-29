@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
@@ -15,7 +16,7 @@
             android:id="@+id/img_love_tour"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:src="@drawable/main_anh2"
+            tools:src="@drawable/main_anh2"
             android:scaleType="centerCrop"/>
         <LinearLayout
             android:paddingLeft="5dp"
@@ -27,11 +28,12 @@
                 android:id="@+id/title_love_tour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Vịnh Hạ Long"
+                tools:text="Vịnh Hạ Long"
                 android:layout_marginRight="30dp"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
             <ImageView
+                android:id="@+id/heartImageView"
                 android:src="@drawable/heart_solid_active"
                 android:layout_width="26dp"
                 android:layout_height="26dp"
@@ -44,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="30dp"
-            android:text="Địa chỉ: Đà Nẵng"/>
+            tools:text="Địa chỉ: Đà Nẵng"/>
 
         <LinearLayout
             android:paddingLeft="5dp"
@@ -63,8 +65,8 @@
                 android:textSize="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="22k đã đặt"
-                android:textColor="@color/primaryColor"></TextView>
+                tools:text="22k đã đặt"
+                android:textColor="@color/primaryColor"/>
 
             <ImageView
                 android:layout_marginLeft="5dp"
@@ -77,7 +79,7 @@
                 android:textSize="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4"
+                tools:text="4"
                 android:textColor="@color/primaryColor"></TextView>
 
             <TextView
@@ -86,7 +88,7 @@
                 android:textSize="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="(123 đánh giá)"
+                tools:text="(123 đánh giá)"
                 android:textColor="#A9A9A9"></TextView>
         </LinearLayout>
 

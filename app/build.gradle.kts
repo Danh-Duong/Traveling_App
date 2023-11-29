@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -43,4 +44,14 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation ("pl.droidsonroids.gif:android-gif-drawable:1.2.28")
     implementation("com.google.android.gms:play-services-location:21.0.1")
+
+    // Glide dependency
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    // Firebase dependencies
+    implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-database:20.3.0")
+    implementation("com.google.firebase:firebase-storage")
+    implementation("com.firebaseui:firebase-ui-database:8.0.2")
 }

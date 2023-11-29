@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.traveling_app.SearchAndFilterActivity;
 import com.example.traveling_app.model.FilterItemGroup;
 import com.example.traveling_app.model.TourInformation;
 import com.google.android.flexbox.FlexboxLayout;
@@ -28,37 +29,26 @@ import java.util.HashMap;
 import java.util.stream.Stream;
 
 public class SearchFragment extends Fragment {
-
-    public interface OnFilterChangeListener {
-        Stream<FilterItem> getStreamOfSelectedFilterItem();
-        Stream<String> getStreamOfRecentSearch();
-        Stream<FilterItemGroup> getStreamOfFilterItemGroups();
-        ArrayList<TourInformation> getSearchResult(String keyword, FilterItem[] filterItems);
-        void switchToFilterFragment();
-        void switchToSearchResultFragment();
-    }
-    private OnFilterChangeListener listener;
+    private SearchAndFilterActivity listener;
     private FlexboxLayout selectedFilterItemContainer;
     private RelativeLayout selectedFilterItemHeader;
     private LinearLayout recentSearchItemsContainer;
-    private String[] recentSearch;
 
     private EditText searchBoxEditText;
 
 
     @Override
     public void onAttach(Context context) {
-        if (context instanceof OnFilterChangeListener)
-            this.listener = (OnFilterChangeListener)context;
+        if (context instanceof SearchAndFilterActivity)
+            this.listener = (SearchAndFilterActivity)context;
         else
-            throw new RuntimeException(context.getClass().getName() + " must implement " + OnFilterChangeListener.class.getName());
+            throw new RuntimeException(context.getClass().getName() + " must implement " + SearchAndFilterActivity.class.getName());
 
         super.onAttach(context);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("SearchFragment", "onCreateView");
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         ImageButton imageButton = view.findViewById(R.id.filterButton);
         imageButton.setOnClickListener(v -> listener.switchToFilterFragment());
