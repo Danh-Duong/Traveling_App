@@ -10,27 +10,27 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.traveling_app.R;
-import com.example.traveling_app.model.Common;
-import com.example.traveling_app.model.FilterItem;
-import com.example.traveling_app.model.FilterItemGroup;
+import com.example.traveling_app.SearchAndFilterActivity;
+import com.example.traveling_app.common.Constants;
+import com.example.traveling_app.model.filter.FilterItemGroup;
+import com.example.traveling_app.model.filter.KeywordFilterItem;
 import com.google.android.flexbox.FlexboxLayout;
 
 public class FilterFragment extends Fragment {
 
-    SearchFragment.OnFilterChangeListener listener;
+    private SearchAndFilterActivity listener;
 
     @Override
     public void onAttach(Context context) {
-        if (context instanceof SearchFragment.OnFilterChangeListener)
-            this.listener = (SearchFragment.OnFilterChangeListener)context;
+        if (context instanceof SearchAndFilterActivity)
+            this.listener = (SearchAndFilterActivity)context;
         else
-            throw new RuntimeException(context.getClass().getName() + " must implement " + SearchFragment.OnFilterChangeListener.class.getName());
+            throw new RuntimeException(context.getClass().getName() + " must implement " + SearchAndFilterActivity.class.getName());
         super.onAttach(context);
     }
     @Override
@@ -49,15 +49,14 @@ public class FilterFragment extends Fragment {
         });
         getCurrentLocationTextView.setOnClickListener(v -> {
             Toast.makeText(getContext(), getString(R.string.getting_current_location_status), Toast.LENGTH_SHORT).show();
-            Common.getCurrentAddress(getActivity(),
-                () -> {
-                    Toast.makeText(getContext(), getString(R.string.getting_current_location_status), Toast.LENGTH_SHORT).show();
-                },
-                (address) -> {
-                    String postalCode = address.getPostalCode();
-                    String province = address.getAdminArea();
-                    listener.getStreamOfFilterItemGroups().filter(g -> g.getKey().equals("province")).forEach(g -> g.add(postalCode, province).selectSelf());
-                });
+            Constants.getCurrentAddress(listener,
+                    () -> {
+                        Toast.makeText(listener, getString(R.string.getting_current_location_status), Toast.LENGTH_SHORT).show();
+                    },
+                    (address) -> {
+                        String province = address.getAdminArea();
+                        listener.getStreamOfFilterItemGroups().filter(g -> g.getKey().equals("province")).forEach(g -> new KeywordFilterItem(g, province).selectSelf());
+                    });
         });
         return rootView;
     }
@@ -81,8 +80,7 @@ public class FilterFragment extends Fragment {
 
     private void initFilterItemGroupContainer(@NonNull FilterItemGroup filterItemGroup, ViewGroup viewGroup) {
         LayoutInflater inflater = getLayoutInflater();
-        for (int i = 0; i < filterItemGroup.size(); ++i) {
-            FilterItem filterItem = filterItemGroup.get(i);
+        filterItemGroup.setOnItemAddedItem(filterItem -> {
             TextView textView = (TextView) inflater.inflate(R.layout.small_clickable_textview, viewGroup, false);
             textView.setText(filterItem.getName());
             textView.setTag(filterItem);
@@ -95,7 +93,7 @@ public class FilterFragment extends Fragment {
                     filterItem.selectSelf();
             });
             viewGroup.addView(textView);
-        }
+        });
         filterItemGroup.setOnSelectedItemChanged(index -> {
             changeFilterItemViewState((TextView)viewGroup.getChildAt(index), true);
             updateSelectedFilterCountToActionBar();

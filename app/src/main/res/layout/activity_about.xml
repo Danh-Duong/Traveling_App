@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:textSize="17dp"
-            android:text="@string/about_us_infomation"/>
+            android:text="@string/about_us_information"/>
 
         <Button
             android:id="@+id/quit_info"

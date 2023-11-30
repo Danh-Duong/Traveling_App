@@ -4,19 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import com.example.traveling_app.model.Common;
+import com.example.traveling_app.common.Constants;
 import com.example.traveling_app.model.MenuListAdapter;
 import com.example.traveling_app.model.MenuSectionItem;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -24,12 +19,12 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        MenuListAdapter menuListAdapter = new MenuListAdapter(Common.MENU_SECTION_ITEMS);
+        MenuListAdapter menuListAdapter = new MenuListAdapter(Constants.MENU_SECTION_ITEMS);
         ListView listView = findViewById(R.id.menuListItem);
         listView.setAdapter(menuListAdapter);
         listView.setOnItemClickListener(
             (AdapterView<?> parent, View view, int position, long id) -> {
-                MenuSectionItem menuSectionItem = (MenuSectionItem) Common.MENU_SECTION_ITEMS.get(position);
+                MenuSectionItem menuSectionItem = (MenuSectionItem) Constants.MENU_SECTION_ITEMS.get(position);
                 if (menuSectionItem.getActivityClass() == null)
                     Toast.makeText(getApplicationContext(), getString(R.string.not_implemented), Toast.LENGTH_SHORT).show();
                 else

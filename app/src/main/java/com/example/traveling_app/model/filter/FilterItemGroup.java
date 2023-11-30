@@ -1,6 +1,8 @@
-package com.example.traveling_app.model;
+package com.example.traveling_app.model.filter;
+
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.TreeSet;
 import java.util.function.Consumer;
 
 // Group FilterItem by category;
@@ -9,9 +11,10 @@ public class FilterItemGroup {
     private final String title;
     private int selectedItemIndex = -1;
     private final ArrayList<FilterItem> filterItems;
-    private static final Consumer<Integer> DO_NOTHING = Integer -> {};
-    private Consumer<Integer> onSelectedItemChanged = DO_NOTHING;
-    private Consumer<Integer> onItemUnselected = DO_NOTHING;
+    private Consumer<Integer> onSelectedItemChanged;
+    private Consumer<Integer> onItemUnselected;
+
+    private Consumer<FilterItem> onItemAdded = f -> {};
 
     public FilterItemGroup(String key, String title) {
         this.key = key;
@@ -29,15 +32,8 @@ public class FilterItemGroup {
         return filterItems.get(index);
     }
 
-    public FilterItem add(String value, String title) {
-        FilterItem filterItem;
-        try {
-            filterItem = filterItems.stream().filter(item -> item.getValue().equals(value)).findFirst().get();
-        } catch (NoSuchElementException e) {
-            filterItem = new FilterItem(this, size(),  value, title);
-            filterItems.add(filterItem);
-        }
-        return filterItem;
+    public boolean isExisted(FilterItem filterItem) {
+        return filterItems.stream().anyMatch(f -> f.equals(filterItem));
     }
 
     public int size() {
@@ -50,19 +46,13 @@ public class FilterItemGroup {
         return filterItems.get(selectedItemIndex);
     }
 
-    public int getSelectedItemIndex() {
-        return selectedItemIndex;
-    }
-    public boolean hasSelected() {
-        return selectedItemIndex != 1;
-    }
-
     public void changeSelectedItem(FilterItem filterItem) throws IllegalArgumentException {
         if (filterItem.ofGroup() != this)
             throw new IllegalArgumentException(filterItem + " doesn't belong to " + getTitle());
         int index = filterItem.getIndexInGroup();
         changeSelectedItem(index);
     }
+
 
     public void changeSelectedItem(int newIndex) throws IllegalArgumentException {
         if (newIndex >= filterItems.size())
@@ -72,7 +62,8 @@ public class FilterItemGroup {
             unselectItem();
         filterItems.get(newIndex).setSelected(true);
         selectedItemIndex = newIndex;
-        onSelectedItemChanged.accept(newIndex);
+        if (onSelectedItemChanged != null)
+            onSelectedItemChanged.accept(newIndex);
     }
 
     public boolean unselectItem() {
@@ -81,21 +72,44 @@ public class FilterItemGroup {
             return false;
         filterItems.get(previousIndex).setSelected(false);
         selectedItemIndex = -1;
-        onItemUnselected.accept(previousIndex);
+        if (onItemUnselected != null)
+            onItemUnselected.accept(previousIndex);
         return true;
     }
 
     public void setOnSelectedItemChanged(Consumer<Integer> listener) {
-        if (listener == null)
-            this.onSelectedItemChanged = DO_NOTHING;
-        else
-            this.onSelectedItemChanged = listener;
+        this.onSelectedItemChanged = listener;
     }
 
     public void setOnItemUnselected(Consumer<Integer> listener) {
-        if (listener == null)
-            this.onItemUnselected = DO_NOTHING;
-        else
-            this.onItemUnselected = listener;
+        this.onItemUnselected = listener;
     }
+
+    public void setOnItemAddedItem(Consumer<FilterItem> listener) {
+        this.onItemAdded = listener;
+        if (listener != null)
+            filterItems.forEach(onItemAdded);
+    }
+
+    public boolean isSatisfied(Object value) {
+        if (selectedItemIndex == -1)
+            return true;
+        return filterItems.get(selectedItemIndex).isSatisfied(value);
+    }
+
+    int addFilterItem(FilterItem filterItem) {
+        Optional<Integer> newIndex = filterItems.stream().filter(f -> f.equals(filterItem)).findFirst().map(f -> f.getIndexInGroup());
+
+        if (newIndex.isPresent()) {
+            return newIndex.get();
+        }
+        else {
+            filterItems.add(filterItem);
+            if (onItemAdded != null)
+                onItemAdded.accept(filterItem);
+            return filterItems.size() - 1;
+        }
+
+    }
+
 }

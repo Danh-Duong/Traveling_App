@@ -6,56 +6,53 @@ import androidx.fragment.app.FragmentManager;
 import com.example.traveling_app.fragment.FilterFragment;
 import com.example.traveling_app.fragment.SearchFragment;
 import com.example.traveling_app.fragment.SearchResultFragment;
-import com.example.traveling_app.model.FilterItem;
-import com.example.traveling_app.model.FilterItemGroup;
-import com.example.traveling_app.model.TourInformation;
+import com.example.traveling_app.model.filter.DoubleRangeFilterItem;
+import com.example.traveling_app.model.filter.FilterItem;
+import com.example.traveling_app.model.filter.FilterItemGroup;
+import com.example.traveling_app.model.filter.IntegerRangeFilterItem;
+import com.example.traveling_app.model.filter.KeywordFilterItem;
+import com.google.gson.Gson;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.stream.Stream;
 
-public class SearchAndFilterActivity extends AppCompatActivity implements SearchFragment.OnFilterChangeListener {
-    // Một mớ hổ lốn đang tồn tại và cần được dọn dẹp sạch sẽ, để dungleanh297 lo phần này.
-    private ArrayList<FilterItemGroup> filterGroups = new ArrayList<>();;
+public class SearchAndFilterActivity extends AppCompatActivity {
+
+    private ArrayList<FilterItemGroup> filterGroups = new ArrayList<>();
     private SearchFragment searchFragment = new SearchFragment();
     private FilterFragment filterFragment = new FilterFragment();
-    private String[] recentSearch = {"Mục tìm kiếm thứ nhất", "Mục tìm kiếm thứ hai", "..."};
-    private ArrayList<TourInformation> resultList = new ArrayList<>();
+    private SearchResultFragment searchResultFragment = new SearchResultFragment();
+    private ArrayList<String> recentSearch;
+    private static final Gson gson = new Gson();
+    private SharedPreferences sharedPreferences;
+    private static final int MAX_RECENT_SEARCH = 5;
+    private static final String RECENT_SEARCH_SHARED_REF_KEY = "recentSearch";
+
+    private String keyword = "";
 
     public SearchAndFilterActivity() {
-        FilterItemGroup prices = new FilterItemGroup("prices", "Giá cả"),
-                purpose = new FilterItemGroup("purpose", "Mục đích chuyến đi"),
-                geographical = new FilterItemGroup("geographical", "Đặc điểm địa hình"),
-                province = new FilterItemGroup("province", "Tỉnh thành");
-        TourInformation tourInformation = new TourInformation(1, "Nghỉ dưỡng 3 ngày 3 đêm", "Đà Nẵng", 1000000, 900000, 123, 34, 4, null);
-        prices.add("500-1000", "500K - 1TR");
-        prices.add("1000-2000", "1TR - 2TR");
-        prices.add("2000-3000", "2TR - 3TR");
-        purpose.add("nghiduong", "Nghỉ dưỡng");
-        purpose.add("sinhthai", "Sinh thái");
-        purpose.add("khampha", "Khám phá");
-        geographical.add("bien", "Biển");
-        geographical.add("nui", "Núi");
-        geographical.add("dangoai", "Dã ngoại");
-        province.add("550000", "Đà Nẵng");
-        province.add("66000", "Lâm Đồng");
-        province.add("25000", "Lạng Sơn");
-        filterGroups.add(prices);
-        filterGroups.add(purpose);
-        filterGroups.add(geographical);
+        FilterItemGroup prices = new FilterItemGroup("salePrice", "Giá cả"),
+                type = new FilterItemGroup("type", "Loại hình"),
+                province = new FilterItemGroup("address", "Tỉnh thành");
+
+        new IntegerRangeFilterItem(prices, 500000, 1000000);
+        new IntegerRangeFilterItem(prices, 1000000, 2000000);
+        new IntegerRangeFilterItem(prices, 2000000, 3000000);
+        new KeywordFilterItem(province, "Đà Nẵng");
+        new KeywordFilterItem(province, "Hà Nội");
+        new KeywordFilterItem(province, "Phú Quốc");
+        new KeywordFilterItem(type, "Núi");
+        new KeywordFilterItem(type, "Biển");
+        new KeywordFilterItem(type, "Văn hóa");
+        new KeywordFilterItem(type, "Đảo");
         filterGroups.add(province);
-        resultList.add(tourInformation);
-        resultList.add(tourInformation);
-        resultList.add(tourInformation);
-        resultList.add(tourInformation);
-        resultList.add(tourInformation);
-        resultList.add(tourInformation);
-        resultList.add(tourInformation);
-        resultList.add(tourInformation);
-        resultList.add(tourInformation);
+        filterGroups.add(prices);
+        filterGroups.add(type);
     }
 
 
@@ -65,9 +62,11 @@ public class SearchAndFilterActivity extends AppCompatActivity implements Search
         setContentView(R.layout.activity_search);
         ActionBar actionBar = getSupportActionBar();
         FragmentManager fragmentManager = getSupportFragmentManager();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        recentSearch = gson.fromJson(sharedPreferences.getString(RECENT_SEARCH_SHARED_REF_KEY, "[]"), ArrayList.class);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        fragmentManager.beginTransaction().replace(R.id.content, searchFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.content, searchFragment).addToBackStack(null).commit();
     }
 
     @Override
@@ -88,34 +87,38 @@ public class SearchAndFilterActivity extends AppCompatActivity implements Search
         return super.onOptionsItemSelected(menuItem);
     }
 
-    @Override
+
     public Stream<FilterItem> getStreamOfSelectedFilterItem() {
         return filterGroups.stream().map(group -> group.getSelectedItem()).filter(item -> item != null);
     }
 
-    @Override
+
     public Stream<String> getStreamOfRecentSearch() {
-        return Arrays.stream(recentSearch);
+        return recentSearch.stream();
     }
 
-    @Override
+
     public void switchToFilterFragment() {
         getSupportFragmentManager().beginTransaction().replace(R.id.content, filterFragment).addToBackStack(null).commit();
     }
 
-    @Override
-    public void switchToSearchResultFragment() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.content, SearchResultFragment.class, null).addToBackStack(null).commit();
+    public void switchToSearchResultFragment(String keyword) {
+        recentSearch.add(0, keyword);
+        if (recentSearch.size() >= MAX_RECENT_SEARCH)
+            recentSearch.remove(MAX_RECENT_SEARCH - 1);
+        sharedPreferences.edit().putString(RECENT_SEARCH_SHARED_REF_KEY, gson.toJson(recentSearch)).commit();
+        this.keyword = keyword.toLowerCase();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, searchResultFragment, null).addToBackStack(null).commit();
     }
-    @Override
+
     public Stream<FilterItemGroup> getStreamOfFilterItemGroups() {
         return filterGroups.stream();
     }
 
 
-    @Override
-    public ArrayList<TourInformation> getSearchResult(String keyword, FilterItem[] filterItems) {
-        return this.resultList;
+    public String getKeyword() {
+        return keyword;
     }
+
 
 }
