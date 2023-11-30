@@ -43,13 +43,15 @@
                 app:boxCornerRadiusTopStart="8dp"
                 android:theme="@style/LoginTextInputLayoutStyle"
                 style="@style/LoginTextInputLayoutStyle">
+
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtTen"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:padding="0dp"
                     android:hint="Tên"
-                    android:textCursorDrawable="@drawable/color_cursor"
-                    android:textColorHint="#AFAFAF"></com.google.android.material.textfield.TextInputEditText>
+                    android:padding="0dp"
+                    android:textColorHint="#AFAFAF"
+                    android:textCursorDrawable="@drawable/color_cursor"></com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -71,13 +73,15 @@
                 app:boxCornerRadiusTopStart="8dp"
                 android:theme="@style/LoginTextInputLayoutStyle"
                 style="@style/LoginTextInputLayoutStyle">
+
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtDc"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:padding="0dp"
                     android:hint="Địa chỉ"
-                    android:textCursorDrawable="@drawable/color_cursor"
-                    android:textColorHint="#AFAFAF"></com.google.android.material.textfield.TextInputEditText>
+                    android:padding="0dp"
+                    android:textColorHint="#AFAFAF"
+                    android:textCursorDrawable="@drawable/color_cursor"></com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -99,15 +103,31 @@
                 app:boxCornerRadiusTopStart="8dp"
                 android:theme="@style/LoginTextInputLayoutStyle"
                 style="@style/LoginTextInputLayoutStyle">
+
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtSdt"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:padding="0dp"
                     android:hint="SĐT"
                     android:inputType="number"
-                    android:textCursorDrawable="@drawable/color_cursor"
-                    android:textColorHint="#AFAFAF"></com.google.android.material.textfield.TextInputEditText>
+                    android:padding="0dp"
+                    android:textColorHint="#AFAFAF"
+                    android:textCursorDrawable="@drawable/color_cursor"></com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Loại hình(*)"
+                android:textColor="#525252"
+                android:textSize="18sp"></TextView>
+
+            <Spinner
+                android:id="@+id/spinner_loai"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/border_tour_admin"/>
 
             <TextView
                 android:layout_marginTop="15dp"
@@ -128,14 +148,16 @@
                 app:boxCornerRadiusTopStart="8dp"
                 android:theme="@style/LoginTextInputLayoutStyle"
                 style="@style/LoginTextInputLayoutStyle">
+
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtMt"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:gravity="top"
-                    android:inputType="textMultiLine"
                     android:hint="Mô tả"
-                    android:textCursorDrawable="@drawable/color_cursor"
-                    android:textColorHint="#AFAFAF"></com.google.android.material.textfield.TextInputEditText>
+                    android:inputType="textMultiLine"
+                    android:textColorHint="#AFAFAF"
+                    android:textCursorDrawable="@drawable/color_cursor"></com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -158,25 +180,41 @@
                         android:text="Ngày diễn ra(*)"
                         android:textColor="#525252"
                         android:textSize="18sp"></TextView>
-                    <com.google.android.material.textfield.TextInputLayout
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:hintEnabled="false"
-                        android:layout_marginTop="2dp"
-                        app:boxCornerRadiusBottomEnd="8dp"
-                        app:boxCornerRadiusBottomStart="8dp"
-                        app:boxCornerRadiusTopEnd="8dp"
-                        app:boxCornerRadiusTopStart="8dp"
-                        android:theme="@style/LoginTextInputLayoutStyle"
-                        style="@style/LoginTextInputLayoutStyle">
-                        <com.google.android.material.textfield.TextInputEditText
+                        android:layout_height="match_parent">
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:padding="0dp"
-                            android:hint="Ngày"
-                            android:textCursorDrawable="@drawable/color_cursor"
-                            android:textColorHint="#AFAFAF"></com.google.android.material.textfield.TextInputEditText>
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_height="wrap_content"
+                            app:hintEnabled="false"
+                            android:layout_marginTop="2dp"
+                            app:boxCornerRadiusBottomEnd="8dp"
+                            app:boxCornerRadiusBottomStart="8dp"
+                            app:boxCornerRadiusTopEnd="8dp"
+                            app:boxCornerRadiusTopStart="8dp"
+                            android:theme="@style/LoginTextInputLayoutStyle"
+                            style="@style/LoginTextInputLayoutStyle">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edtNbd"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:hint="Ngày"
+                                android:padding="0dp"
+                                android:textColorHint="#AFAFAF"
+                                android:textCursorDrawable="@drawable/color_cursor"></com.google.android.material.textfield.TextInputEditText>
+                            <ImageView
+                                android:id="@+id/calendar_bd"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="end"
+                                android:layout_marginTop="-35dp"
+                                android:layout_marginRight="5dp"
+                                android:src="@drawable/calendar"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -203,14 +241,24 @@
                         app:boxCornerRadiusTopStart="8dp"
                         android:theme="@style/LoginTextInputLayoutStyle"
                         style="@style/LoginTextInputLayoutStyle">
+
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtNkt"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:padding="0dp"
                             android:hint="Ngày"
-                            android:textCursorDrawable="@drawable/color_cursor"
-                            android:textColorHint="#AFAFAF"></com.google.android.material.textfield.TextInputEditText>
+                            android:padding="0dp"
+                            android:textColorHint="#AFAFAF"
+                            android:textCursorDrawable="@drawable/color_cursor"></com.google.android.material.textfield.TextInputEditText>
                     </com.google.android.material.textfield.TextInputLayout>
+                    <ImageView
+                        android:id="@+id/calendar_kt"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="-35dp"
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/calendar"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -238,21 +286,23 @@
                     app:boxCornerRadiusTopStart="8dp"
                     android:theme="@style/LoginTextInputLayoutStyle"
                     style="@style/LoginTextInputLayoutStyle">
+
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtGia"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:padding="0dp"
-                        android:inputType="number"
                         android:hint="Giá"
-                        android:textCursorDrawable="@drawable/color_cursor"
-                        android:textColorHint="#AFAFAF"></com.google.android.material.textfield.TextInputEditText>
+                        android:inputType="number"
+                        android:padding="0dp"
+                        android:textColorHint="#AFAFAF"
+                        android:textCursorDrawable="@drawable/color_cursor"></com.google.android.material.textfield.TextInputEditText>
                 </com.google.android.material.textfield.TextInputLayout>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="000 VNĐ"
+                    android:text="VNĐ"
                     android:textColor="@color/primaryColor"
-                    android:layout_marginLeft="-90dp"
+                    android:layout_marginLeft="-50dp"
                     android:textSize="18sp"
                     android:gravity="center"/>
             </LinearLayout>
@@ -281,14 +331,16 @@
                     app:boxCornerRadiusTopStart="8dp"
                     android:theme="@style/LoginTextInputLayoutStyle"
                     style="@style/LoginTextInputLayoutStyle">
+
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtKm"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:padding="0dp"
-                        android:inputType="number"
                         android:hint="Khuyến mại"
-                        android:textCursorDrawable="@drawable/color_cursor"
-                        android:textColorHint="#AFAFAF"></com.google.android.material.textfield.TextInputEditText>
+                        android:inputType="number"
+                        android:padding="0dp"
+                        android:textColorHint="#AFAFAF"
+                        android:textCursorDrawable="@drawable/color_cursor"></com.google.android.material.textfield.TextInputEditText>
                 </com.google.android.material.textfield.TextInputLayout>
                 <TextView
                     android:layout_width="wrap_content"
@@ -319,26 +371,47 @@
                 app:boxCornerRadiusTopStart="8dp"
                 android:theme="@style/LoginTextInputLayoutStyle"
                 style="@style/LoginTextInputLayoutStyle">
+
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtAnhChinh"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:padding="0dp"
                     android:hint="Link"
-                    android:textCursorDrawable="@drawable/color_cursor"
-                    android:textColorHint="#AFAFAF"></com.google.android.material.textfield.TextInputEditText>
+                    android:padding="0dp"
+                    android:textColorHint="#AFAFAF"
+                    android:textCursorDrawable="@drawable/color_cursor"></com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <Button
+                android:id="@+id/btnUpload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:background="#BCBCBC"
+                app:backgroundTint="#BCBCBC"
+                android:textColor="#555555"
+                android:padding="0dp"
+                android:text="Upload"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/imgUpload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"/>
 
             <Button
+                android:id="@+id/btnLuu"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:text="Lưu"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/primaryColor"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/primaryColor"
-                android:textSize="20sp"/>
+                android:text="Lưu"
+                android:textSize="20sp" />
         </LinearLayout>
 
 

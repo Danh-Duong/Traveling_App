@@ -11,12 +11,18 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.traveling_app.AdminCreateActivity;
 import com.example.traveling_app.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class AdminTourAdapter extends BaseAdapter {
+
+    DatabaseReference ref= FirebaseDatabase.getInstance().getReference("tours");
     private List<Tour> tours;
     private Activity activity;
 
@@ -51,7 +57,6 @@ public class AdminTourAdapter extends BaseAdapter {
         ((TextView) convertView.findViewById(R.id.title_tour_admin)).setText(tours.get(position).getName());
         ((TextView) convertView.findViewById(R.id.address_tour_admin)).setText(tours.get(position).getAddress());
         ((TextView) convertView.findViewById(R.id.time_tour_admin)).setText("Thời gian: 20/11/2023 - 22/11/2023");
-        ((ImageView) convertView.findViewById(R.id.avatar_tour_admin)).setImageResource(((Tour) getItem(position)).getMainImage());
         ImageView menu_tour=convertView.findViewById(R.id.menu_tour_admin);
 
         PopupMenu popupMenu=new PopupMenu(activity, menu_tour);
@@ -63,14 +68,21 @@ public class AdminTourAdapter extends BaseAdapter {
             }
         });
 
+
+        ImageLoader.loadImage(tours.get(position).getMainImageUrl(), ((ImageView) convertView.findViewById(R.id.avatar_tour_admin)));
+
+
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if(item.getItemId()==R.id.update_tour_admin)
-                    activity.startActivity(new Intent(activity, AdminCreateActivity.class));
-                if(item.getItemId()==R.id.detail_tour_admin)
-                    activity.startActivity(new Intent(activity, AdminCreateActivity.class));
+                if(item.getItemId()==R.id.update_tour_admin){
+                    Intent intent=new Intent(activity, AdminCreateActivity.class);
+                    intent.putExtra("id",tours.get(position).getId());
+                    activity.startActivity(intent);
+                }
                 if(item.getItemId()==R.id.delete_tour_admin){
+                    // xóa dữ liệu trên firebase
+                    ref.child(tours.get(position).getId()).removeValue();
                     tours.remove(position);
                     notifyDataSetChanged();
                 }

@@ -1,38 +1,51 @@
 package com.example.traveling_app.entity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class Review {
-    private String name;
-    private int mainImg;
+public class Review implements Comparable<Review>{
+    private String nameReviewer;
+    private String avatarReviewer;
     private int rate;
-    private Date time;
+    private String time;
     private String content;
-    private List<Integer> images;
+    private List<String> images;
 
-    public Review(String name, int mainImg, int rate, Date time, String content) {
-        this.name = name;
-        this.mainImg = mainImg;
+    public Review() {
+    }
+
+    public Review(int rate, String content, String time, List<String> images) {
         this.rate = rate;
         this.time = time;
         this.content = content;
+        this.images = images;
     }
 
-    public int getMainImg() {
-        return mainImg;
+    public Review(String nameReviewer, String avatarReviewer, int rate, String time, String content, List<String> images) {
+        this.nameReviewer = nameReviewer;
+        this.avatarReviewer = avatarReviewer;
+        this.rate = rate;
+        this.time = time;
+        this.content = content;
+        this.images = images;
     }
 
-    public void setMainImg(int mainImg) {
-        this.mainImg = mainImg;
+    public String getNameReviewer() {
+        return nameReviewer;
     }
 
-    public String getName() {
-        return name;
+    public void setNameReviewer(String nameReviewer) {
+        this.nameReviewer = nameReviewer;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getAvatarReviewer() {
+        return avatarReviewer;
+    }
+
+    public void setAvatarReviewer(String avatarReviewer) {
+        this.avatarReviewer = avatarReviewer;
     }
 
     public int getRate() {
@@ -43,11 +56,11 @@ public class Review {
         this.rate = rate;
     }
 
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -59,11 +72,33 @@ public class Review {
         this.content = content;
     }
 
-    public List<Integer> getImages() {
+    public List<String> getImages() {
         return images;
     }
 
-    public void setImages(List<Integer> images) {
+    public void setImages(List<String> images) {
         this.images = images;
+    }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "nameReviewer='" + nameReviewer + '\'' +
+                ", avatarReviewer='" + avatarReviewer + '\'' +
+                ", rate=" + rate +
+                ", time='" + time + '\'' +
+                ", content='" + content + '\'' +
+                ", images=" + images +
+                '}';
+    }
+
+    @Override
+    public int compareTo(Review other) {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        try {
+            return sdf.parse(this.time).compareTo(sdf.parse(other.getTime()));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

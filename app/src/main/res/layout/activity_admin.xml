@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/txt"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -12,40 +13,42 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Danh sách các tour đã tạo"
-        android:textSize="22sp"
+        android:textAlignment="center"
         android:textColor="@color/primaryColor"
-        android:textStyle="bold"
-        android:textAlignment="center"></TextView>
+        android:textSize="22sp"
+        android:textStyle="bold"></TextView>
+
     <LinearLayout
-        android:layout_marginTop="30dp"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <EditText
+            android:id="@+id/admin_searchEdt"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:paddingLeft="10dp"
-            android:hint="Nhập tên tour cần tìm"
             android:layout_marginRight="120dp"
-            android:background="@drawable/admin_border_input"></EditText>
+            android:background="@drawable/admin_border_input"
+            android:hint="Nhập tên tour cần tìm"
+            android:paddingLeft="10dp"></EditText>
 
         <Button
-            android:id="@+id/admin_search"
+            android:id="@+id/admin_searchBtn"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginLeft="-100dp"
             android:background="@drawable/admin_border_input"
-            app:backgroundTint="@color/primaryColor"
-            android:text="Tìm"/>
+            android:text="Tìm"
+            app:backgroundTint="@color/primaryColor" />
     </LinearLayout>
 
-        <ListView
-            android:id="@+id/tour_admin_lv"
-            android:layout_marginTop="30dp"
-            android:layout_width="match_parent"
-            android:scrollbars="none"
-            android:layout_height="match_parent"></ListView>
+    <ListView
+        android:id="@+id/tour_admin_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:scrollbars="none"></ListView>
 
 </LinearLayout>

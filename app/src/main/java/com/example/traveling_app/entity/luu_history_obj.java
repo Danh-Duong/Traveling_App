@@ -1,47 +1,60 @@
 package com.example.traveling_app.entity;
 
 public class luu_history_obj {
-    private String name;
-    private String price;
-    private String date;
-    private String state;
+    private int price;
+    private String startDate;
+    private String endDate;
+    private String idtour;
+    private String username;
 
-    public luu_history_obj(String name, String price, String date, String state) {
-        this.name = name;
+    public luu_history_obj() {
+    }
+
+    public luu_history_obj(int price, String startDate, String endDate, String idtour, String username) {
         this.price = price;
-        this.date = date;
-        this.state = state;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.idtour = idtour;
+        this.username = username;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
-    public String getDate() {
-        return date;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
-    public String getState() {
-        return state;
+    public String getEndDate() {
+        return endDate;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getIdtour() {
+        return idtour;
+    }
+
+    public void setIdtour(String idtour) {
+        this.idtour = idtour;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

@@ -1,15 +1,21 @@
 package com.example.traveling_app.entity;
 
+import android.app.Activity;
 import android.content.Context;
+import android.media.Image;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.traveling_app.DetailActivity;
 import com.example.traveling_app.R;
 
 import java.text.SimpleDateFormat;
@@ -38,11 +44,53 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         if (review==null)
             return ;
 
-        SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
-        holder.txtName.setText(review.getName());
+        holder.txtName.setText(review.getNameReviewer());
         holder.txtContent.setText(review.getContent());
-        holder.txtTime.setText(format.format(review.getTime()));
-        holder.img.setImageResource(review.getMainImg());
+        holder.txtTime.setText(review.getTime());
+        // set ảnh đại diện
+        if (review.getAvatarReviewer()!=null)
+            ImageLoader.loadImage(review.getAvatarReviewer(),holder.img_review);
+        for (int i = 0; i < review.getRate(); i++) {
+            ImageView star = getStarViewByIndex(holder, i);
+            star.setVisibility(View.VISIBLE);
+        }
+        if (review.getImages()!=null)
+            for(int i=0;i<review.getImages().size();i++){
+                getImgByIndex(holder,i).setVisibility(View.VISIBLE);
+                ImageLoader.loadImage(review.getImages().get(i),getImgByIndex(holder,i));
+            }
+    }
+
+    private ImageView getStarViewByIndex(ReviewViewHolder holder, int index) {
+        switch (index) {
+            case 0:
+                return holder.star1_review;
+            case 1:
+                return holder.star2_review;
+            case 2:
+                return holder.star3_review;
+            case 3:
+                return holder.star4_review;
+            case 4:
+                return holder.star5_review;
+            default:
+                return null;
+        }
+    }
+
+    private ImageView getImgByIndex(ReviewViewHolder holder, int index) {
+        switch (index) {
+            case 0:
+                return holder.img_review1;
+            case 1:
+                return holder.img_review2;
+            case 2:
+                return holder.img_review3;
+            case 3:
+                return holder.img_review4;
+            default:
+                return null;
+        }
     }
 
     @Override
@@ -52,13 +100,22 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
 
     public static class ReviewViewHolder extends RecyclerView.ViewHolder{
         private TextView txtName, txtTime, txtContent;
-        private ImageView img;
+        private ImageView img,star1_review,star2_review,star3_review,star4_review,star5_review,img_review1,img_review2,img_review3,img_review4,img_review;
         public ReviewViewHolder(@NonNull View itemView) {
             super(itemView);
             txtName=itemView.findViewById(R.id.name_review);
             txtTime=itemView.findViewById(R.id.time_review);
             txtContent=itemView.findViewById(R.id.content_review);
-            img=itemView.findViewById(R.id.img_review);
+            star1_review=itemView.findViewById(R.id.star1_review);
+            star2_review=itemView.findViewById(R.id.star2_review);
+            star3_review=itemView.findViewById(R.id.star3_review);
+            star4_review=itemView.findViewById(R.id.star4_review);
+            star5_review=itemView.findViewById(R.id.star5_review);
+            img_review1=itemView.findViewById(R.id.img_review1);
+            img_review2=itemView.findViewById(R.id.img_review2);
+            img_review3=itemView.findViewById(R.id.img_review3);
+            img_review4=itemView.findViewById(R.id.img_review4);
+            img_review=itemView.findViewById(R.id.img_review);
         }
     }
 }

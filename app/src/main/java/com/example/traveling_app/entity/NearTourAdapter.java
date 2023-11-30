@@ -1,15 +1,18 @@
 package com.example.traveling_app.entity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.traveling_app.DetailActivity;
 import com.example.traveling_app.R;
 
 import java.util.List;
@@ -41,7 +44,15 @@ public class NearTourAdapter extends RecyclerView.Adapter<NearTourAdapter.NearTo
         holder.txtContent.setText(tour.getContent()+"");
         holder.txtDistance.setText("5 km");
         holder.txtLocation.setText(tour.getAddress());
-        holder.img.setImageResource(tour.getMainImage());
+        ImageLoader.loadImage(tours.get(position).getMainImageUrl(), holder.img);
+        holder.ln_nearTour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context, DetailActivity.class);
+                intent.putExtra("id", tour.getId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -53,6 +64,7 @@ public class NearTourAdapter extends RecyclerView.Adapter<NearTourAdapter.NearTo
 
         private TextView txtTitle, txtContent, txtDistance, txtLocation;
         private ImageView img;
+        private LinearLayout ln_nearTour;
         public NearTourViewHolder(@NonNull View itemView) {
             super(itemView);
             txtTitle=itemView.findViewById(R.id.title_near);
@@ -60,6 +72,7 @@ public class NearTourAdapter extends RecyclerView.Adapter<NearTourAdapter.NearTo
             txtDistance=itemView.findViewById(R.id.distance_near);
             txtLocation=itemView.findViewById(R.id.location_near);
             img=itemView.findViewById(R.id.img_near);
+            ln_nearTour=itemView.findViewById(R.id.ln_nearTour);
         }
     }
 }

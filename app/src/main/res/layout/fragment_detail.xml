@@ -24,12 +24,11 @@
                     android:textStyle="bold"></TextView>
 
                 <TextView
+                    android:id="@+id/tour_detail_des"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="VinOasis Phú Quốc là 1 trong những địa điểm tổ chức sự kiện có quy mô lớn nhất Phú Quốc với kiến trước đương đại và tiện ích tân tiến"
-                    android:textSize="16sp"
                     android:textColor="#666666"
-                    ></TextView>
+                    android:textSize="16sp"></TextView>
 
                 <TextView
                     android:layout_width="wrap_content"

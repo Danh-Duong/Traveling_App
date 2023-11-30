@@ -30,7 +30,7 @@ public class Status_activity extends AppCompatActivity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myDialog.setContentView(R.layout.comment_main);
+                myDialog.setContentView(R.layout.info_create_tour);
                 myDialog.show();
                 myDialog.setCanceledOnTouchOutside(true); // Cho phép người dùng bấm ngoài Dialog để đóng
                 myDialog.setCancelable(true); // Cho phép sử dụng phím Back để đóng Dialog

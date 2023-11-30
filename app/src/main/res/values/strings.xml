@@ -85,4 +85,7 @@
     <string name="book_count_placeholder">%1$d lượt đặt</string>
     <string name="rate_count_placeholder">%1$d đánh giá</string>
     <string name="total_placeholder">Tổng số: %1$d</string>
+    <string name="facebook_app_id">3312377312341073</string>
+    <string name="fb_login_protocol_scheme">fb3312377312341073</string>
+    <string name="facebook_client_token">b6c86bb3382f89f98066d409ced7f443</string>
 </resources>

@@ -88,7 +88,7 @@
                     android:textColor="@color/primaryColor"></TextView>
 
                 <ImageView
-                    android:layout_width="20dp"
+                    android:layout_width="18dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/main_star_solid"></ImageView>
 
