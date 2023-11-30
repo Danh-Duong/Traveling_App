@@ -1,11 +1,19 @@
 package com.example.traveling_app.entity;
 
-public class User{
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String email;
     private String username;
     private String password;
     private String token;
     private String imageUrl;
+
+    private String description;
+
+    private int birthday;
+    private boolean gender;
+
     public User() {
     }
 
@@ -27,7 +35,29 @@ public class User{
         this.imageUrl = imageUrl;
     }
 
+    public String getDescription() {
+        return description;
+    }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(int birthday) {
+        this.birthday = birthday;
+    }
+
+    public boolean isGender() {
+        return gender;
+    }
+
+    public void setGender(boolean gender) {
+        this.gender = gender;
+    }
 
     public String getImageUrl() {
         return imageUrl;

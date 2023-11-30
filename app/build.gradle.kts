@@ -45,7 +45,6 @@ dependencies {
     implementation("com.google.android.flexbox:flexbox:3.0.0")
     implementation("com.sun.mail:android-mail:1.6.6")
     implementation("com.sun.mail:android-activation:1.6.7")
-    implementation("com.github.bumptech.glide:glide:4.12.0")
     //noinspection GradleCompatible
     implementation("com.android.support:appcompat-v7:28.0.0")
     implementation(platform("com.google.firebase:firebase-bom:32.6.0"))

@@ -1,15 +1,15 @@
 package com.example.traveling_app;
 
-public class demo {
+public class Language {
     private int image;
     private String name;
 
-    public demo(int image, String name) {
+    public Language(int image, String name) {
         this.image = image;
         this.name = name;
     }
 
-    public demo() {
+    public Language() {
     }
 
     public int getImage() {

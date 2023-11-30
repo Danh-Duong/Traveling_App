@@ -20,24 +20,13 @@ public class CurrentUser {
     private DatabaseReference ref= FirebaseDatabase.getInstance().getReference("users");
     private static SharedPreferences preferences;
     private static SharedPreferences.Editor editor;
-    public CurrentUser(Activity activity,String username) {
+    public CurrentUser(Activity activity,User user) {
         preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         editor = preferences.edit();
-        ref.child(username).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    User u = snapshot.getValue(User.class);
-                    editor.putString("username", u.getUsername());
-                    editor.putString("imageUrl", u.getImageUrl());
-                    editor.apply();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+        editor.putString("username", user.getUsername());
+        editor.putString("imageUrl", user.getImageUrl());
+        editor.apply();
 
-            }
-        });
     }
 
     public static User getCurrentUser(){

@@ -7,17 +7,20 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +34,7 @@ import com.example.traveling_app.entity.CurrentUser;
 import com.example.traveling_app.entity.DataCallback;
 import com.example.traveling_app.entity.HintTourAdapter;
 import com.example.traveling_app.entity.HotTourAdapter;
+import com.example.traveling_app.entity.ImageLoader;
 import com.example.traveling_app.entity.NearTourAdapter;
 import com.example.traveling_app.entity.RecentTourAdapter;
 import com.example.traveling_app.entity.Review;
@@ -53,7 +57,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class Menu_Home extends Fragment {
+public class Menu_Home extends Fragment{
     private RecyclerView tour_hint_rcv, recent_rcv, voucher_rcv, hot_rcv, near_rcv;
     private SliderView sliderView;
     private HintTourAdapter hintTourAdapter;
@@ -68,8 +72,9 @@ public class Menu_Home extends Fragment {
     private EditText searchInput;
     FirebaseDatabase database=FirebaseDatabase.getInstance();
     DatabaseReference ref=database.getReference();
-
     TextView username1;
+    ImageView imgAvaMain;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,6 +84,7 @@ public class Menu_Home extends Fragment {
 
         searchInput=view.findViewById(R.id.searchInput);
         username1=view.findViewById(R.id.username1);
+        imgAvaMain=view.findViewById(R.id.imgAvaMain);
         searchInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,8 +94,29 @@ public class Menu_Home extends Fragment {
         });
 
         mainActivity= (MainActivity) getActivity();
-        CurrentUser currentUser=new CurrentUser(mainActivity,"danh");
+
+        CurrentUser currentUser=null;
+        if (mainActivity.getIntent().getSerializableExtra("user")!=null){
+            User user= (User) mainActivity.getIntent().getSerializableExtra("user");
+            currentUser=new CurrentUser(mainActivity,user);
+        }
+
         username1.setText(currentUser.getCurrentUser().getUsername());
+        if (currentUser.getCurrentUser().getImageUrl()!=null)
+            ImageLoader.loadImage(currentUser.getCurrentUser().getImageUrl(),imgAvaMain);
+
+        // chặn sự kiện Back của trang chủ
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode==KeyEvent.KEYCODE_BACK && event.getAction()==KeyEvent.ACTION_UP)
+                    return true;
+                return false;
+            }
+        });
+
         tour_hint_rcv=view.findViewById(R.id.tour_hint_rcv);
         recent_rcv=view.findViewById(R.id.recent_rcv);
         vouchers.add(new Voucher("Giảm giá",R.drawable.main_voucher1));

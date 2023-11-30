@@ -1,37 +1,29 @@
 package com.example.traveling_app;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.traveling_app.entity.CurrentUser;
 import com.example.traveling_app.entity.ImageLoader;
-import com.example.traveling_app.entity.Review;
-import com.example.traveling_app.entity.ReviewAdapter;
 import com.example.traveling_app.entity.Tour;
 import com.example.traveling_app.entity.ViewPagerAdapter;
 import com.example.traveling_app.fragment.ReviewFragment;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,13 +33,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DecimalFormat;
 
 public class DetailActivity extends AppCompatActivity {
-    private TextView txtReview;
-    private TextView txtDetail;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private int numStar;
-    String idTour;
+    String idTour,phone;
     Tour tour;
+    DecimalFormat df = new DecimalFormat("#.##");
     private ImageView tour_detail_ava, tour_detail_ava1, tour_detail_ava2, tour_detail_ava3, tour_detail_ava4;
     private TextView tour_detail_tit, tour_detail_add, tour_detail_price, tour_detail_star, tour_detail_com;
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("tours");
@@ -69,9 +59,9 @@ public class DetailActivity extends AppCompatActivity {
         tour_detail_com = findViewById(R.id.tour_detail_com);
         tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.view_pager);
-
+        idTour= getIntent().getStringExtra("id");
         bindingData();
-
+//        checkLove();
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -87,10 +77,27 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         getMenuInflater().inflate(R.menu.menu_detail, menu);
+
+        MenuItem item = menu.findItem(R.id.menu_item_love);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("saved_tours").child(CurrentUser.getCurrentUser().getUsername());
+        DatabaseReference tourRef = ref.child(idTour);
+        tourRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists())
+                    runOnUiThread(() -> item.setIcon(R.drawable.heart_solid_active));
+                 else
+                    runOnUiThread(() -> item.setIcon(R.drawable.main_heart_bar_regular));
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Xử lý lỗi nếu có
+            }
+        });
+
+
         return super.onCreateOptionsMenu(menu);
     }
-
-    String phone;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -106,17 +113,34 @@ public class DetailActivity extends AppCompatActivity {
             this.finish();
             return true;
         }
+        else if (item.getItemId() == R.id.menu_item_love) {
+            DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("saved_tours").child(CurrentUser.getCurrentUser().getUsername());
+            ref.child(idTour).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()){
+                        ref.child(idTour).removeValue();
+                        item.setIcon(R.drawable.main_heart_bar_regular);
+                    }
+                    else {
+                        ref.child(idTour).setValue(true);
+                        item.setIcon(R.drawable.heart_solid_active);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
-    DecimalFormat df = new DecimalFormat("#.##");
-    double numRate = 0;
-    int numComment = 0;
-
     public void bindingData() {
         DecimalFormat formatter = new DecimalFormat("###,###,###");
-        idTour = getIntent().getStringExtra("id");
-
         ref.child(idTour).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -148,13 +172,11 @@ public class DetailActivity extends AppCompatActivity {
 
     public void onStarClick(View view) {
         int clickedStar = Integer.parseInt(view.getTag().toString());
-        numStar=clickedStar;
         // Đặt trạng thái cho các ngôi sao
         for (int i = 1; i <= 5; i++) {
             ImageView starImageView = findViewById(getResources().getIdentifier("star" + i, "id", getPackageName()));
             starImageView.setImageResource(i <= clickedStar ? R.drawable.main_star_solid : R.drawable.main_star_disable);
         }
-
         // truyền giá trị đến fragment
         Bundle bundle = new Bundle();
         bundle.putInt("numStar", clickedStar);
@@ -164,4 +186,6 @@ public class DetailActivity extends AppCompatActivity {
                 .replace(R.id.container, fragment)
                 .commit();
     }
+
+
 }

@@ -3,9 +3,7 @@ package com.example.traveling_app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -54,11 +52,11 @@ public class Batdau_Activity extends AppCompatActivity {
                 startActivity(myintent);
             }
         });
-        ArrayList<demo> list= new ArrayList<>();
-        list.add(new demo(R.drawable.lacovn,"VIE"));
-        list.add(new demo(R.drawable.lacoanh,"ENG"));
+        ArrayList<Language> list= new ArrayList<>();
+        list.add(new Language(R.drawable.lacovn,"VIE"));
+        list.add(new Language(R.drawable.lacoanh,"ENG"));
 
-        demospinnerAdapter adapter= new demospinnerAdapter(this,list);
+        LanguageSpinnerAdapter adapter= new LanguageSpinnerAdapter(this,list);
         spinner.setAdapter(adapter);
     }
 }

@@ -172,6 +172,7 @@ public class ReviewFragment extends Fragment {
 
                         }
                     });
+                    
                     b.setIcon(R.drawable.error);
                     AlertDialog al = b.create();
                     al.show();

@@ -11,11 +11,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class demospinnerAdapter extends BaseAdapter {
+public class LanguageSpinnerAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<demo> list;
+    private ArrayList<Language> list;
 
-    public demospinnerAdapter(Context context, ArrayList<demo> list) {
+    public LanguageSpinnerAdapter(Context context, ArrayList<Language> list) {
         this.context = context;
         this.list = list;
     }

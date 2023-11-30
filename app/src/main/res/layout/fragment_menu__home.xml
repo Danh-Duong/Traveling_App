@@ -61,11 +61,12 @@
                         tools:ignore="RtlCompat" />
 
                     <ImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/imgAvaMain"
                         android:layout_width="80px"
                         android:layout_height="80px"
                         android:layout_toRightOf="@+id/username1"
                         android:onClick="goToAdmin"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/main_avatar" />
 
                 </LinearLayout>

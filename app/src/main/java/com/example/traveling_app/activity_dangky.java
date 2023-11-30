@@ -1,5 +1,6 @@
 package com.example.traveling_app;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -54,7 +55,7 @@ public class activity_dangky extends AppCompatActivity {
                     User user = new User(emailtxt, fullnametxt, matkhautxt);
                     databaseReference.child("users/" + fullnametxt).setValue(user);
                     Toast.makeText(activity_dangky.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
-                    finish();
+                    startActivity(new Intent(activity_dangky.this, activity_dangnhap.class));
 //                    databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
 //                        @Override
 //                        public void onDataChange(@NonNull DataSnapshot snapshot) {

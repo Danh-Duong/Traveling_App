@@ -25,6 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
+
 public class activity_dangnhap extends AppCompatActivity {
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://traveling-app-7d1f0-default-rtdb.asia-southeast1.firebasedatabase.app/");
@@ -39,66 +41,59 @@ public class activity_dangnhap extends AppCompatActivity {
         final Button loginbtn = findViewById(R.id.at2_btn1);
 
         loginbtn.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-                                            final String emailtxt = email.getText().toString();
-                                            final String passwordtxt = password.getText().toString();
+                final String emailtxt = email.getText().toString();
+                final String passwordtxt = password.getText().toString();
 
-                                            if (emailtxt.isEmpty() || passwordtxt.isEmpty()) {
-                                                Toast.makeText(activity_dangnhap.this, "Vui lòng nhập email hoặc mk", Toast.LENGTH_SHORT).show();
-                                            } else {
-                                                databaseReference.child("users").orderByChild("email").equalTo(emailtxt).limitToFirst(1).addChildEventListener(new ChildEventListener() {
-                                                    @Override
-                                                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                                                        if (snapshot.exists()) {
+                if (emailtxt.isEmpty() || passwordtxt.isEmpty()) {
+                    Toast.makeText(activity_dangnhap.this, "Vui lòng nhập email và mật khẩu", Toast.LENGTH_SHORT).show();
+                } else {
+                    databaseReference.child("users").orderByChild("email").equalTo(emailtxt).limitToFirst(1).addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                            if (snapshot.exists()) {
 
-                                                            final User info = snapshot.getValue(User.class);
+                                final User info = snapshot.getValue(User.class);
 //                                                            Log.d("key", snapshot.toString());
-                                                            if (info.getPassword().equals(passwordtxt)) {
-                                                                Toast.makeText(activity_dangnhap.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                                                                startActivity(new Intent(activity_dangnhap.this, MainActivity.class));
-                                                                finish();
-                                                            } else {
-                                                                Toast.makeText(activity_dangnhap.this, "Wrong password", Toast.LENGTH_SHORT).show();
-                                                            }
-                                                        } else {
-                                                            Toast.makeText(activity_dangnhap.this, "Wrong password", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    }
+                                if (info.getPassword().equals(passwordtxt)) {
+                                    Toast.makeText(activity_dangnhap.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                                    Intent intent=new Intent(activity_dangnhap.this, MainActivity.class);
+                                    intent.putExtra("user",info);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    Toast.makeText(activity_dangnhap.this, "Wrong password", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(activity_dangnhap.this, "Wrong password", Toast.LENGTH_SHORT).show();
+                            }
+                        }
 
-                                                    @Override
-                                                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        @Override
+                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-                                                    }
+                        }
 
-                                                    @Override
-                                                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                        @Override
+                        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
 
-                                                    }
+                        }
 
-                                                    @Override
-                                                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        @Override
+                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-                                                    }
+                        }
 
-                                                    @Override
-                                                    public void onCancelled(@NonNull DatabaseError error) {
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-                                                    }
-                                                });
-                                            }
-                                        }
-                                    });
-
-
-
-
-
-
-
-
-
+                        }
+                    });
+                }
+            }
+        });
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

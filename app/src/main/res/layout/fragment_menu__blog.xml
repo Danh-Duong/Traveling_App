@@ -75,280 +75,296 @@
             android:textSize="18dp" />
     </LinearLayout>
 
-    <ScrollView
+    <GridView
+        android:horizontalSpacing="15dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:verticalSpacing="15dp"
+        android:id="@+id/grv_post"
+        android:numColumns="2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="15dp"
-        android:scrollbars="none">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:paddingBottom="15dp"/>
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
 
-                <LinearLayout
-                    android:id="@+id/Baiviet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="220dp"
-                    android:layout_marginRight="6dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/img">
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:scrollbars="none">-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="200dp"
-                        android:orientation="horizontal">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Nng_aysays"
-                            android:textColor="#ffff" />
 
-                        <ImageView
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="50dp"
-                            android:src="@drawable/heart1" />
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="220dp"-->
+<!--                android:layout_marginLeft="20dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginRight="20dp"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:weightSum="2">-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="3dp"
-                            android:text="60"
-                            android:textColor="#ffffff" />
-                    </LinearLayout>
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/Baiviet"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="220dp"-->
+<!--                    android:layout_marginRight="6dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/img">-->
 
-                </LinearLayout>
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="5dp"-->
+<!--                        android:layout_marginTop="200dp"-->
+<!--                        android:orientation="horizontal">-->
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="220dp"
-                    android:layout_marginLeft="6dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/img_1">
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Nng_aysays"-->
+<!--                            android:textColor="#ffff" />-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="200dp"
-                        android:orientation="horizontal">
+<!--                        <ImageView-->
+<!--                            android:layout_width="14dp"-->
+<!--                            android:layout_height="14dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginLeft="50dp"-->
+<!--                            android:src="@drawable/heart1" />-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Hng_asdays"
-                            android:textColor="#ffff" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="3dp"-->
+<!--                            android:text="60"-->
+<!--                            android:textColor="#ffffff" />-->
+<!--                    </LinearLayout>-->
 
-                        <ImageView
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="50dp"
-                            android:src="@drawable/heart1" />
+<!--                </LinearLayout>-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="3dp"
-                            android:text="70"
-                            android:textColor="#ffffff" />
-                    </LinearLayout>
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="220dp"-->
+<!--                    android:layout_marginLeft="6dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/img_1">-->
 
-                </LinearLayout>
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="5dp"-->
+<!--                        android:layout_marginTop="200dp"-->
+<!--                        android:orientation="horizontal">-->
 
-            </LinearLayout>
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Hng_asdays"-->
+<!--                            android:textColor="#ffff" />-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+<!--                        <ImageView-->
+<!--                            android:layout_width="14dp"-->
+<!--                            android:layout_height="14dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginLeft="50dp"-->
+<!--                            android:src="@drawable/heart1" />-->
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="220dp"
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="3dp"-->
+<!--                            android:text="70"-->
+<!--                            android:textColor="#ffffff" />-->
+<!--                    </LinearLayout>-->
 
-                    android:layout_marginRight="6dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/img_2">
+<!--                </LinearLayout>-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="200dp"
-                        android:orientation="horizontal">
+<!--            </LinearLayout>-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Nng_aysays"
-                            android:textColor="#ffff" />
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="220dp"-->
+<!--                android:layout_marginLeft="20dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginRight="20dp"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:weightSum="2">-->
 
-                        <ImageView
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="50dp"
-                            android:src="@drawable/heart1" />
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="220dp"-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="3dp"
-                            android:text="60"
-                            android:textColor="#ffffff" />
-                    </LinearLayout>
+<!--                    android:layout_marginRight="6dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/img_2">-->
 
-                </LinearLayout>
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="5dp"-->
+<!--                        android:layout_marginTop="200dp"-->
+<!--                        android:orientation="horizontal">-->
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="220dp"
-                    android:layout_marginLeft="6dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/img_3">
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Nng_aysays"-->
+<!--                            android:textColor="#ffff" />-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="200dp"
-                        android:orientation="horizontal">
+<!--                        <ImageView-->
+<!--                            android:layout_width="14dp"-->
+<!--                            android:layout_height="14dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginLeft="50dp"-->
+<!--                            android:src="@drawable/heart1" />-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Hng_asdays"
-                            android:textColor="#ffff" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="3dp"-->
+<!--                            android:text="60"-->
+<!--                            android:textColor="#ffffff" />-->
+<!--                    </LinearLayout>-->
 
-                        <ImageView
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="50dp"
-                            android:src="@drawable/heart1" />
+<!--                </LinearLayout>-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="3dp"
-                            android:text="70"
-                            android:textColor="#ffffff" />
-                    </LinearLayout>
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="220dp"-->
+<!--                    android:layout_marginLeft="6dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/img_3">-->
 
-                </LinearLayout>
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="5dp"-->
+<!--                        android:layout_marginTop="200dp"-->
+<!--                        android:orientation="horizontal">-->
 
-            </LinearLayout>
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Hng_asdays"-->
+<!--                            android:textColor="#ffff" />-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+<!--                        <ImageView-->
+<!--                            android:layout_width="14dp"-->
+<!--                            android:layout_height="14dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginLeft="50dp"-->
+<!--                            android:src="@drawable/heart1" />-->
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="220dp"
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="3dp"-->
+<!--                            android:text="70"-->
+<!--                            android:textColor="#ffffff" />-->
+<!--                    </LinearLayout>-->
 
-                    android:layout_marginRight="6dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/img_4">
+<!--                </LinearLayout>-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="200dp"
-                        android:orientation="horizontal">
+<!--            </LinearLayout>-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Nng_aysays"
-                            android:textColor="#ffff" />
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="220dp"-->
+<!--                android:layout_marginLeft="20dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginRight="20dp"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:weightSum="2">-->
 
-                        <ImageView
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="50dp"
-                            android:src="@drawable/heart1" />
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="220dp"-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="3dp"
-                            android:text="60"
-                            android:textColor="#ffffff" />
-                    </LinearLayout>
+<!--                    android:layout_marginRight="6dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/img_4">-->
 
-                </LinearLayout>
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="5dp"-->
+<!--                        android:layout_marginTop="200dp"-->
+<!--                        android:orientation="horizontal">-->
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="220dp"
-                    android:layout_marginLeft="6dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/img_3">
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Nng_aysays"-->
+<!--                            android:textColor="#ffff" />-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="200dp"
-                        android:orientation="horizontal">
+<!--                        <ImageView-->
+<!--                            android:layout_width="14dp"-->
+<!--                            android:layout_height="14dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginLeft="50dp"-->
+<!--                            android:src="@drawable/heart1" />-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Hng_asdays"
-                            android:textColor="#ffff" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="3dp"-->
+<!--                            android:text="60"-->
+<!--                            android:textColor="#ffffff" />-->
+<!--                    </LinearLayout>-->
 
-                        <ImageView
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="50dp"
-                            android:src="@drawable/heart1" />
+<!--                </LinearLayout>-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="3dp"
-                            android:text="70"
-                            android:textColor="#ffffff" />
-                    </LinearLayout>
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="220dp"-->
+<!--                    android:layout_marginLeft="6dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/img_3">-->
 
-                </LinearLayout>
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="5dp"-->
+<!--                        android:layout_marginTop="200dp"-->
+<!--                        android:orientation="horizontal">-->
 
-            </LinearLayout>
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Hng_asdays"-->
+<!--                            android:textColor="#ffff" />-->
 
-        </LinearLayout>
-    </ScrollView>
+<!--                        <ImageView-->
+<!--                            android:layout_width="14dp"-->
+<!--                            android:layout_height="14dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginLeft="50dp"-->
+<!--                            android:src="@drawable/heart1" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="3dp"-->
+<!--                            android:text="70"-->
+<!--                            android:textColor="#ffffff" />-->
+<!--                    </LinearLayout>-->
+
+<!--                </LinearLayout>-->
+
+<!--            </LinearLayout>-->
+
+<!--        </LinearLayout>-->
+<!--    </ScrollView>-->
 
 </LinearLayout>
