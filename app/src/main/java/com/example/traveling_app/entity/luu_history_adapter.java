@@ -54,8 +54,5 @@ public class luu_history_adapter extends FirebaseRecyclerAdapter<luu_history_obj
             dateEnd = itemView.findViewById(R.id.dateEnd);
         }
     }
-    private void showPopupMenu(View view) {
-
-    }
 }
 

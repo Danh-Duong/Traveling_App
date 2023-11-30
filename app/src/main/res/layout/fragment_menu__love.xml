@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".NotificationActivity">
+    tools:context=".fragment.Menu_Love">
 
     <LinearLayout
         android:id="@+id/header_love_tour"
@@ -39,21 +39,21 @@
     </LinearLayout>
 
     <TextView
-        android:layout_below="@+id/header_love_tour"
+        android:id="@+id/totalCountTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/header_love_tour"
         android:paddingRight="20dp"
-        android:textStyle="bold"
-        android:text="Tổng số: 4"
+        tools:text="Tổng số: 4"
         android:textAlignment="textEnd"
-        android:textColor="#ACACAC" />
+        android:textColor="#ACACAC"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="70dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/love_rcv"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:listitem="@layout/love_tour_item"
+        android:id="@+id/love_rcv"/>
 
-
-
-</RelativeLayout>
+</LinearLayout>

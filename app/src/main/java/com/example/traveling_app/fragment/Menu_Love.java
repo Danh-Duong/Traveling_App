@@ -3,43 +3,47 @@ package com.example.traveling_app.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.example.traveling_app.MainActivity;
 import com.example.traveling_app.R;
-import com.example.traveling_app.entity.LoveTourAdapter;
-import com.example.traveling_app.entity.Tour;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.traveling_app.common.Constants;
+import com.example.traveling_app.common.DatabaseReferences;
+import com.example.traveling_app.model.savedtours.SavedTour;
+import com.example.traveling_app.model.savedtours.SavedTourAdapter;
+import com.example.traveling_app.model.savedtours.SavedTourSnapshotParser;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.Query;
 
 public class Menu_Love extends Fragment {
 
-    private List<Tour> tours=new ArrayList<>();
-
-    private MainActivity mainActivity;
-
-    private View view;
-
-    private RecyclerView love_rcv;
+    private SavedTourAdapter savedTourAdapter;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view= inflater.inflate(R.layout.fragment_menu__love, container, false);
-        mainActivity= (MainActivity) getActivity();
-        love_rcv=view.findViewById(R.id.love_rcv);
-        LinearLayoutManager ln=new LinearLayoutManager(mainActivity,RecyclerView.VERTICAL,false);;
-        love_rcv.setLayoutManager(ln);
-        RecyclerView.ItemDecoration itemDecoration=new DividerItemDecoration(mainActivity, DividerItemDecoration.VERTICAL);
-        love_rcv.addItemDecoration(itemDecoration);
-        LoveTourAdapter adapter=new LoveTourAdapter(mainActivity,tours);
-        love_rcv.setAdapter(adapter);
-        return view;
+    @SuppressWarnings("deprecation")
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
+        View rootView = inflater.inflate(R.layout.fragment_menu__love, container, false);
+        TextView itemCountTextView = rootView.findViewById(R.id.totalCountTextView);
+        RecyclerView savedTourRecyclerView = rootView.findViewById(R.id.love_rcv);
+        String profileId = PreferenceManager.getDefaultSharedPreferences(getContext()).getString("username", Constants.DEFAULT_USERNAME);
+        Query query = DatabaseReferences.USER_SAVED_TOURS_DATABASE_REF.child(profileId).orderByKey();
+        FirebaseRecyclerOptions<SavedTour> options = new FirebaseRecyclerOptions.Builder<SavedTour>().setQuery(query, SavedTourSnapshotParser.INSTANCE).build();
+        savedTourAdapter = new SavedTourAdapter(options);
+        savedTourRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        savedTourRecyclerView.setAdapter(savedTourAdapter);
+        savedTourAdapter.setOnDataChanged(() -> itemCountTextView.setText(getContext().getString(R.string.total_placeholder, savedTourAdapter.getItemCount())));
+        savedTourAdapter.startListening();
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        savedTourAdapter.stopListening();
     }
 }

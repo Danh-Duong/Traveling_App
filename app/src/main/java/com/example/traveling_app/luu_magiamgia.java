@@ -26,7 +26,6 @@ public class luu_magiamgia extends AppCompatActivity {
         setContentView(R.layout.activity_luu_magiamgia);
         recyclerView = (RecyclerView) findViewById(R.id.rcv_discount);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         FirebaseRecyclerOptions<luu_discount_obj> options =
                 new FirebaseRecyclerOptions.Builder<luu_discount_obj>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("vouchers"), luu_discount_obj.class)
@@ -36,11 +35,10 @@ public class luu_magiamgia extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
 
-
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24);
-        actionBar.setTitle("Thanh toán");
+        actionBar.setTitle("Mã giảm giá");
     }
     @Override
     protected void onStart() {

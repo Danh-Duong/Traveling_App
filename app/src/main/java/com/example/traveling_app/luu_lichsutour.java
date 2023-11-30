@@ -73,7 +73,7 @@ public class luu_lichsutour extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId()==android.R.id.home){
-            this.finish();
+            startActivity(new Intent(luu_lichsutour.this, MainActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
