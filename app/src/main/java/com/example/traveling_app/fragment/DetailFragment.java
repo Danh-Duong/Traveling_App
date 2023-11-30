@@ -51,7 +51,9 @@ public class DetailFragment extends Fragment {
         book_tour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String idTour= detailActivity.getIntent().getStringExtra("id");
                 Intent intent=new Intent(detailActivity, luu_book_tour.class);
+                intent.putExtra("id",idTour);
                 startActivity(intent);
             }
         });

@@ -39,6 +39,7 @@
                 app:cardElevation="4dp"
                 app:cardUseCompatPadding="true">
                 <ImageView
+                    android:id="@+id/tour_img"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/luu_dattour_tour"
@@ -423,7 +424,13 @@
                         android:id="@+id/point_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0đ"
+                        android:text="0"
+                        android:textSize="18sp"
+                        android:textColor="#5B5656" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="đ"
                         android:textSize="18sp"
                         android:textColor="#5B5656"
                         android:layout_marginEnd="15dp"/>
