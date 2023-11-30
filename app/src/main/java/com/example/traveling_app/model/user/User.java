@@ -9,20 +9,19 @@ public class User {
     private int birthday;
     private String description;
     private boolean gender;
-    private boolean hasProfileImage;
+    private String profileImageUrl;
 
     public User() {
 
     }
 
-    public User(String username, String fullName, String password, String description, int birthday, boolean gender, boolean hasProfileImage) {
-        this.username = username;
+    public User(String username, String fullName, String password, String description, int birthday, boolean gender, String profileImageUrl) {
         this.password = password;
         this.birthday = birthday;
         this.description = description;
         this.fullName = fullName;
         this.gender = gender;
-        this.hasProfileImage = hasProfileImage;
+        this.profileImageUrl = profileImageUrl;
     }
     @Exclude
     public String getUsername() {
@@ -73,12 +72,12 @@ public class User {
         this.gender = gender;
     }
 
-    public boolean isHasProfileImage() {
-        return hasProfileImage;
+    public String getProfileImage() {
+        return profileImageUrl;
     }
 
-    public void setHasProfileImage(boolean hasProfileImage) {
-        this.hasProfileImage = hasProfileImage;
+    public void setProfileImage(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
     }
 
     @Override

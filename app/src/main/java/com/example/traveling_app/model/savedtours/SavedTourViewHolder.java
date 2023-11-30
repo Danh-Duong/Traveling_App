@@ -37,6 +37,7 @@ class SavedTourViewHolder extends RecyclerView.ViewHolder {
             txtBook.setText(txtBook.getContext().getString(R.string.book_count_placeholder, tour.getNumBooking()));
             txtComment.setText(txtComment.getContext().getString(R.string.rate_count_placeholder, tour.getNumComment()));
             txtRate.setText(Integer.toString(tour.getNumStar()));
+            heartButton.setVisibility(View.VISIBLE);
             Glide.with(img).load(tour.getMainImageUrl()).centerCrop().into(img);
         });
     }

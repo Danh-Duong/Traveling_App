@@ -17,8 +17,8 @@ import android.widget.Toast;
 import com.example.traveling_app.R;
 import com.example.traveling_app.SearchAndFilterActivity;
 import com.example.traveling_app.common.Constants;
-import com.example.traveling_app.model.FilterItem;
-import com.example.traveling_app.model.FilterItemGroup;
+import com.example.traveling_app.model.filter.FilterItemGroup;
+import com.example.traveling_app.model.filter.KeywordFilterItem;
 import com.google.android.flexbox.FlexboxLayout;
 
 public class FilterFragment extends Fragment {
@@ -47,17 +47,17 @@ public class FilterFragment extends Fragment {
             initFilterItemGroupContainer(filterItemGroup, filterItemContainer);
             rootView.addView(linearLayout);
         });
-
         getCurrentLocationTextView.setOnClickListener(v -> {
-            Toast.makeText(listener, getString(R.string.getting_current_location_status), Toast.LENGTH_SHORT).show();
-            Constants.getCurrentAddress(getActivity(), () -> {},
-                (address) -> {
-                    String postalCode = address.getPostalCode();
-                    String province = address.getAdminArea();
-                    listener.getStreamOfFilterItemGroups().filter(g -> g.getKey().equals("province")).forEach(g -> g.add(postalCode, province).selectSelf());
-                });
+            Toast.makeText(getContext(), getString(R.string.getting_current_location_status), Toast.LENGTH_SHORT).show();
+            Constants.getCurrentAddress(listener,
+                    () -> {
+                        Toast.makeText(listener, getString(R.string.getting_current_location_status), Toast.LENGTH_SHORT).show();
+                    },
+                    (address) -> {
+                        String province = address.getAdminArea();
+                        listener.getStreamOfFilterItemGroups().filter(g -> g.getKey().equals("province")).forEach(g -> new KeywordFilterItem(g, province).selectSelf());
+                    });
         });
-
         return rootView;
     }
 
@@ -80,8 +80,7 @@ public class FilterFragment extends Fragment {
 
     private void initFilterItemGroupContainer(@NonNull FilterItemGroup filterItemGroup, ViewGroup viewGroup) {
         LayoutInflater inflater = getLayoutInflater();
-        for (int i = 0; i < filterItemGroup.size(); ++i) {
-            FilterItem filterItem = filterItemGroup.get(i);
+        filterItemGroup.setOnItemAddedItem(filterItem -> {
             TextView textView = (TextView) inflater.inflate(R.layout.small_clickable_textview, viewGroup, false);
             textView.setText(filterItem.getName());
             textView.setTag(filterItem);
@@ -94,7 +93,7 @@ public class FilterFragment extends Fragment {
                     filterItem.selectSelf();
             });
             viewGroup.addView(textView);
-        }
+        });
         filterItemGroup.setOnSelectedItemChanged(index -> {
             changeFilterItemViewState((TextView)viewGroup.getChildAt(index), true);
             updateSelectedFilterCountToActionBar();

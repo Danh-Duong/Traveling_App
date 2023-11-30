@@ -69,8 +69,8 @@ public class UserPostFragment extends Fragment {
                 String description = user.getDescription();
                 usernameTextView.setText(user.getFullName());
                 descriptionTextView.setText(description == null ? getContext().getText(R.string.online) : description);
-                if (user.isHasProfileImage())
-                    StorageReferences.USER_AVATAR_PICTURES.child(user.getUsername() + ".jpeg").getDownloadUrl().addOnSuccessListener(uri -> Glide.with(getContext()).load(uri).circleCrop().into(avatarPicture));
+                if (user.getProfileImage() != null)
+                    Glide.with(getContext()).load(user.getProfileImage()).circleCrop().into(avatarPicture);
                 else
                     avatarPicture.setImageResource(R.drawable.user_profile_icon);
             }

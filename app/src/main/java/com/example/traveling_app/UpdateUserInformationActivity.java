@@ -47,7 +47,6 @@ public class UpdateUserInformationActivity extends AppCompatActivity {
     private RadioButton maleRadioButton, femaleRadioButton;
     private Button updateButton;
     private String profileId;
-    private boolean hasAvatarPicture;
     private Uri avatarPictureUri;
     private int currentBirthday;
 
@@ -64,7 +63,6 @@ public class UpdateUserInformationActivity extends AppCompatActivity {
         setAvatarImageLauncher = registerForActivityResult(Constants.PICK_PHOTO_RESULT_CONTRACT, this::setAvatarImageUri);
         userProfileInfoReference = DatabaseReferences.USER_DATABASE_REF.child(profileId);
         avatarPictureReference = StorageReferences.USER_AVATAR_PICTURES.child(profileId + ".jpeg");
-
         avatarPictureImageView = findViewById(R.id.avatarPictureImageView);
         fullNameEditText = findViewById(R.id.fullNameEditText);
         birthdayEditText = findViewById(R.id.birthdayEditText);
@@ -104,8 +102,7 @@ public class UpdateUserInformationActivity extends AppCompatActivity {
 
     private void bindToView(User user) {
         int year, month, day;
-        if (user.isHasProfileImage()) {
-            hasAvatarPicture = true;
+        if (user.getProfileImage() != null) {
             avatarPictureImageView.setImageResource(0);
             avatarPictureReference.getDownloadUrl().addOnSuccessListener(this::setAvatarPictureImageView);
         }
@@ -125,7 +122,6 @@ public class UpdateUserInformationActivity extends AppCompatActivity {
     private void setAvatarImageUri(Uri uri) {
         if (uri == null)
             return;
-        hasAvatarPicture = true;
         avatarPictureUri = uri;
         setAvatarPictureImageView(uri);
     }
@@ -142,22 +138,23 @@ public class UpdateUserInformationActivity extends AppCompatActivity {
         if (avatarPictureUri != null) {
             LoadingDialog loadingDialog = new LoadingDialog(this, R.string.uploading_image);
             loadingDialog.show();
-            avatarPictureReference.putFile(avatarPictureUri).addOnSuccessListener(nothing -> {
+            avatarPictureReference.putFile(avatarPictureUri).addOnSuccessListener(snapshot -> {
                 loadingDialog.dismiss();
-                finishUserUpdateUserInformation();
+                avatarPictureReference.getDownloadUrl().addOnSuccessListener(uri -> finishUserUpdateUserInformation(uri.toString()));
             });
         }
         else
-            finishUserUpdateUserInformation();
+            finishUserUpdateUserInformation(null);
     }
 
-    private void finishUserUpdateUserInformation() {
+    private void finishUserUpdateUserInformation(String profileImageUrl) {
         HashMap<String, Object> updateValues = new HashMap<>(4);
         updateValues.put("fullName", fullNameEditText.getText().toString());
         updateValues.put("gender", maleRadioButton.isChecked());
         updateValues.put("birthday", currentBirthday);
         updateValues.put("description", descriptionEditText.getText().toString());
-        updateValues.put("hasProfileImage", hasAvatarPicture);
+        if (profileImageUrl != null)
+            updateValues.put("profileImage", profileImageUrl);
         userProfileInfoReference.updateChildren(updateValues).addOnSuccessListener(nothing -> Toast.makeText(this, R.string.update_user_information_successfully, Toast.LENGTH_SHORT).show());
         finish();
     }

@@ -13,11 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.example.traveling_app.R;
 import com.example.traveling_app.SearchAndFilterActivity;
-import com.example.traveling_app.model.TourInformationAdapter;
+import com.example.traveling_app.model.TourSearchResultAdapter;
+import com.google.firebase.FirebaseApp;
 
 public class SearchResultFragment extends Fragment {
 
     private SearchAndFilterActivity listener;
+    private TourSearchResultAdapter adapter;
 
     @Override
     public void onAttach(Context context) {
@@ -37,9 +39,10 @@ public class SearchResultFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        FirebaseApp.initializeApp(getContext());
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_search_result, container, false);
         RecyclerView recyclerView = viewGroup.findViewById(R.id.resultContainer);
-        TourInformationAdapter adapter = new TourInformationAdapter(getContext(), listener.getSearchResult(null, null));
+        adapter = new TourSearchResultAdapter(getContext(), listener.getKeyword(), listener.getStreamOfFilterItemGroups());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if (getActivity() instanceof AppCompatActivity && ((AppCompatActivity)getActivity()).getSupportActionBar() != null) {
@@ -49,5 +52,11 @@ public class SearchResultFragment extends Fragment {
             actionBar.setSubtitle(selectedFilterCount == 0 ? "" : getString(R.string.item_count, selectedFilterCount));
         }
         return viewGroup;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        adapter.stopListening();
     }
 }

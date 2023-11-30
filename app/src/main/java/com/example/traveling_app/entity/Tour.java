@@ -5,12 +5,17 @@ public class Tour {
     private String address;
     private String phone;
     private int mainImage;
+    private String mainImageUrl;
     private String content;
     private int numStar;
     private double price;
     private double salePrice;
     private int numComment;
     private int numBooking;
+
+    public Tour() {
+
+    }
 
     public Tour(String name, String address, String phone, int mainImage, String content, int numStar, double price, double salePrice, int numComment, int numBooking) {
         this.name = name;
@@ -63,6 +68,14 @@ public class Tour {
 
     public void setMainImage(int mainImage) {
         this.mainImage = mainImage;
+    }
+
+    public String getMainImageUrl() {
+        return mainImageUrl;
+    }
+
+    public void setMainImageUrl(String mainImageUrl) {
+        this.mainImageUrl = mainImageUrl;
     }
 
     public int getNumStar() {
