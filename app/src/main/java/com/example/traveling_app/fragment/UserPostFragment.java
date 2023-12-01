@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.traveling_app.R;
 import com.example.traveling_app.UpdateUserInformationActivity;
+import com.example.traveling_app.common.Constants;
 import com.example.traveling_app.common.DatabaseReferences;
 import com.example.traveling_app.common.StorageReferences;
 import com.example.traveling_app.model.post.Post;
@@ -43,7 +44,7 @@ public class UserPostFragment extends Fragment {
     @SuppressWarnings("deprecation")
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        profileId = PreferenceManager.getDefaultSharedPreferences(getContext()).getString("username", "defaultuser0");
+        profileId = PreferenceManager.getDefaultSharedPreferences(getContext()).getString("username", Constants.DEFAULT_USERNAME);
         userProfileRef = DatabaseReferences.USER_DATABASE_REF.child(profileId);
         Query userPostQuery = DatabaseReferences.POST_DATABASE_REF.orderByChild("username").equalTo(profileId);
         FirebaseRecyclerOptions<Post> options = new FirebaseRecyclerOptions.Builder<Post>().setQuery(userPostQuery, PostSnapshotParser.INSTANCE).build();
@@ -65,9 +66,10 @@ public class UserPostFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
+                String fullName = user.getFullName();
                 user.setUsername(snapshot.getKey());
                 String description = user.getDescription();
-                usernameTextView.setText(user.getFullName());
+                usernameTextView.setText(fullName == null ? user.getUsername() : fullName);
                 descriptionTextView.setText(description == null ? getContext().getText(R.string.online) : description);
                 if (user.getProfileImage() != null)
                     Glide.with(getContext()).load(user.getProfileImage()).circleCrop().into(avatarPicture);

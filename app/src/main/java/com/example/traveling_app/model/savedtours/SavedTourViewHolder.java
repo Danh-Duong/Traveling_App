@@ -1,8 +1,11 @@
 package com.example.traveling_app.model.savedtours;
 import com.bumptech.glide.Glide;
+import com.example.traveling_app.DetailActivity;
 import com.example.traveling_app.R;
 import com.example.traveling_app.common.DatabaseReferences;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +27,12 @@ class SavedTourViewHolder extends RecyclerView.ViewHolder {
         img = rootView.findViewById(R.id.img_love_tour);
         heartButton = rootView.findViewById(R.id.heartImageView);
         heartButton.setOnClickListener(this::removeSavedVoucher);
+        rootView.setOnClickListener(v -> {
+            Context context = v.getContext();
+            Intent intent = new Intent(context, DetailActivity.class);
+            intent.putExtra("id", savedTour.getTourId());
+            context.startActivity(intent);
+        });
     }
 
     void bindDataToViewHolder(SavedTour savedTour) {
