@@ -5,10 +5,10 @@ import java.io.Serializable;
 public class User implements Serializable {
     private String email;
     private String username;
+    private String fullName;
     private String password;
     private String token;
-    private String imageUrl;
-
+    private String profileImage;
     private String description;
 
     private int birthday;
@@ -23,16 +23,25 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public User(String username, String imageUrl) {
+    public User(String username, String profileImage) {
         this.username = username;
-        this.imageUrl = imageUrl;
+        this.profileImage = profileImage;
     }
 
-    public User(String email, String username, String password, String imageUrl) {
+    public User(String username, String fullName, String password, String description, int birthday, boolean gender, String profileImage) {
+        this.password = password;
+        this.birthday = birthday;
+        this.description = description;
+        this.fullName = fullName;
+        this.gender = gender;
+        this.profileImage = profileImage;
+    }
+
+    public User(String email, String username, String password, String profileImage) {
         this.email = email;
         this.username = username;
         this.password = password;
-        this.imageUrl = imageUrl;
+        this.profileImage = profileImage;
     }
 
     public String getDescription() {
@@ -55,16 +64,24 @@ public class User implements Serializable {
         return gender;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
     public void setGender(boolean gender) {
         this.gender = gender;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getProfileImage() {
+        return profileImage;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 
     public String getEmail() {
@@ -106,7 +123,7 @@ public class User implements Serializable {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", token='" + token + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
+                ", profileImage='" + profileImage + '\'' +
                 '}';
     }
 }

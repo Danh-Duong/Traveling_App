@@ -58,6 +58,7 @@ dependencies {
     implementation("io.reactivex.rxjava3:rxjava:3.0.0")
 // RxAndroid
     implementation("io.reactivex.rxjava3:rxandroid:3.0.0")
+    implementation("com.google.code.gson:gson:2.8.9")
 
     implementation("com.github.momo-wallet:mobile-sdk:1.0.7")
     implementation("com.firebaseui:firebase-ui-database:8.0.2")

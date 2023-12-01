@@ -13,10 +13,10 @@ import java.util.concurrent.TimeUnit;
 
 public class ImageLoader {
 
-    // Số lượng luồng tối đa trong pool
+    // Số lượng luồng tối đa trong pool cùng 1 thời điểm
     private static final int MAX_POOL_SIZE = 5;
 
-    // Thời gian giữa các công việc trong queue
+    // Thời gian chờ công việc trong queue, nếu hết thời gian này hủy công việc
     private static final int KEEP_ALIVE_TIME = 10;
 
     // Đơn vị thời gian của KEEP_ALIVE_TIME
@@ -24,7 +24,7 @@ public class ImageLoader {
 
     // Executor để quản lý thread pool
     private static final Executor executor = new ThreadPoolExecutor(
-            MAX_POOL_SIZE,
+            0,
             MAX_POOL_SIZE,
             KEEP_ALIVE_TIME,
             KEEP_ALIVE_TIME_UNIT,
@@ -44,8 +44,6 @@ public class ImageLoader {
 
                 // Hiển thị ảnh trong UI thread
                 imageView.post(() -> imageView.setImageBitmap(bitmap));
-                // Hiển thị ảnh trong UI thread
-//                imageView.post(() -> imageView.setImageBitmap(bitmap));
             } catch (Exception e) {
                 e.printStackTrace();
             }

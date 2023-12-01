@@ -76,10 +76,10 @@
     </LinearLayout>
 
     <GridView
-        android:horizontalSpacing="15dp"
+        android:horizontalSpacing="5dp"
         android:gravity="center"
         android:layout_gravity="center"
-        android:verticalSpacing="15dp"
+        android:verticalSpacing="5dp"
         android:id="@+id/grv_post"
         android:numColumns="2"
         android:layout_width="match_parent"
