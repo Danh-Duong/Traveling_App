@@ -41,14 +41,8 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         Date time = new Date(post.getTime());
         timeTextView.setText(dateFormat.format(time) + " " + timeFormat.format(time));
         userAvatarImageView.setImageResource(0);
-        if (post.isHasImage()) {
-            StorageReference ref = StorageReferences.POST_IMAGE_STORAGE_REF.child(post.getIdPost() + ".jpeg");
-            ref.getDownloadUrl().addOnSuccessListener(url -> {
-                cardView.setVisibility(View.VISIBLE);
-                Glide.with(thumbnailImageView).load(url).into(thumbnailImageView);
-
-            });
-        }
+        if (post.getPostImgUrl() != null)
+            Glide.with(thumbnailImageView).load(post.getPostImgUrl()).into(thumbnailImageView);
         else {
             cardView.setVisibility(View.GONE);
             thumbnailImageView.setImageResource(0);

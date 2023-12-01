@@ -64,7 +64,7 @@ public class SearchAndFilterActivity extends AppCompatActivity {
         recentSearch = gson.fromJson(sharedPreferences.getString(RECENT_SEARCH_SHARED_REF_KEY, "[]"), ArrayList.class);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        fragmentManager.beginTransaction().replace(R.id.content, searchFragment).addToBackStack(null).commit();
+        fragmentManager.beginTransaction().replace(R.id.content, searchFragment).commit();
     }
 
     @Override
