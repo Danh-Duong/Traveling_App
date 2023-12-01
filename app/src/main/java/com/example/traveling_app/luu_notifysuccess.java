@@ -23,7 +23,7 @@ public class luu_notifysuccess extends AppCompatActivity {
         success_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(luu_notifysuccess.this,luu_lichsutour.class);
+                Intent intent = new Intent(luu_notifysuccess.this,MainActivity.class);
                 startActivity(intent);
             }
         });
