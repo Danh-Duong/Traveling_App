@@ -109,8 +109,8 @@ public class UpdateUserInformationActivity extends AppCompatActivity {
         fullNameEditText.setText(user.getFullName());
         descriptionEditText.setText(user.getDescription());
         year = user.getBirthday() / 10000;
-        month = (user.getBirthday() % 10000) / 10;
-        day = user.getBirthday() % 10;
+        month = (user.getBirthday() % 10000) / 100;
+        day = user.getBirthday() % 100;
         setBirthday(null, year, month, day);
         if (user.getGender())
             maleRadioButton.setChecked(true);
