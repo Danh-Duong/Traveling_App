@@ -441,7 +441,8 @@ public class ReviewFragment extends Fragment {
         });
 
         if (!CurrentUser.getCurrentUser().getProfileImage().equals(""))
-            ImageLoader.loadImage(CurrentUser.getCurrentUser().getProfileImage(),image_user_review);
+            //ImageLoader.loadImage(CurrentUser.getCurrentUser().getProfileImage(),image_user_review);
+            Glide.with(getContext()).load(CurrentUser.getCurrentUser().getProfileImage()).into(image_user_review);
 
     }
 

@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.traveling_app.DetailActivity;
 import com.example.traveling_app.R;
 
@@ -49,7 +50,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         holder.txtTime.setText(review.getTime());
         // set ảnh đại diện
         if (review.getAvatarReviewer()!=null)
-            ImageLoader.loadImage(review.getAvatarReviewer(),holder.img_review);
+            // ImageLoader.loadImage(review.getAvatarReviewer(),holder.img_review);
+            Glide.with(holder.img_review).load(review.getAvatarReviewer()).into(holder.img_review);
         for (int i = 0; i < review.getRate(); i++) {
             ImageView star = getStarViewByIndex(holder, i);
             star.setVisibility(View.VISIBLE);
@@ -57,7 +59,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         if (review.getImages()!=null)
             for(int i=0;i<review.getImages().size();i++){
                 getImgByIndex(holder,i).setVisibility(View.VISIBLE);
-                ImageLoader.loadImage(review.getImages().get(i),getImgByIndex(holder,i));
+                // ImageLoader.loadImage(review.getImages().get(i),getImgByIndex(holder,i));
+                Glide.with(getImgByIndex(holder,i)).load(review.getImages().get(i)).into(getImgByIndex(holder,i));
             }
     }
 
