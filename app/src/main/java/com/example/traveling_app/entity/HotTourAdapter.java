@@ -38,15 +38,15 @@ public class HotTourAdapter extends RecyclerView.Adapter<HotTourAdapter.HotTourV
         Tour tour=tours.get(position);
         if (tour==null)
             return;
-
+        DecimalFormat df = new DecimalFormat("#.##");
         DecimalFormat formatter = new DecimalFormat("###,###,###");
-        DecimalFormat rateFormatter = new DecimalFormat("#.##");
         holder.txtTitle.setText(tour.getName());
-        holder.txtRate.setText(rateFormatter.format(tour.getNumStar()).replace(',','.'));
+        holder.txtRate.setText(df.format(tour.getNumStar()).replace(',','.'));
         holder.txtReview.setText("(" +tour.getNumComment()+" đánh giá)");
         holder.txtPrice.setText(formatter.format(tour.getPrice())+" đ");
         holder.txtSale.setText(formatter.format(tour.getSalePrice())+" đ");
-        holder.txtPercent.setText("("+(tour.getSalePrice()/tour.getPrice())*100+"%)");
+        String percent="(" + df.format((tour.getSalePrice()/tour.getPrice())*100).replace(',','.') +"%)";
+        holder.txtPercent.setText(percent);
         ImageLoader.loadImage(tours.get(position).getMainImageUrl(), holder.img);
 
         holder.img.setOnClickListener(new View.OnClickListener() {

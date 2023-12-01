@@ -102,8 +102,8 @@ public class Menu_Home extends Fragment{
         }
 
         username1.setText(currentUser.getCurrentUser().getUsername());
-        if (currentUser.getCurrentUser().getImageUrl()!=null)
-            ImageLoader.loadImage(currentUser.getCurrentUser().getImageUrl(),imgAvaMain);
+        if (currentUser.getCurrentUser().getProfileImage()!=null)
+            ImageLoader.loadImage(currentUser.getCurrentUser().getProfileImage(),imgAvaMain);
 
         // chặn sự kiện Back của trang chủ
         view.setFocusableInTouchMode(true);

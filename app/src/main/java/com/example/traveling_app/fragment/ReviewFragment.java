@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import com.bumptech.glide.Glide;
 import com.example.traveling_app.DetailActivity;
 import com.example.traveling_app.R;
 import com.example.traveling_app.entity.CurrentUser;
+import com.example.traveling_app.entity.ImageLoader;
 import com.example.traveling_app.entity.Review;
 import com.example.traveling_app.entity.ReviewAdapter;
 import com.example.traveling_app.entity.SharedViewModel;
@@ -65,7 +67,7 @@ public class ReviewFragment extends Fragment {
     private View view;
     LinearLayout sao1, sao2, sao3, sao4, sao5;
     private static final int PICK_IMAGE = 1;
-    ImageView btnUpload,bl_anh1, bl_anh2,bl_anh3,bl_anh4,star1,star2,star3,star4,star5, btn_bl1;
+    ImageView btnUpload,bl_anh1, bl_anh2,bl_anh3,bl_anh4,star1,star2,star3,star4,star5, btn_bl1,image_user_review;
     int numStar;
     DatabaseReference ref= FirebaseDatabase.getInstance().getReference();
     EditText inputBl;
@@ -112,6 +114,7 @@ public class ReviewFragment extends Fragment {
         sao3=view.findViewById(R.id.sao3);
         sao4=view.findViewById(R.id.sao4);
         sao5=view.findViewById(R.id.sao5);
+        image_user_review=view.findViewById(R.id.image_user_review);
         btnUpload=view.findViewById(R.id.btn_up_bl);
 
         numCom1=view.findViewById(R.id.numCom1);
@@ -166,7 +169,7 @@ public class ReviewFragment extends Fragment {
                 if (inputBl.getText()==null || inputBl.getText().toString().trim().equals("") || viewModel.getNumRate()==0){
                     AlertDialog.Builder b = new AlertDialog.Builder(detailActivity);
                     b.setTitle("Thông báo");
-                    b.setMessage("Thông tin chưa chính xác");
+                    b.setMessage("Vui lòng nhập đầy đủ thông tin");
                     b.setPositiveButton("BACK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 
@@ -219,7 +222,7 @@ public class ReviewFragment extends Fragment {
                             // Tạo đối tượng Review chỉ khi urlImages không rỗng
                             if (!urlImages.isEmpty() || uriList.size() == 0) {
                                 Review review = new Review(CurrentUser.getCurrentUser().getUsername(),
-                                        CurrentUser.getCurrentUser().getImageUrl(),
+                                        CurrentUser.getCurrentUser().getProfileImage(),
                                         viewModel.getNumRate(),
                                         now,
                                         inputBl.getText().toString(),
@@ -436,6 +439,9 @@ public class ReviewFragment extends Fragment {
 
             }
         });
+
+        if (!CurrentUser.getCurrentUser().getProfileImage().equals(""))
+            ImageLoader.loadImage(CurrentUser.getCurrentUser().getProfileImage(),image_user_review);
 
     }
 
