@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.traveling_app.entity.CurrentUser;
 import com.example.traveling_app.entity.LoadVoucher;
 import com.example.traveling_app.entity.VoucherHelper;
 import com.example.traveling_app.entity.luu_discount_adapter;
@@ -19,7 +20,11 @@ import com.example.traveling_app.entity.luu_discount_obj;
 import com.example.traveling_app.entity.luu_history_adapter;
 import com.example.traveling_app.entity.luu_history_obj;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +33,8 @@ public class luu_lichsutour extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private luu_history_adapter adapter;
+    private DatabaseReference ref;
+    private ArrayList<luu_history_obj> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +44,27 @@ public class luu_lichsutour extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.rcv_history);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        FirebaseRecyclerOptions<luu_history_obj> options =
-                new FirebaseRecyclerOptions.Builder<luu_history_obj>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("booking"), luu_history_obj.class)
-                        .build();
-
-        adapter = new luu_history_adapter(options);
+        ref = FirebaseDatabase.getInstance().getReference().child("booking");
+        list = new ArrayList<>();
+        adapter = new luu_history_adapter(this,list);
         recyclerView.setAdapter(adapter);
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                    luu_history_obj luuHistoryObj = dataSnapshot.getValue(luu_history_obj.class);
+                    if (luuHistoryObj.getUsername().equals(CurrentUser.getCurrentUser().getUsername()))
+                        list.add(luuHistoryObj);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
         ActionBar actionBar=getSupportActionBar();
@@ -52,17 +73,6 @@ public class luu_lichsutour extends AppCompatActivity {
         actionBar.setTitle("Lịch sử tour");
     }
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
-    @Override
-    protected void onStop() {
-        super.onStop();
-        adapter.stopListening();
-    }
 
 
     @Override

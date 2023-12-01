@@ -1,26 +1,24 @@
 package com.example.traveling_app;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.example.traveling_app.entity.BillGenerator;
+import com.example.traveling_app.entity.CurrentUser;
+import com.example.traveling_app.entity.RandomValue;
 import com.example.traveling_app.entity.VoucherHelper;
 import com.example.traveling_app.entity.luu_history_obj;
-import com.example.traveling_app.fragment.DetailFragment;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -30,8 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,18 +58,6 @@ public class luu_book_tour extends AppCompatActivity {
         setContentView(R.layout.activity_luu_book_tour);
         anhXa();
         loadData();
-        dateStart_inp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ChonNgay(dateStart_inp);
-            }
-        });
-        dateEnd_inp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ChonNgay(dateEnd_inp);
-            }
-        });
 
         AppMoMoLib.getInstance().setEnvironment(AppMoMoLib.ENVIRONMENT.DEVELOPMENT);
         dattour_btn.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +65,7 @@ public class luu_book_tour extends AppCompatActivity {
             public void onClick(View v) {
                 savePayment();
                 requestPayment();
+
             }
         });
 
@@ -123,7 +109,7 @@ public class luu_book_tour extends AppCompatActivity {
             ref = FirebaseDatabase.getInstance().getReference().child("tours").child(idTour);
         }
         else {
-            ref = FirebaseDatabase.getInstance().getReference().child("tours").child("03qqfi");
+            ref = FirebaseDatabase.getInstance().getReference().child("tours").child("RS2ohC");
         }
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -168,6 +154,7 @@ public class luu_book_tour extends AppCompatActivity {
             }
         });
 
+
         if (getIntent().getStringExtra("key_point")!=null) {
             String point = getIntent().getStringExtra("key_point");
             point_tv.setText(point);
@@ -193,7 +180,6 @@ public class luu_book_tour extends AppCompatActivity {
         if (dateStart1!=null) {
             dateStart_inp.setText(dateStart1);
         }
-
     }
     private void anhXa() {
         dattour_btn = (Button) findViewById(R.id.dattour_btn);
@@ -213,21 +199,6 @@ public class luu_book_tour extends AppCompatActivity {
         name_person_tv = findViewById(R.id.name_person_tv);
         phone_number_tv = findViewById(R.id.phone_number_tv);
         tour_img = findViewById(R.id.tour_img);
-    }
-    private void ChonNgay(TextInputEditText edtDate) {
-        Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DATE);
-        int month = calendar.get(Calendar.MONTH);
-        int year =  calendar.get(Calendar.YEAR);
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                calendar.set(i,i1,i2);
-                SimpleDateFormat simpleDateFormat =  new SimpleDateFormat("dd/MM/yyyy");
-                edtDate.setText(simpleDateFormat.format(calendar.getTime()));
-            }
-        },year,month,day);
-        datePickerDialog.show();
     }
 
     @Override
@@ -250,46 +221,38 @@ public class luu_book_tour extends AppCompatActivity {
         historyObj.setPrice(Integer.parseInt((String) amount_tv.getText()));
         historyObj.setStartDate(String.valueOf(dateStart_inp.getText()));
         historyObj.setEndDate(String.valueOf(dateEnd_inp.getText()));
-        historyObj.setUsername("defaultuser0");
+        historyObj.setUsername(CurrentUser.getCurrentUser().getUsername());
         DatabaseReference ref;
         ref = FirebaseDatabase.getInstance().getReference().child("booking");
-        ref.child(BillGenerator.generateBillId()).setValue(historyObj);
+        ref.child(RandomValue.generateRandomString(6)).setValue(historyObj);
         if (getIntent().getStringExtra("key_id")!=null) {
             VoucherHelper voucherHelper = new VoucherHelper();
             voucherHelper.deleteVoucher(getIntent().getStringExtra("key_id").toString());
         }
-
     }
-    //----------------------------------------------
+
     // request app MoMo
     private void requestPayment() {
         AppMoMoLib.getInstance().setAction(AppMoMoLib.ACTION.PAYMENT);
         AppMoMoLib.getInstance().setActionType(AppMoMoLib.ACTION_TYPE.GET_TOKEN);
         Map<String, Object> eventValue = new HashMap<>();
         //client Required
-        eventValue.put("merchantname", merchantName); //Tên đối tác. được đăng ký tại https://business.momo.vn. VD: Google, Apple, Tiki , CGV Cinemas
-        eventValue.put("merchantcode", merchantCode); //Mã đối tác, được cung cấp bởi MoMo tại https://business.momo.vn
+        eventValue.put("merchantname", merchantName);
+        eventValue.put("merchantcode", merchantCode);
         eventValue.put("amount", amount);
-        eventValue.put("orderId", "bookId123456789"); //uniqueue id cho Bill order, giá trị duy nhất cho mỗi đơn hàng
+        eventValue.put("orderId", "bookId123456789");
         eventValue.put("orderLabel", "Mã đơn hàng");
 
-        //client Optional - bill info
         eventValue.put("merchantnamelabel", "Dịch vụ");
-        eventValue.put("fee", "0"); //Kiểu integer
+        eventValue.put("fee", "0");
         eventValue.put("description", description);
 
-        //client extra data
         eventValue.put("requestId",  merchantCode+"merchant_billId_"+System.currentTimeMillis());
         eventValue.put("partnerCode", merchantCode);
-        //Example extra data
         JSONObject objExtraData = new JSONObject();
         try {
-            objExtraData.put("site_code", "008");
-            objExtraData.put("site_name", "CGV Cresent Mall");
-            objExtraData.put("screen_code", 0);
-            objExtraData.put("screen_name", "Special");
-            objExtraData.put("movie_name", "Kẻ Trộm Mặt Trăng 3");
-            objExtraData.put("movie_format", "2D");
+            objExtraData.put("book", "1234");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -299,44 +262,18 @@ public class luu_book_tour extends AppCompatActivity {
 
 
     }
-    //Get token callback from MoMo app an submit to server side
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == AppMoMoLib.getInstance().REQUEST_CODE_MOMO && resultCode == -1) {
             if(data != null) {
                 if(data.getIntExtra("status", -1) == 0) {
-                    Intent intent = new Intent(luu_book_tour.this, luu_notifysuccess.class);
-                    startActivity(intent);
-                    //TOKEN IS AVAILABLE
-                    Log.d("Thành công", data.getStringExtra("mesage"));
-                    String token = data.getStringExtra("data"); //Token response
-                    String phoneNumber = data.getStringExtra("phonenumber");
-                    String env = data.getStringExtra("env");
-                    if(env == null){
-                        env = "app";
+                    startActivity(new Intent(luu_book_tour.this,luu_notifysuccess.class));
                     }
 
-                    if(token != null && !token.equals("")) {
-                    } else {
-                        Log.d("Thành công", "Không thành công");
-                    }
-                } else if(data.getIntExtra("status", -1) == 1) {
-                    //TOKEN FAIL
-                    String message = data.getStringExtra("message") != null?data.getStringExtra("message"):"Thất bại";
-                    Log.d("Thành công", "Không thành công");
-                } else if(data.getIntExtra("status", -1) == 2) {
-                    //TOKEN FAIL
-                    Log.d("Thành công", "Không thành công");
-                } else {
-                    //TOKEN FAIL
-                    Log.d("Thành công", "Không thành công");
                 }
-            } else {
-                Log.d("Thành công", "Không thành công");
+
             }
-        } else {
-            Log.d("Thành công", "Không thành công");
-        }
+
     }
 
 }

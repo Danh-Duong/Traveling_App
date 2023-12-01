@@ -24,9 +24,8 @@ public class CurrentUser {
         preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         editor = preferences.edit();
         editor.putString("username", user.getUsername());
-        editor.putString("imageUrl", user.getImageUrl());
+        editor.putString("imageUrl", user.getProfileImage());
         editor.apply();
-
     }
 
     public static User getCurrentUser(){

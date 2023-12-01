@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,6 +42,8 @@ public class DetailActivity extends AppCompatActivity {
     private ImageView tour_detail_ava, tour_detail_ava1, tour_detail_ava2, tour_detail_ava3, tour_detail_ava4;
     private TextView tour_detail_tit, tour_detail_add, tour_detail_price, tour_detail_star, tour_detail_com;
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("tours");
+
+    int numRate=0, numComment=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,7 +159,8 @@ public class DetailActivity extends AppCompatActivity {
                     ImageLoader.loadImage(tour.getMainImageUrl(), tour_detail_ava4);
                     tour_detail_star.setText(String.valueOf(df.format(tour.getNumStar()).replace(',', '.')));
                     tour_detail_com.setText(String.valueOf(tour.getNumComment()));
-                    //////
+
+                    // cập nhập thông tin
             }
         }
 
@@ -186,6 +190,5 @@ public class DetailActivity extends AppCompatActivity {
                 .replace(R.id.container, fragment)
                 .commit();
     }
-
 
 }
