@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
 import com.example.traveling_app.entity.CurrentUser;
 import com.example.traveling_app.entity.ImageLoader;
 import com.example.traveling_app.entity.Tour;
@@ -152,11 +153,17 @@ public class DetailActivity extends AppCompatActivity {
                     tour_detail_tit.setText(tour.getName());
                     tour_detail_add.setText(tour.getAddress());
                     tour_detail_price.setText(formatter.format(tour.getSalePrice()) + " VNĐ");
-                    ImageLoader.loadImage(tour.getMainImageUrl(), tour_detail_ava);
-                    ImageLoader.loadImage(tour.getMainImageUrl(), tour_detail_ava1);
-                    ImageLoader.loadImage(tour.getMainImageUrl(), tour_detail_ava2);
-                    ImageLoader.loadImage(tour.getMainImageUrl(), tour_detail_ava3);
-                    ImageLoader.loadImage(tour.getMainImageUrl(), tour_detail_ava4);
+//                    ImageLoader.loadImage(tour.getMainImageUrl(), tour_detail_ava);
+//                    ImageLoader.loadImage(tour.getMainImageUrl(), tour_detail_ava1);
+//                    ImageLoader.loadImage(tour.getMainImageUrl(), tour_detail_ava2);
+//                    ImageLoader.loadImage(tour.getMainImageUrl(), tour_detail_ava3);
+//                    ImageLoader.loadImage(tour.getMainImageUrl(), tour_detail_ava4);
+                    Glide.with(DetailActivity.this).load(tour.getMainImageUrl()).into(tour_detail_ava);
+                    Glide.with(DetailActivity.this).load(tour.getMainImageUrl()).into(tour_detail_ava1);
+                    Glide.with(DetailActivity.this).load(tour.getMainImageUrl()).into(tour_detail_ava2);
+                    Glide.with(DetailActivity.this).load(tour.getMainImageUrl()).into(tour_detail_ava3);
+                    Glide.with(DetailActivity.this).load(tour.getMainImageUrl()).into(tour_detail_ava4);
+
                     tour_detail_star.setText(String.valueOf(df.format(tour.getNumStar()).replace(',', '.')));
                     tour_detail_com.setText(String.valueOf(tour.getNumComment()));
 
