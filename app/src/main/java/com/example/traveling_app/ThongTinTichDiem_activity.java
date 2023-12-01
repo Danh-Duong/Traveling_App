@@ -25,7 +25,9 @@ public class ThongTinTichDiem_activity extends AppCompatActivity {
                 Intent intent = new Intent(ThongTinTichDiem_activity.this, luu_book_tour.class);
                 intent.putExtra("key_point",point.getText());
                 startActivity(intent);
+                finish();
             }
+
         });
         back.setOnClickListener(new View.OnClickListener() {
             @Override
