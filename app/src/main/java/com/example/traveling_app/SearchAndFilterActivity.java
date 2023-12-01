@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentManager;
 import com.example.traveling_app.fragment.FilterFragment;
 import com.example.traveling_app.fragment.SearchFragment;
 import com.example.traveling_app.fragment.SearchResultFragment;
-import com.example.traveling_app.model.filter.DoubleRangeFilterItem;
 import com.example.traveling_app.model.filter.FilterItem;
 import com.example.traveling_app.model.filter.FilterItemGroup;
 import com.example.traveling_app.model.filter.IntegerRangeFilterItem;
@@ -18,7 +17,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.stream.Stream;
 
 public class SearchAndFilterActivity extends AppCompatActivity {
