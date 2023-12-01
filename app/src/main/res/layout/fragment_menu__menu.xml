@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MenuActivity">
+    tools:context=".fragment.Menu_Menu">
 
     <RelativeLayout
         android:id="@+id/infoSection"
@@ -21,7 +21,7 @@
             android:contentDescription="@string/avatar_picture"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@drawable/user_profile_icon"/>
+            tools:src="@drawable/user_profile_icon"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="25sp"
                 android:textStyle="bold"
-                android:text="user0"
+                tools:text="user0"
                 android:textColor="@color/white"/>
             <TextView
                 android:id="@+id/statusTextView"
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:textColor="@color/white"
-                android:text="Dead inside"/>
+                tools:text="Dead inside"/>
         </LinearLayout>
     </RelativeLayout>
 
