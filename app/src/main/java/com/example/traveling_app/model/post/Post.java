@@ -1,8 +1,15 @@
 package com.example.traveling_app.model.post;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.Exclude;
 
-public class Post {
+import java.util.function.Consumer;
+
+public class Post implements Parcelable {
     @Exclude
     private String idPost;
     private String postImgUrl;
@@ -10,8 +17,43 @@ public class Post {
     private String title;
     private long time;
 
+    // Bất đồng bộ, sử dụng listener để lấy giá trị
+    @Exclude
+    private String fullName;
+    @Exclude
+    private String profileImageUrl;
+    @Exclude
+    private boolean isProfileImageUrlAlready = false;
+    @Exclude
+    private Consumer<String> onFullNameReady;
+    @Exclude
+    private Consumer<String> onProfileImageUrlReady;
+
     public Post() {
     }
+
+    public static final Parcelable.Creator<Post> CREATOR = new Parcelable.Creator<>() {
+
+        @Override
+        public Post createFromParcel(Parcel source) {
+            String idPost = source.readString();
+            String postImgUrl = source.readString();
+            String username = source.readString();
+            String title = source.readString();
+            long time = source.readLong();
+            String fullName = source.readString();
+            String profileImageUrl = source.readString();
+            Post post = new Post(idPost, postImgUrl, username, title, time);
+            post.setProfileImageUrl(profileImageUrl);
+            post.setFullName(fullName);
+            return post;
+        }
+
+        @Override
+        public Post[] newArray(int size) {
+            return new Post[size];
+        }
+    };
 
     public Post(String idPost, String postImgUrl, String username, String title, long time) {
         this.idPost = idPost;
@@ -45,6 +87,44 @@ public class Post {
         this.username = username;
     }
 
+    public void getFullNameAsync(Consumer<String> onFullNameReady) {
+        if (fullName != null)
+            onFullNameReady.accept(fullName);
+        else
+            this.onFullNameReady = onFullNameReady;
+
+    }
+
+    void setFullName(String fullName) {
+        if (fullName == null)
+            this.fullName = username;
+        else
+            this.fullName = fullName;
+
+        if (onFullNameReady != null) {
+            onFullNameReady.accept(fullName);
+            onFullNameReady = null;
+        }
+
+    }
+
+    public void getProfileImageUrlAsync(Consumer<String> onProfileImageUrlReady) {
+        if (!isProfileImageUrlAlready)
+            this.onProfileImageUrlReady = onProfileImageUrlReady;
+        else
+            onProfileImageUrlReady.accept(profileImageUrl);
+    }
+
+    void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
+        isProfileImageUrlAlready = true;
+        if (onProfileImageUrlReady != null) {
+            onProfileImageUrlReady.accept(profileImageUrl);
+            onProfileImageUrlReady = null;
+        }
+
+    }
+
     public String getTitle() {
         return title;
     }
@@ -59,5 +139,21 @@ public class Post {
 
     public void setTime(long time) {
         this.time = time;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(idPost);
+        dest.writeString(postImgUrl);
+        dest.writeString(username);
+        dest.writeString(title);
+        dest.writeLong(time);
+        dest.writeString(fullName);
+        dest.writeString(profileImageUrl);
     }
 }

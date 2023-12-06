@@ -4,17 +4,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.traveling_app.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+
+import java.io.Closeable;
+
 public class SavedTourAdapter extends FirebaseRecyclerAdapter<SavedTour, SavedTourViewHolder> {
-    /**
-     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
-     * {@link FirebaseRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
+
     private static final Runnable EMPTY_RUNNABLE = () -> {};
     private Runnable onDataChangedCallback = EMPTY_RUNNABLE;
     public SavedTourAdapter(@NonNull FirebaseRecyclerOptions<SavedTour> options) {
@@ -36,13 +35,19 @@ public class SavedTourAdapter extends FirebaseRecyclerAdapter<SavedTour, SavedTo
     @Override
     public void onDataChanged() {
         super.onDataChanged();
-        onDataChangedCallback.run();
+        if (onDataChangedCallback != null)
+            onDataChangedCallback.run();
     }
 
     public void setOnDataChanged(Runnable onDataChangedCallback) {
-        if (onDataChangedCallback == null)
-            this.onDataChangedCallback = EMPTY_RUNNABLE;
-        else
-            this.onDataChangedCallback = onDataChangedCallback;
+        this.onDataChangedCallback = onDataChangedCallback;
     }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        super.stopListening();
+        this.onDataChangedCallback = null;
+    }
+
 }

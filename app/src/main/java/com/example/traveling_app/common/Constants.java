@@ -27,8 +27,6 @@ import java.util.function.Consumer;
 
 public class Constants {
 
-
-
     static {
         ArrayList<MenuSectionItem> menuSectionItems = new ArrayList<>();
         menuSectionItems.add(new MenuSectionItem(R.drawable.baseline_person_outline_24, R.string.profile_page, com.example.traveling_app.ProfileActivity.class));
@@ -74,4 +72,5 @@ public class Constants {
 
     public static final PickVisualMediaRequest PICK_PHOTO_REQUEST = new PickVisualMediaRequest.Builder().setMediaType(new ActivityResultContracts.PickVisualMedia.SingleMimeType("image/jpeg")).build();
     public static final ActivityResultContract<PickVisualMediaRequest, Uri> PICK_PHOTO_RESULT_CONTRACT = new ActivityResultContracts.PickVisualMedia();
+
 }
