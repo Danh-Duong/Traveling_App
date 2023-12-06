@@ -154,7 +154,7 @@ public class UpdateUserInformationActivity extends AppCompatActivity {
         String fullName = fullNameEditText.getText().toString().trim();
         String description = descriptionEditText.getText().toString().trim();
         fullName = fullName.length() == 0 ? null : fullName;
-        description = description.length() == 0 ? null : fullName;
+        description = description.length() == 0 ? null : description;
         updateValues.put("fullName", fullName);
         updateValues.put("gender", maleRadioButton.isChecked());
         updateValues.put("birthday", currentBirthday);

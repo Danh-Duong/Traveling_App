@@ -14,12 +14,13 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.traveling_app.entity.Notification;
-import com.example.traveling_app.entity.NotificationAdapter;
+import com.example.traveling_app.entity.notification.Notification;
 
 import java.util.ArrayList;
 import java.util.List;
 
+// Đã chuyển sang dùng Menu_Notification
+@Deprecated
 public class NotificationActivity extends AppCompatActivity {
 
     private RecyclerView noti_rcv;
@@ -32,15 +33,9 @@ public class NotificationActivity extends AppCompatActivity {
 
         noti_rcv=findViewById(R.id.noti_rcv);
 
-        recentList.add(new Notification(1,R.drawable.main_avatar,"Nguyễn Văn A đã thích bài viết của bạn","2 giờ trước", true));
-        recentList.add(new Notification(2,R.drawable.main_avatar,"Nguyễn Văn B đã thích bài viết của bạn","3 giờ trước", false));
-        recentList.add(new Notification(3,R.drawable.main_avatar,"Nguyễn Văn C đã thích bài viết của bạn","4 giờ trước",false));
-        recentList.add(new Notification(4,R.drawable.main_avatar,"Nguyễn Văn A đã thích bài viết của bạn","2 giờ trước",false));
 
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         noti_rcv.setLayoutManager(linearLayoutManager);
-        NotificationAdapter recentAdapter=new NotificationAdapter(recentList);
-        noti_rcv.setAdapter(recentAdapter);
 
         RecyclerView.ItemDecoration itemDecoration=new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         noti_rcv.addItemDecoration(itemDecoration);

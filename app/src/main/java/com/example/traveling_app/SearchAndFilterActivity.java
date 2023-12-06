@@ -38,9 +38,9 @@ public class SearchAndFilterActivity extends AppCompatActivity {
                 type = new FilterItemGroup("type", "Loại hình"),
                 province = new FilterItemGroup("address", "Tỉnh thành");
 
-        new IntegerRangeFilterItem(prices, 500000, 1000000);
-        new IntegerRangeFilterItem(prices, 1000000, 2000000);
-        new IntegerRangeFilterItem(prices, 2000000, 3000000);
+        new IntegerRangeFilterItem(prices, 500000, 1000000, "VND");
+        new IntegerRangeFilterItem(prices, 1000000, 2000000, "VND");
+        new IntegerRangeFilterItem(prices, 2000000, 3000000, "VND");
         new KeywordFilterItem(province, "Đà Nẵng");
         new KeywordFilterItem(province, "Hà Nội");
         new KeywordFilterItem(province, "Phú Quốc");

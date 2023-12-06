@@ -8,9 +8,9 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         tools:replace="android:theme"
@@ -24,15 +24,16 @@
         android:theme="@style/Theme.Traveling_App"
         tools:targetApi="31">
         <activity
+            android:name=".CommentDebugActivity"
+            android:exported="true" />
+        <activity
             android:name=".AboutActivity"
             android:exported="false"
             android:label="@string/about_us"
             android:theme="@style/Base.Theme.Traveling_App.NoActionBar.popMe"/>
         <activity
             android:name=".DebugActivity"
-            android:exported="false">
-        </activity>
-
+            android:exported="false"></activity>
         <activity
             android:name=".Batdau_Activity"
             android:exported="true"
@@ -47,8 +48,7 @@
             android:name=".MainActivity"
             android:exported="false"
             android:label="@string/app_name"
-            android:theme="@style/Base.Theme.Traveling_App.NoActionBar">
-        </activity>
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar"></activity>
         <activity
             android:name=".activity_dangky"
             android:exported="false"
@@ -92,6 +92,13 @@
         <activity
             android:name=".Chondangnhap_Activity"
             android:exported="false" />
+
+        <activity
+            android:name=".CommentActivity"
+            android:exported="false"
+            android:label="@string/comment"
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar"/>
+
         <activity
             android:name=".CreateBlog_activity"
             android:exported="false"
@@ -126,9 +133,7 @@
             android:name=".MenuActivity"
             android:exported="false"
             android:label="@string/menu"
-            android:theme="@style/Base.Theme.Traveling_App.NoActionBar">
-
-        </activity>
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar"></activity>
         <activity
             android:name=".NotificationActivity"
             android:exported="false"
@@ -154,8 +159,8 @@
             android:name=".GioiThieuBanBe"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
-        <activity android:name=".UpdateUserInformationActivity"
+        <activity
+            android:name=".UpdateUserInformationActivity"
             android:exported="false"
             android:label="@string/update_user_information"/>
 

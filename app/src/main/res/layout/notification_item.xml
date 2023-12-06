@@ -2,6 +2,7 @@
 <com.chauthai.swipereveallayout.SwipeRevealLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipeRevealLayout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:mode="same_level"
@@ -19,8 +20,7 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/main_trash_regular"
-            ></ImageView>
+            android:src="@drawable/main_trash_regular"/>
         
     </LinearLayout>
 
@@ -29,7 +29,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#3D41B7F7"
+        tools:background="@color/unread_notification"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:paddingLeft="20dp"
@@ -41,7 +41,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:src="@drawable/main_avatar"></ImageView>
+            tools:src="@drawable/main_avatar"/>
         <LinearLayout
             android:layout_gravity="center"
             android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#000000"
                 android:textSize="16sp"
-                android:text="Huỳnh Văn An đã bình luận về bài viết của bạn">
+                tools:text="Huỳnh Văn An đã bình luận về bài viết của bạn">
 
             </TextView>
 
@@ -62,7 +62,7 @@
                 android:id="@+id/time_noti"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1 giờ trước"
+                tools:text="1 giờ trước"
                 android:textColor="#797979"></TextView>
         </LinearLayout>
 
