@@ -6,10 +6,12 @@ public class User {
     private String username;
     private String fullName;
     private String password;
-    private int birthday;
+    private int birthday = DEFAULT_BIRTHDAY;
     private String description;
     private boolean gender;
     private String profileImageUrl;
+    @Exclude
+    public static int DEFAULT_BIRTHDAY = 20000001;
 
     public User() {
 
