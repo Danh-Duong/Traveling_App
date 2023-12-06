@@ -65,7 +65,6 @@ public class luu_book_tour extends AppCompatActivity {
             public void onClick(View v) {
                 savePayment();
                 requestPayment();
-
             }
         });
 
@@ -124,7 +123,7 @@ public class luu_book_tour extends AppCompatActivity {
                 dateStart_inp.setText(start);
                 dateEnd_inp.setText(end);
                 Glide.with(tour_img).load(mainImageUrl).into(tour_img);
-                price1 = snapshot.child("price").getValue(Integer.class).toString();
+                price1 = snapshot.child("salePrice").getValue(Integer.class).toString();
                 price_tour_tv.setText(price1+"đ");
                 if (getIntent().getStringExtra("key_saleprice")==null && getIntent().getStringExtra("key_point")==null) {
                     amount_tv.setText(price1);
@@ -201,21 +200,18 @@ public class luu_book_tour extends AppCompatActivity {
         tour_img = findViewById(R.id.tour_img);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_notification, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId()==android.R.id.home){
-            this.finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
-    private void  savePayment() {
+    private int calPoint(int price) {
+        int savePoint;
+        if (price<500000)
+            savePoint = 0;
+        else if (price <=1000000)
+            savePoint = 20000;
+        else
+            savePoint = price/1000000*10000 + 20000;
+        return  savePoint;
+    }
+    private void savePayment() {
         luu_history_obj historyObj = new luu_history_obj();
         historyObj.setIdtour(idTour);
         historyObj.setPrice(Integer.parseInt((String) amount_tv.getText()));
@@ -229,6 +225,18 @@ public class luu_book_tour extends AppCompatActivity {
             VoucherHelper voucherHelper = new VoucherHelper();
             voucherHelper.deleteVoucher(getIntent().getStringExtra("key_id").toString());
         }
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(CurrentUser.getCurrentUser().getUsername());
+        if (!point_tv.getText().toString().equals("0"))
+        {
+            databaseReference.child("point").setValue(calPoint(Integer.parseInt((String) amount_tv.getText())));
+        }
+    }
+    private void resetData() {
+        saleprice_tour_tv.setText("0");
+        point_tv.setText("0");
+        sale = "0";
+        point = "0";
+        amount = "0";
     }
 
     // request app MoMo
@@ -236,7 +244,6 @@ public class luu_book_tour extends AppCompatActivity {
         AppMoMoLib.getInstance().setAction(AppMoMoLib.ACTION.PAYMENT);
         AppMoMoLib.getInstance().setActionType(AppMoMoLib.ACTION_TYPE.GET_TOKEN);
         Map<String, Object> eventValue = new HashMap<>();
-        //client Required
         eventValue.put("merchantname", merchantName);
         eventValue.put("merchantcode", merchantCode);
         eventValue.put("amount", amount);
@@ -267,6 +274,7 @@ public class luu_book_tour extends AppCompatActivity {
         if(requestCode == AppMoMoLib.getInstance().REQUEST_CODE_MOMO && resultCode == -1) {
             if(data != null) {
                 if(data.getIntExtra("status", -1) == 0) {
+                    resetData();
                     startActivity(new Intent(luu_book_tour.this,luu_notifysuccess.class));
                     }
 
@@ -276,4 +284,18 @@ public class luu_book_tour extends AppCompatActivity {
 
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_notification, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId()==android.R.id.home){
+            this.finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
