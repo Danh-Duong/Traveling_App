@@ -21,9 +21,8 @@ import com.example.traveling_app.R;
 import com.example.traveling_app.UpdateUserInformationActivity;
 import com.example.traveling_app.common.Constants;
 import com.example.traveling_app.common.DatabaseReferences;
-import com.example.traveling_app.common.StorageReferences;
 import com.example.traveling_app.model.post.Post;
-import com.example.traveling_app.model.post.PostRecycleViewAdapter;
+import com.example.traveling_app.model.post.PostRecyclerViewAdapter;
 import com.example.traveling_app.model.post.PostSnapshotParser;
 import com.example.traveling_app.model.user.User;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -35,7 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class UserPostFragment extends Fragment {
 
-    private PostRecycleViewAdapter adapter;
+    private PostRecyclerViewAdapter adapter;
     private String profileId;
     private DatabaseReference userProfileRef;
     private ValueEventListener valueEventListener;
@@ -48,7 +47,7 @@ public class UserPostFragment extends Fragment {
         userProfileRef = DatabaseReferences.USER_DATABASE_REF.child(profileId);
         Query userPostQuery = DatabaseReferences.POST_DATABASE_REF.orderByChild("username").equalTo(profileId);
         FirebaseRecyclerOptions<Post> options = new FirebaseRecyclerOptions.Builder<Post>().setQuery(userPostQuery, PostSnapshotParser.INSTANCE).build();
-        adapter = new PostRecycleViewAdapter(options);
+        adapter = new PostRecyclerViewAdapter(options, getContext());
     }
 
     @Override

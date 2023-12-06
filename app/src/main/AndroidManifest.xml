@@ -8,12 +8,11 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        tools:replace="android:theme"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -22,17 +21,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Traveling_App"
+        tools:replace="android:theme"
         tools:targetApi="31">
+        <activity
+            android:name=".CommentDebugActivity"
+            android:exported="true" />
         <activity
             android:name=".AboutActivity"
             android:exported="false"
             android:label="@string/about_us"
-            android:theme="@style/Base.Theme.Traveling_App.NoActionBar.popMe"/>
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar.popMe" />
         <activity
             android:name=".DebugActivity"
-            android:exported="false">
-        </activity>
-
+            android:exported="false"></activity>
         <activity
             android:name=".Batdau_Activity"
             android:exported="true"
@@ -40,6 +41,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -47,8 +49,7 @@
             android:name=".MainActivity"
             android:exported="false"
             android:label="@string/app_name"
-            android:theme="@style/Base.Theme.Traveling_App.NoActionBar">
-        </activity>
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar"></activity>
         <activity
             android:name=".activity_dangky"
             android:exported="false"
@@ -92,6 +93,13 @@
         <activity
             android:name=".Chondangnhap_Activity"
             android:exported="false" />
+
+        <activity
+            android:name=".CommentActivity"
+            android:exported="false"
+            android:label="@string/comment"
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar"/>
+
         <activity
             android:name=".CreateBlog_activity"
             android:exported="false"
@@ -126,9 +134,7 @@
             android:name=".MenuActivity"
             android:exported="false"
             android:label="@string/menu"
-            android:theme="@style/Base.Theme.Traveling_App.NoActionBar">
-
-        </activity>
+            android:theme="@style/Base.Theme.Traveling_App.NoActionBar"></activity>
         <activity
             android:name=".NotificationActivity"
             android:exported="false"
@@ -154,18 +160,17 @@
             android:name=".GioiThieuBanBe"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
-        <activity android:name=".UpdateUserInformationActivity"
+        <activity
+            android:name=".UpdateUserInformationActivity"
             android:exported="false"
-            android:label="@string/update_user_information"/>
-
-        <activity android:name=".SetDefaultSharedPreferences"
-            android:exported="false"/>
+            android:label="@string/update_user_information" />
+        <activity
+            android:name=".SetDefaultSharedPreferences"
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />

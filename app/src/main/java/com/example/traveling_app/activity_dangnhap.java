@@ -23,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
@@ -50,9 +51,11 @@ public class activity_dangnhap extends AppCompatActivity {
                 if (emailtxt.isEmpty() || passwordtxt.isEmpty()) {
                     Toast.makeText(activity_dangnhap.this, "Vui lòng nhập email và mật khẩu", Toast.LENGTH_SHORT).show();
                 } else {
-                    databaseReference.child("users").orderByChild("email").equalTo(emailtxt).limitToFirst(1).addChildEventListener(new ChildEventListener() {
+                    Query query = databaseReference.child("users").orderByChild("email").equalTo(emailtxt).limitToFirst(1);
+                    query.addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                            query.removeEventListener(this);
                             if (snapshot.exists()) {
 
                                 final User info = snapshot.getValue(User.class);

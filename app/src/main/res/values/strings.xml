@@ -7,6 +7,7 @@
     <string name="failed">Thất bại</string>
     <string name="administrator">Quản trị viên</string>
     <string name="get_started">Bắt đầu</string>
+    <string name="comment">Bình luận</string>
     <string name="blog">Blog</string>
     <string name="create_blog">Tạo blog</string>
     <string name="detail">Chi tiết</string>
@@ -88,4 +89,5 @@
     <string name="facebook_app_id">3312377312341073</string>
     <string name="fb_login_protocol_scheme">fb3312377312341073</string>
     <string name="facebook_client_token">b6c86bb3382f89f98066d409ced7f443</string>
+    <string name="notification_content_placeholder">%1$s đã bình luận vào bài viết của bạn</string>
 </resources>

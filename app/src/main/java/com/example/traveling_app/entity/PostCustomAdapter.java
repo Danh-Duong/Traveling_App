@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@Deprecated
 public class PostCustomAdapter extends BaseAdapter {
     private List<Post> posts;
     private Context context;

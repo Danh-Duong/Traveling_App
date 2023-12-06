@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+@Deprecated
 public class Blog_activity extends AppCompatActivity {
 
     @Override

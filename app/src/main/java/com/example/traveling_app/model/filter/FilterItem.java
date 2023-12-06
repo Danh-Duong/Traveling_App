@@ -6,6 +6,9 @@ public abstract class FilterItem {
     int index;
     private boolean selected = false;
 
+    FilterItem() {
+
+    }
 
     public FilterItemGroup ofGroup() {
         return filterItemGroup;
