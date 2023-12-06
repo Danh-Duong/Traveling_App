@@ -25,7 +25,7 @@ public class Login_facebook extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 LoginManager.getInstance().logOut();
-                startActivity(new Intent(Login_facebook.this, Chondangnhap_Activity.class));
+                startActivity(new Intent(Login_facebook.this, MainActivity.class));
                 finish();
             }
         });

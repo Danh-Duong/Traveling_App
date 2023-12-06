@@ -9,12 +9,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.traveling_app.entity.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Login_google extends AppCompatActivity {
 
@@ -43,6 +46,11 @@ public class Login_google extends AppCompatActivity {
             String personEmail = acct.getEmail();
             name.setText(personName);
             email.setText(personEmail);
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+            User user = new User();
+            user.setEmail(personEmail);
+            user.setFullName(personName);
+            reference.child(personEmail).setValue(user);
         }
 
 

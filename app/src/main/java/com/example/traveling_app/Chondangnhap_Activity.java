@@ -104,9 +104,6 @@ public class Chondangnhap_Activity extends AppCompatActivity {
 
 
 
-
-
-
     void  signIn(){
         Intent signInIntent = gsc.getSignInIntent();
         startActivityForResult(signInIntent,1000);
