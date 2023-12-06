@@ -18,6 +18,7 @@ public class User {
     }
 
     public User(String username, String fullName, String password, String description, int birthday, boolean gender, String profileImageUrl) {
+        this.username = username;
         this.password = password;
         this.birthday = birthday;
         this.description = description;
