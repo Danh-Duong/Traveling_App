@@ -50,7 +50,7 @@ public class activity_dangky extends AppCompatActivity {
 
                 }
                 else {
-                    User user = new User(fullnametxt, null, matkhautxt, null, 20000001, false, null);
+                    User user = new User(fullnametxt, null, matkhautxt, null, User.DEFAULT_BIRTHDAY, false, null);
                     databaseReference.child("users/" + fullnametxt).setValue(user);
                     Toast.makeText(activity_dangky.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(activity_dangky.this, activity_dangnhap.class));
