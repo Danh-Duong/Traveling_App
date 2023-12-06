@@ -42,10 +42,9 @@
                     android:id="@+id/tour_img"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/luu_dattour_tour"
+                    tools:src="@drawable/luu_dattour_tour"
                     android:scaleType="fitXY"
-                    app:cardCornerRadius="10dp"
-                    />
+                    app:cardCornerRadius="10dp" />
             </androidx.cardview.widget.CardView>
 
 

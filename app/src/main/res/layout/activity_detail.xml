@@ -16,15 +16,14 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="120dp"
-            >
+            app:cardCornerRadius="120dp">
 
             <ImageView
                 android:id="@+id/tour_detail_ava"
                 android:layout_width="match_parent"
                 android:layout_height="380dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/main_anh2"></ImageView>
+                tools:src="@drawable/main_anh2"></ImageView>
 
         </androidx.cardview.widget.CardView>
 
@@ -51,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/main_anh2"></ImageView>
+                tools:src="@drawable/main_anh2"></ImageView>
 
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
@@ -67,7 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/main_anh2"></ImageView>
+                tools:src="@drawable/main_anh2"></ImageView>
 
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
@@ -83,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/main_anh2"></ImageView>
+                tools:src="@drawable/main_anh2"></ImageView>
 
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
@@ -99,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/main_anh2"></ImageView>
+                tools:src="@drawable/main_anh2"></ImageView>
 
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>

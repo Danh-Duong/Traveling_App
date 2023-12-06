@@ -127,6 +127,8 @@ public class UpdateUserInformationActivity extends AppCompatActivity {
     }
 
     private void setBirthday(@Nullable View v, int year, int month, int day) {
+        if (year == 0)
+            return;
         Calendar birthday = Calendar.getInstance();
         birthday.set(year, month, day);
         birthdayPickerDialog.getDatePicker().updateDate(year, month, day);
@@ -149,10 +151,14 @@ public class UpdateUserInformationActivity extends AppCompatActivity {
 
     private void finishUserUpdateUserInformation(String profileImageUrl) {
         HashMap<String, Object> updateValues = new HashMap<>(4);
-        updateValues.put("fullName", fullNameEditText.getText().toString());
+        String fullName = fullNameEditText.getText().toString().trim();
+        String description = descriptionEditText.getText().toString().trim();
+        fullName = fullName.length() == 0 ? null : fullName;
+        description = description.length() == 0 ? null : fullName;
+        updateValues.put("fullName", fullName);
         updateValues.put("gender", maleRadioButton.isChecked());
         updateValues.put("birthday", currentBirthday);
-        updateValues.put("description", descriptionEditText.getText().toString());
+        updateValues.put("description", description);
         if (profileImageUrl != null)
             updateValues.put("profileImage", profileImageUrl);
         userProfileInfoReference.updateChildren(updateValues).addOnSuccessListener(nothing -> Toast.makeText(this, R.string.update_user_information_successfully, Toast.LENGTH_SHORT).show());
