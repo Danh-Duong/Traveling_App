@@ -32,7 +32,6 @@ import java.util.Optional;
 public class CommentActivity extends AppCompatActivity {
 
     private Post post;
-    private String currentUserId;
     private User currentUser;
     private EditText commentEditText;
     private Button sendButton;
@@ -56,6 +55,7 @@ public class CommentActivity extends AppCompatActivity {
     };
 
     @Override
+    @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         post = getIntent().getParcelableExtra(POST_PARAM);
@@ -64,7 +64,7 @@ public class CommentActivity extends AppCompatActivity {
             return;
         }
         setContentView(R.layout.comment_main);
-        currentUserId = PreferenceManager.getDefaultSharedPreferences(this).getString("username", Constants.DEFAULT_USERNAME);
+        String currentUserId = PreferenceManager.getDefaultSharedPreferences(this).getString("username", Constants.DEFAULT_USERNAME);
         if (!post.getUsername().equals(currentUserId))
             DatabaseReferences.USER_DATABASE_REF.child(currentUserId).get().addOnSuccessListener(dataSnapshot -> {
                 currentUser = UserSnapshotParser.INSTANCE.parseSnapshot(dataSnapshot);
