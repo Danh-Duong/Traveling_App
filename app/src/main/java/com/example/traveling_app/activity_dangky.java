@@ -14,9 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
-import com.example.traveling_app.entity.User;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.example.traveling_app.model.user.User;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -52,7 +50,7 @@ public class activity_dangky extends AppCompatActivity {
 
                 }
                 else {
-                    User user = new User(emailtxt, fullnametxt, matkhautxt);
+                    User user = new User(fullnametxt, null, matkhautxt, null, 20000001, false, null);
                     databaseReference.child("users/" + fullnametxt).setValue(user);
                     Toast.makeText(activity_dangky.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(activity_dangky.this, activity_dangnhap.class));

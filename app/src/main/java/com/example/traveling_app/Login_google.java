@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.traveling_app.entity.User;
+import com.example.traveling_app.model.user.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -31,8 +31,6 @@ public class Login_google extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_google);
-
-
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
         signoutbtn = findViewById(R.id.signoutbtn);
@@ -48,7 +46,7 @@ public class Login_google extends AppCompatActivity {
             email.setText(personEmail);
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
             User user = new User();
-            user.setEmail(personEmail);
+            user.setUsername(personEmail);
             user.setFullName(personName);
             reference.child(personEmail).setValue(user);
         }

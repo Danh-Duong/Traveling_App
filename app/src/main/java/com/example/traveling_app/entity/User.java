@@ -2,6 +2,7 @@ package com.example.traveling_app.entity;
 
 import java.io.Serializable;
 
+@Deprecated
 public class User implements Serializable {
     private String email;
     private String username;
