@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 class SavedTourViewHolder extends RecyclerView.ViewHolder {
 
-    private TextView txtTitle, txtAddress, txtBook, txtComment, txtRate;
-    private ImageView img, heartButton;
+    private final TextView txtTitle, txtAddress, txtBook, txtComment, txtRate;
+    private final ImageView img, heartButton;
     private SavedTour savedTour;
 
     SavedTourViewHolder(View rootView) {
@@ -36,16 +36,14 @@ class SavedTourViewHolder extends RecyclerView.ViewHolder {
     }
 
     void bindDataToViewHolder(SavedTour savedTour) {
-        if (this.savedTour != null)
-            this.savedTour.setOnTourInformationReady(null);
 
         this.savedTour = savedTour;
-        savedTour.setOnTourInformationReady(tour -> {
+        savedTour.getTourAsync(tour -> {
             txtTitle.setText(tour.getName());
             txtAddress.setText(tour.getAddress());
             txtBook.setText(txtBook.getContext().getString(R.string.book_count_placeholder, tour.getNumBooking()));
             txtComment.setText(txtComment.getContext().getString(R.string.rate_count_placeholder, tour.getNumComment()));
-            txtRate.setText(Integer.toString(tour.getNumStar()));
+            txtRate.setText(Double.toString(Math.round(tour.getNumStar() * 100D) / 100D));
             heartButton.setVisibility(View.VISIBLE);
             Glide.with(img).load(tour.getMainImageUrl()).centerCrop().into(img);
         });

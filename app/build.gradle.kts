@@ -71,6 +71,7 @@ dependencies {
     implementation ("com.google.firebase:firebase-auth:22.0.0")
     implementation ("com.facebook.android:facebook-login:12.1.0")
 
+
     implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
     implementation("com.google.android.gms:play-services-auth:20.7.0")
 

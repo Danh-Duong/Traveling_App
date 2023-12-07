@@ -12,6 +12,8 @@ import com.example.traveling_app.model.user.User;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -27,6 +29,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -54,25 +59,55 @@ public class Chondangnhap_Activity extends AppCompatActivity {
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        Intent intent = new Intent(Chondangnhap_Activity.this,MainActivity.class);
-                        DatabaseReferences.USER_DATABASE_REF.child(loginResult.getAccessToken().getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (!snapshot.exists()) {
-                                    snapshot.getRef().setValue(new User());
-                                }
-                                com.example.traveling_app.entity.User user = new com.example.traveling_app.entity.User();
-                                user.setUsername(loginResult.getAccessToken().getUserId());
-                                intent.putExtra("user", (Serializable) user);
-                                startActivity(intent);
-                                finish();
-                            }
+                        Intent intent = new Intent(Chondangnhap_Activity.this, MainActivity.class);
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
+                        // Thực hiện lấy thông tin người dùng từ Graph API
+                        GraphRequest request = GraphRequest.newMeRequest(
+                                loginResult.getAccessToken(),
+                                new GraphRequest.GraphJSONObjectCallback() {
+                                    @Override
+                                    public void onCompleted(JSONObject object, GraphResponse response) {
+                                        try {
+                                            // Lấy tên người dùng từ JSON object
+                                            String userName = object.getString("name");
 
-                            }
-                        });
+                                            // Tạo đối tượng User với thông tin người dùng
+                                            User user = new User();
+                                            user.setUsername(userName);
+                                            // Kiểm tra xem user đã tồn tại trong Firebase chưa
+                                            DatabaseReferences.USER_DATABASE_REF.child(userName)
+                                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                            if (!snapshot.exists()) {
+                                                                // User chưa tồn tại, đưa thông tin người dùng lên Firebase
+                                                                snapshot.getRef().setValue(user);
+                                                            }
+
+                                                            // Chuyển đến MainActivity với thông tin người dùng
+                                                            com.example.traveling_app.entity.User currentUser = new com.example.traveling_app.entity.User();
+                                                            currentUser.setUsername(userName);
+                                                            intent.putExtra("user", (Serializable) currentUser);
+                                                            startActivity(intent);
+                                                            finish();
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError error) {
+                                                            // Xử lý lỗi nếu cần
+                                                        }
+                                                    });
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+
+                        Bundle parameters = new Bundle();
+                        parameters.putString("fields", "name,birthday,gender"); // Yêu cầu các trường thông tin cần thiết
+                        request.setParameters(parameters);
+                        request.executeAsync();
 
                     }
 

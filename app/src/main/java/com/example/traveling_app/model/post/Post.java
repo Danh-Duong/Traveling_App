@@ -156,4 +156,20 @@ public class Post implements Parcelable {
         dest.writeString(fullName);
         dest.writeString(profileImageUrl);
     }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "idPost='" + idPost + '\'' +
+                ", postImgUrl='" + postImgUrl + '\'' +
+                ", username='" + username + '\'' +
+                ", title='" + title + '\'' +
+                ", time=" + time +
+                ", fullName='" + fullName + '\'' +
+                ", profileImageUrl='" + profileImageUrl + '\'' +
+                ", isProfileImageUrlAlready=" + isProfileImageUrlAlready +
+                ", onFullNameReady=" + onFullNameReady +
+                ", onProfileImageUrlReady=" + onProfileImageUrlReady +
+                '}';
+    }
 }

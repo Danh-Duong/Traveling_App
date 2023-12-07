@@ -39,12 +39,11 @@ public class Status_activity extends AppCompatActivity {
             if (url == null)
                 imageLoader.load(R.drawable.user_profile_icon).into(avatarImageView);
             else
-                imageLoader.load(url).into(avatarImageView);
+                imageLoader.load(url).circleCrop().into(avatarImageView);
         });
         postContentTextView.setText(post.getTitle());
-        if (post.getPostImgUrl() == null) {
-            
-        }
+        if (post.getPostImgUrl() != null)
+            imageLoader.load(post.getPostImgUrl()).centerCrop().into(postImage);
     }
 
     private void openComment(View v) {
