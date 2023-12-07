@@ -3,16 +3,20 @@ package com.example.traveling_app.model.filter;
 
 import android.util.Log;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 public class IntegerRangeFilterItem extends FilterItem {
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#,###");
+    private final int startAt;
+    private final int endAt;
+    private final String formatString;
 
-    private int startAt;
-    private int endAt;
-    public IntegerRangeFilterItem(FilterItemGroup filterItemGroup, int startAt, int endAt) {
+    public IntegerRangeFilterItem(FilterItemGroup filterItemGroup, int startAt, int endAt, String unit) {
         this.startAt = startAt;
         this.endAt = endAt;
-	this.filterItemGroup = filterItemGroup;
+	    this.filterItemGroup = filterItemGroup;
+        this.formatString = DECIMAL_FORMAT.format(startAt) + " - " + DECIMAL_FORMAT.format(endAt) + " " + unit;
         index = filterItemGroup.addFilterItem(this);
     }
 
@@ -25,7 +29,7 @@ public class IntegerRangeFilterItem extends FilterItem {
 
     @Override
     public String getName() {
-        return startAt + " - " + endAt;
+        return formatString;
     }
 
     @Override

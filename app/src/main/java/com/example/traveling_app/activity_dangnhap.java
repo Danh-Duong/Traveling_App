@@ -17,12 +17,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
-import com.example.traveling_app.entity.User;
+import com.example.traveling_app.model.user.User;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
@@ -50,17 +51,17 @@ public class activity_dangnhap extends AppCompatActivity {
                 if (emailtxt.isEmpty() || passwordtxt.isEmpty()) {
                     Toast.makeText(activity_dangnhap.this, "Vui lòng nhập email và mật khẩu", Toast.LENGTH_SHORT).show();
                 } else {
-                    databaseReference.child("users").orderByChild("email").equalTo(emailtxt).limitToFirst(1).addChildEventListener(new ChildEventListener() {
+                    Query query = databaseReference.child("users").child(emailtxt);
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()) {
-
+                                Log.d("key", snapshot.toString());
                                 final User info = snapshot.getValue(User.class);
-//                                                            Log.d("key", snapshot.toString());
                                 if (info.getPassword().equals(passwordtxt)) {
                                     Toast.makeText(activity_dangnhap.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                                     Intent intent=new Intent(activity_dangnhap.this, MainActivity.class);
-                                    intent.putExtra("user",info);
+                                    intent.putExtra("user", new com.example.traveling_app.entity.User(null, emailtxt, null));
                                     startActivity(intent);
                                     finish();
                                 } else {
@@ -69,21 +70,6 @@ public class activity_dangnhap extends AppCompatActivity {
                             } else {
                                 Toast.makeText(activity_dangnhap.this, "Wrong password", Toast.LENGTH_SHORT).show();
                             }
-                        }
-
-                        @Override
-                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                        }
-
-                        @Override
-                        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-                        }
-
-                        @Override
-                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
                         }
 
                         @Override

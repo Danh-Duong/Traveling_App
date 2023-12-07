@@ -2,6 +2,7 @@ package com.example.traveling_app.model;
 
 import com.google.firebase.database.Exclude;
 
+@Deprecated
 public class Post {
     @Exclude
     private String idPost;

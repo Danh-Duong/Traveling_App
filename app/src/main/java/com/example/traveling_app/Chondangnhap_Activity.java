@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.traveling_app.common.DatabaseReferences;
+import com.example.traveling_app.model.user.User;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -17,11 +19,18 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.Serializable;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Chondangnhap_Activity extends AppCompatActivity {
 
@@ -45,8 +54,26 @@ public class Chondangnhap_Activity extends AppCompatActivity {
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        startActivity(new Intent(Chondangnhap_Activity.this,MainActivity.class));
-                        finish();
+                        Intent intent = new Intent(Chondangnhap_Activity.this,MainActivity.class);
+                        DatabaseReferences.USER_DATABASE_REF.child(loginResult.getAccessToken().getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (!snapshot.exists()) {
+                                    snapshot.getRef().setValue(new User());
+                                }
+                                com.example.traveling_app.entity.User user = new com.example.traveling_app.entity.User();
+                                user.setUsername(loginResult.getAccessToken().getUserId());
+                                intent.putExtra("user", (Serializable) user);
+                                startActivity(intent);
+                                finish();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
                     }
 
                     @Override
@@ -101,9 +128,6 @@ public class Chondangnhap_Activity extends AppCompatActivity {
 
 
     }
-
-
-
 
 
 

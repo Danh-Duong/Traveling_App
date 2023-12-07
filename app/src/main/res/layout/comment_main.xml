@@ -7,47 +7,42 @@
     android:orientation="vertical"
     android:background="@drawable/rectangle_rounded"
     android:backgroundTint="@color/white"
-    android:padding="@dimen/margin_left_right_root_element">
+    tools:context=".CommentActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:padding="15dp"
+        android:clipToPadding="false"
+        android:id="@+id/commentRecycleView"
+        tools:listitem="@layout/comment_list_item"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
-
-            <ImageView
-                android:id="@+id/imageView18"
-                android:layout_width="wrap_content"
-                android:layout_height="70dp"
-                android:src="@drawable/logo6" />
-
-            <TextView
-                android:id="@+id/textView36"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:gravity="center"
-                android:text="Chưa có bình luận nào cả" />
-        </LinearLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-            <!-- TODO put user's comments here -->
-        </FrameLayout>
-
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rectangle_rounded"
-        android:hint="@string/write_comment_here"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:inputType="textShortMessage"
-        android:imeOptions="actionSend"
-        android:maxLines="1"/>
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <EditText
+            android:id="@+id/commentEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rectangle_rounded"
+            android:hint="@string/write_comment_here"
+            android:inputType="textShortMessage"
+            android:maxLines="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_marginEnd="15dp"/>
+
+        <Button
+            android:id="@+id/sendButton"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:enabled="false"
+            android:text="Đăng" />
+    </LinearLayout>
+
 </LinearLayout>
-
-

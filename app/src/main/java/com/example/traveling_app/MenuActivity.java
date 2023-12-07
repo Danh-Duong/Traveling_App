@@ -13,6 +13,7 @@ import com.example.traveling_app.common.Constants;
 import com.example.traveling_app.model.MenuListAdapter;
 import com.example.traveling_app.model.MenuSectionItem;
 
+@Deprecated
 public class MenuActivity extends AppCompatActivity {
 
     @Override
