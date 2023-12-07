@@ -7,19 +7,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.example.traveling_app.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.text.DateFormat;
 import java.util.Date;
 
 class NotificationViewHolder extends RecyclerView.ViewHolder {
 
-    private final LinearLayout layoutDelete;
     private final TextView txtContent, txtTime;
     private final ImageView senderAvatarPicture;
     private Notification notification;
@@ -28,7 +24,7 @@ class NotificationViewHolder extends RecyclerView.ViewHolder {
     public NotificationViewHolder(@NonNull View itemView, RequestManager imageLoader) {
         super(itemView);
         this.imageLoader = imageLoader;
-        layoutDelete = itemView.findViewById(R.id.layout_delete);
+        LinearLayout layoutDelete = itemView.findViewById(R.id.layout_delete);
         txtContent = itemView.findViewById(R.id.content_noti);
         txtTime = itemView.findViewById(R.id.time_noti);
         senderAvatarPicture = itemView.findViewById(R.id.image_noti);
@@ -44,7 +40,7 @@ class NotificationViewHolder extends RecyclerView.ViewHolder {
             if (url == null)
                 imageLoader.load(R.drawable.user_profile_icon).into(senderAvatarPicture);
             else
-                imageLoader.load(url).into(senderAvatarPicture);
+                imageLoader.load(url).circleCrop().into(senderAvatarPicture);
         });
     }
 }

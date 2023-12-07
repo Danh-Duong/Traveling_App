@@ -8,6 +8,7 @@
     <color name="background">@color/white</color>
     <color name="text_foreground">@color/black</color>
     <color name="text_placeholder">@color/grey</color>
+    <color name="placeholder">@color/text_placeholder</color>
     <color name="primary_color">#1e90ff</color>
     <color name="primary_color_dark">#116289</color>
     <color name="navigation_bar_color">@color/black</color>
