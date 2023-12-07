@@ -410,10 +410,11 @@ public class ReviewFragment extends Fragment {
                     numCom4.setText(nC4+"");
                     numCom5.setText(nC5+"");
 
-                    List<Review> sortReviews=reviews.stream()
-                                    .sorted(Comparator.comparing(t -> t.getTime()))
-                                    .collect(Collectors.toList());
+                    List<Review> sortReviews = reviews.stream()
+                            .sorted()
+                            .collect(Collectors.toList());
                     Collections.reverse(sortReviews);
+
                     viewModel.setReviews(sortReviews);
                     reviewAdapter=new ReviewAdapter(detailActivity, sortReviews);
                     review_rcv.setAdapter(reviewAdapter);

@@ -167,7 +167,7 @@ public class DetailActivity extends AppCompatActivity {
                     tour_detail_star.setText(String.valueOf(df.format(tour.getNumStar()).replace(',', '.')));
                     tour_detail_com.setText(String.valueOf(tour.getNumComment()));
 
-                    // cập nhập thông tin
+                    phone=tour.getPhone();
             }
         }
 
