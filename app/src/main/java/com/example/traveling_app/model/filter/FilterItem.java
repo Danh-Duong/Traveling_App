@@ -1,7 +1,7 @@
 package com.example.traveling_app.model.filter;
 
-
 public abstract class FilterItem {
+
     FilterItemGroup filterItemGroup;
     int index;
     private boolean selected = false;
@@ -34,16 +34,15 @@ public abstract class FilterItem {
         return selected;
     }
 
+    @Override
     public String toString() {
         return filterItemGroup.getKey() + ": " + getName();
-    };
+    }
 
     @Override
     public abstract boolean equals(Object obj);
 
     public abstract String getName();
     public abstract boolean isSatisfied(Object value);
-
-
 
 }

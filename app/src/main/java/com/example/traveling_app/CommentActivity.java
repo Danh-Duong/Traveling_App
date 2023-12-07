@@ -1,19 +1,15 @@
 package com.example.traveling_app;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.EditText;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.traveling_app.common.Constants;
 import com.example.traveling_app.common.DatabaseReferences;
 import com.example.traveling_app.entity.notification.Notification;
@@ -25,7 +21,6 @@ import com.example.traveling_app.model.user.User;
 import com.example.traveling_app.model.user.UserSnapshotParser;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.Query;
-
 import java.util.Calendar;
 import java.util.Optional;
 
@@ -46,10 +41,7 @@ public class CommentActivity extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (commentEditText.getText().length() > 0)
-                sendButton.setEnabled(true);
-            else
-                sendButton.setEnabled(false);
+            sendButton.setEnabled(commentEditText.getText().length() > 0);
         }
 
     };
@@ -66,7 +58,7 @@ public class CommentActivity extends AppCompatActivity {
         setContentView(R.layout.comment_main);
         String currentUserId = PreferenceManager.getDefaultSharedPreferences(this).getString("username", Constants.DEFAULT_USERNAME);
         if (!post.getUsername().equals(currentUserId))
-            DatabaseReferences.USER_DATABASE_REF.child(currentUserId).get().addOnSuccessListener(dataSnapshot -> {
+            DatabaseReferences.USER_DATABASE_REF.child(currentUserId).get().addOnSuccessListener(this, dataSnapshot -> {
                 currentUser = UserSnapshotParser.INSTANCE.parseSnapshot(dataSnapshot);
                 initializeActivityWhenAlready();
             });

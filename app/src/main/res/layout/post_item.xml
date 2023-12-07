@@ -9,6 +9,8 @@
     android:layout_marginLeft="7.5dp"
     android:layout_marginRight="7.5dp"
     android:layout_marginBottom="15dp"
+    android:clickable="true"
+    android:focusable="true"
     app:cardCornerRadius="15dp">
 
     <ImageView
@@ -16,7 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@color/placeholder" />
+        android:src="@color/black"
+        android:importantForAccessibility="no" />
 
     <TextView
             android:id="@+id/name_user_blog"
@@ -24,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|bottom"
             android:layout_marginLeft="7.5dp"
+            android:layout_marginRight="7.5dp"
             android:layout_marginBottom="7.5dp"
             android:maxLines="1"
             android:textColor="#fff"
@@ -41,13 +45,14 @@
             android:layout_width="14dp"
             android:layout_height="14dp"
             android:layout_gravity="center"
-            android:src="@drawable/heart1" />
+            android:src="@drawable/heart1"
+            android:importantForAccessibility="no" />
 
         <TextView
             android:id="@+id/num_love_blog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
             android:text="70"
             android:textColor="#ffffff" />
     </LinearLayout>
