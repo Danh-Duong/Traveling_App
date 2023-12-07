@@ -53,35 +53,35 @@
                         android:layout_height="15dp"
                         android:tag="1"
                         android:visibility="invisible"
-                        tools:src="@drawable/main_star_solid"></ImageView>
+                        android:src="@drawable/main_star_solid"></ImageView>
                     <ImageView
                         android:id="@+id/star2_review"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:tag="2"
                         android:visibility="invisible"
-                        tools:src="@drawable/main_star_solid"></ImageView>
+                        android:src="@drawable/main_star_solid"></ImageView>
                     <ImageView
                         android:id="@+id/star3_review"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:tag="3"
                         android:visibility="invisible"
-                        tools:src="@drawable/main_star_solid"></ImageView>
+                        android:src="@drawable/main_star_solid"></ImageView>
                     <ImageView
                         android:id="@+id/star4_review"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:tag="4"
                         android:visibility="invisible"
-                        tools:src="@drawable/main_star_solid"></ImageView>
+                        android:src="@drawable/main_star_solid"></ImageView>
                     <ImageView
                         android:id="@+id/star5_review"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:tag="5"
                         android:visibility="invisible"
-                        tools:src="@drawable/main_star_solid"></ImageView>
+                        android:src="@drawable/main_star_solid"></ImageView>
                 </LinearLayout>
                 <TextView
                     android:id="@+id/time_review"
