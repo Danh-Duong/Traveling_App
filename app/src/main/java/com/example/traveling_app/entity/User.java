@@ -11,10 +11,10 @@ public class User implements Serializable {
     private String token;
     private String profileImage;
     private String description;
-
     private int birthday;
     private boolean gender;
 
+    private int role;
     public User() {
     }
 
@@ -55,6 +55,14 @@ public class User implements Serializable {
 
     public int getBirthday() {
         return birthday;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 
     public void setBirthday(int birthday) {
