@@ -15,13 +15,20 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.example.traveling_app.model.user.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.regex.Pattern;
+
 public class activity_dangky extends AppCompatActivity {
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://traveling-app-7d1f0-default-rtdb.asia-southeast1.firebasedatabase.app/");
+
+    private final String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+            + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +51,34 @@ public class activity_dangky extends AppCompatActivity {
                 final String xnmatkhautxt= xnmatkhau.getText().toString();
 
                 if(fullnametxt.isEmpty() || emailtxt.isEmpty() || matkhautxt.isEmpty()){
-                    Toast.makeText(activity_dangky.this,"vui lòng nhập",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity_dangky.this,"Vui lòng nhập đầy đủ thông tin",Toast.LENGTH_SHORT).show();
                 } else if (!matkhautxt.equals(xnmatkhautxt)) {
-                    Toast.makeText(activity_dangky.this,"password are not matching", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity_dangky.this,"Mật khẩu không khớp", Toast.LENGTH_SHORT).show();
 
                 }
+                else if (patternMatches(emailtxt,regexPattern)==false)
+                    Toast.makeText(activity_dangky.this, "Định dạng email không hợp lệ!", Toast.LENGTH_SHORT).show();
                 else {
-                    User user = new User(fullnametxt, null, matkhautxt, null, User.DEFAULT_BIRTHDAY, false, null);
-                    databaseReference.child("users/" + fullnametxt).setValue(user);
-                    Toast.makeText(activity_dangky.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(activity_dangky.this, activity_dangnhap.class));
+                    User user = new User(fullnametxt, null, matkhautxt, null, User.DEFAULT_BIRTHDAY, false, null,emailtxt);
+                    databaseReference.child("users/" + fullnametxt).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists())
+                                Toast.makeText(activity_dangky.this, "Tên người dùng đã tồn tại", Toast.LENGTH_SHORT).show();
+                            else{
+                                databaseReference.child("users/" + fullnametxt).setValue(user);
+                                Toast.makeText(activity_dangky.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(activity_dangky.this, activity_dangnhap.class));
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+//
+//
 //                    databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
 //                        @Override
 //                        public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -103,5 +128,11 @@ public class activity_dangky extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public static boolean patternMatches(String emailAddress, String regexPattern) {
+        return Pattern.compile(regexPattern)
+                .matcher(emailAddress)
+                .matches();
     }
 }

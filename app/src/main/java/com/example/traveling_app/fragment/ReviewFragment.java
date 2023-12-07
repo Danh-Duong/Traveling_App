@@ -35,6 +35,7 @@ import com.example.traveling_app.entity.Review;
 import com.example.traveling_app.entity.ReviewAdapter;
 import com.example.traveling_app.entity.SharedViewModel;
 import com.example.traveling_app.entity.Tour;
+import com.example.traveling_app.model.user.User;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -384,6 +385,24 @@ public class ReviewFragment extends Fragment {
                 if(snapshot.exists()){
                     for (DataSnapshot reviewSnapshot : snapshot.getChildren()) {
                         Review review = reviewSnapshot.getValue(Review.class);
+                        review.setNameReviewer(snapshot.getKey());
+
+                        ref.child("users").child(review.getNameReviewer()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshotUser) {
+//                                for (DataSnapshot sU: snapshotUser.getChildren()){
+//                                    Log.d("hello1",sU.toString());
+////                                    review.setAvatarReviewer(sU.getValue(User.class).getProfileImage());
+//                                }
+                                review.setAvatarReviewer(snapshotUser.getValue(User.class).getProfileImage());
+//                                Log.d("hello1",snapshotUser.getValue().toString());
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                         switch (review.getRate())
                         {
                             case 1:

@@ -111,6 +111,7 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Tour tour=snapshot.getValue(Tour.class);
+                tour.setId(snapshot.getKey());
                 String id=snapshot.getKey();
                 tours.put(id, tour);
                 callback.onDataLoaded(new ArrayList<>(tours.values()));
@@ -120,6 +121,7 @@ public class AdminActivity extends AppCompatActivity {
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 String idTourModified=snapshot.getKey();
                 Tour tourModified=snapshot.getValue(Tour.class);
+                tourModified.setId(snapshot.getKey());
                 tours.put(idTourModified, tourModified);
                 callback.onDataLoaded(new ArrayList<>(tours.values()));
             }

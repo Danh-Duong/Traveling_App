@@ -1,20 +1,32 @@
 package com.example.traveling_app.model.user;
 import com.google.firebase.database.Exclude;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     @Exclude
     private String username;
     private String fullName;
     private String password;
+
+    private String email;
     private int birthday = DEFAULT_BIRTHDAY;
     private String description;
     private boolean gender;
     private String profileImageUrl;
+
+    private int role;
     @Exclude
     public static int DEFAULT_BIRTHDAY = 20000001;
 
     public User() {
 
+    }
+
+    public User(String username, String profileImageUrl, int role) {
+        this.username = username;
+        this.profileImageUrl = profileImageUrl;
+        this.role=role;
     }
 
     public User(String username, String fullName, String password, String description, int birthday, boolean gender, String profileImageUrl) {
@@ -25,9 +37,35 @@ public class User {
         this.gender = gender;
         this.profileImageUrl = profileImageUrl;
     }
+
+    public User(String username, String fullName, String password, String description, int birthday, boolean gender, String profileImageUrl, String email) {
+        this.password = password;
+        this.birthday = birthday;
+        this.description = description;
+        this.fullName = fullName;
+        this.gender = gender;
+        this.profileImageUrl = profileImageUrl;
+        this.email=email;
+    }
     @Exclude
     public String getUsername() {
         return username;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setUsername(String username) {

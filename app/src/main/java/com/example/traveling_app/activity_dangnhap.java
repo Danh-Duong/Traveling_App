@@ -12,21 +12,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.example.traveling_app.model.user.User;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import java.io.Serializable;
 
 public class activity_dangnhap extends AppCompatActivity {
 
@@ -56,12 +52,13 @@ public class activity_dangnhap extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()) {
-                                Log.d("key", snapshot.toString());
-                                final User info = snapshot.getValue(User.class);
+//                                Log.d("key", snapshot.toString());
+                                User info = snapshot.getValue(User.class);
+                                info.setUsername(snapshot.getKey());
                                 if (info.getPassword().equals(passwordtxt)) {
                                     Toast.makeText(activity_dangnhap.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                                     Intent intent=new Intent(activity_dangnhap.this, MainActivity.class);
-                                    intent.putExtra("user", new com.example.traveling_app.entity.User(null, emailtxt, null));
+                                    intent.putExtra("user",info);
                                     startActivity(intent);
                                     finish();
                                 } else {

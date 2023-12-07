@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.traveling_app.R;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class VoucherTourAdapter extends RecyclerView.Adapter<VoucherTourAdapter.
         Voucher voucher=vouchers.get(position);
         if (voucher==null)
             return;
-        holder.img.setImageResource(voucher.getImg());
+        Glide.with(context).load(voucher.getpUrl()).into(holder.img);
     }
 
     @Override
