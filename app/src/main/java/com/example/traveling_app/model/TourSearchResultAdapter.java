@@ -1,16 +1,16 @@
 package com.example.traveling_app.model;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.example.traveling_app.DetailActivity;
 import com.example.traveling_app.R;
 import com.example.traveling_app.common.DatabaseReferences;
 import com.example.traveling_app.entity.Tour;
@@ -19,7 +19,6 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.text.HtmlCompat;
@@ -28,74 +27,53 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-public class TourSearchResultAdapter extends RecyclerView.Adapter<TourSearchResultAdapter.ViewHolder> {
+public class TourSearchResultAdapter extends RecyclerView.Adapter<ResultViewHolder> {
 
-    private Context context;
-    private ArrayList<Tour> tourList = new ArrayList<>();
-    private String keyword;
-    private FilterItemGroup[] filters;
+    private final ArrayList<Tour> tourList = new ArrayList<>();
+    private final String keyword;
+    private final FilterItemGroup[] filters;
+    private final Query query = DatabaseReferences.TOURS_DATABASE_REF.orderByKey();
+    private final RequestManager imageLoader;
 
-    private Query query = DatabaseReferences.TOURS_DATABASE_REF.orderByKey();
-
-    private ChildEventListener listener = new ChildEventListener() {
+    private final ChildEventListener listener = new ChildEventListener() {
         @Override
         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
             if (snapshot.child("name").getValue(String.class).toLowerCase().contains(keyword) && Arrays.stream(filters).allMatch(f -> f.isSatisfied(snapshot.child(f.getKey()).getValue()))) {
                 Tour tour = snapshot.getValue(Tour.class);
                 tourList.add(tour);
-                Log.d("image", tour.getMainImageUrl());
                 notifyDataSetChanged();
             }
         }
 
         @Override
-        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-        }
-
+        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
         @Override
-        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-        }
-
+        public void onChildRemoved(@NonNull DataSnapshot snapshot) { }
         @Override
-        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-        }
-
+        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
         @Override
-        public void onCancelled(@NonNull DatabaseError error) {
-
-        }
+        public void onCancelled(@NonNull DatabaseError error) { }
     };
 
 
 
     public TourSearchResultAdapter(Context context, String keyword, Stream<FilterItemGroup> filterGroups) {
-        this.context = context;
         this.keyword = keyword;
         this.filters = filterGroups.toArray(FilterItemGroup[]::new);
+        this.imageLoader = Glide.with(context);
         query.addChildEventListener(listener);
     }
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflate = LayoutInflater.from(context);
+    public ResultViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflate = LayoutInflater.from(parent.getContext());
         ViewGroup tourInfoContainer = (ViewGroup) inflate.inflate(R.layout.tour_list_item, parent, false);
-        ViewHolder viewHolder = new ViewHolder(tourInfoContainer);
-        return viewHolder;
+        return new ResultViewHolder(tourInfoContainer, imageLoader);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Tour tour = tourList.get(position);
-        holder.title.setText(tour.getName());
-        holder.place.setText(tour.getAddress());
-        holder.oldPrice.setText(Html.fromHtml("<strike>" + tour.getPrice() + " VND</strike>", HtmlCompat.FROM_HTML_MODE_LEGACY));
-        holder.newPrice.setText(tour.getSalePrice() + " VND");
-        holder.bookCount.setText(context.getString(R.string.book_count, tour.getNumBooking()));
-        holder.rateCount.setText(context.getString(R.string.rate_count, tour.getNumComment()));
-        Glide.with(context).load(tour.getMainImageUrl()).into(holder.thumbnail);
+    public void onBindViewHolder(@NonNull ResultViewHolder holder, int position) {
+        holder.bindToView(tourList.get(position));
     }
 
     public void stopListening() {
@@ -107,20 +85,41 @@ public class TourSearchResultAdapter extends RecyclerView.Adapter<TourSearchResu
         return tourList.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView title, place, oldPrice, newPrice, bookCount, rateCount;
-        private ImageView thumbnail, star;
+}
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            title = itemView.findViewById(R.id.title);
-            place = itemView.findViewById(R.id.place);
-            oldPrice = itemView.findViewById(R.id.oldPrice);
-            newPrice = itemView.findViewById(R.id.newPrice);
-            bookCount = itemView.findViewById(R.id.bookCount);
-            rateCount = itemView.findViewById(R.id.rateCount);
-            star = itemView.findViewById(R.id.star);
-            thumbnail = itemView.findViewById(R.id.thumbnail);
-        }
+class ResultViewHolder extends RecyclerView.ViewHolder {
+    private final TextView title, place, oldPrice, newPrice, bookCount, rateCount;
+    private final ImageView thumbnail;
+    private final RequestManager imageLoader;
+    private Tour tour;
+
+    public ResultViewHolder(@NonNull View itemView, RequestManager imageLoader) {
+        super(itemView);
+        title = itemView.findViewById(R.id.title);
+        place = itemView.findViewById(R.id.place);
+        oldPrice = itemView.findViewById(R.id.oldPrice);
+        newPrice = itemView.findViewById(R.id.newPrice);
+        bookCount = itemView.findViewById(R.id.bookCount);
+        rateCount = itemView.findViewById(R.id.rateCount);
+        thumbnail = itemView.findViewById(R.id.thumbnail);
+        this.imageLoader = imageLoader;
+
+        itemView.setOnClickListener(v -> {
+            Context context = v.getContext();
+            Intent intent = new Intent(context, DetailActivity.class);
+            intent.putExtra("id", tour.getId());
+            context.startActivity(intent);
+        });
+    }
+
+    void bindToView(Tour tour) {
+        this.tour = tour;
+        title.setText(tour.getName());
+        place.setText(tour.getAddress());
+        oldPrice.setText(Html.fromHtml("<strike>" + tour.getPrice() + " VND</strike>", HtmlCompat.FROM_HTML_MODE_LEGACY));
+        newPrice.setText(tour.getSalePrice() + " VND");
+        bookCount.setText(bookCount.getContext().getString(R.string.book_count, tour.getNumBooking()));
+        rateCount.setText(bookCount.getContext().getString(R.string.rate_count, tour.getNumComment()));
+        imageLoader.load(tour.getMainImageUrl()).into(thumbnail);
     }
 }

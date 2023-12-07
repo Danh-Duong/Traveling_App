@@ -16,15 +16,18 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public class SearchAndFilterActivity extends AppCompatActivity {
 
-    private ArrayList<FilterItemGroup> filterGroups = new ArrayList<>();
-    private SearchFragment searchFragment = new SearchFragment();
-    private FilterFragment filterFragment = new FilterFragment();
-    private SearchResultFragment searchResultFragment = new SearchResultFragment();
+    private final ArrayList<FilterItemGroup> filterGroups = new ArrayList<>();
+    private final SearchFragment searchFragment = new SearchFragment();
+    private final FilterFragment filterFragment = new FilterFragment();
+    private final SearchResultFragment searchResultFragment = new SearchResultFragment();
     private ArrayList<String> recentSearch;
     private static final Gson gson = new Gson();
     private SharedPreferences sharedPreferences;
@@ -87,7 +90,7 @@ public class SearchAndFilterActivity extends AppCompatActivity {
 
 
     public Stream<FilterItem> getStreamOfSelectedFilterItem() {
-        return filterGroups.stream().map(group -> group.getSelectedItem()).filter(item -> item != null);
+        return filterGroups.stream().map(FilterItemGroup::getSelectedItem).filter(Objects::nonNull);
     }
 
 
@@ -101,12 +104,16 @@ public class SearchAndFilterActivity extends AppCompatActivity {
     }
 
     public void switchToSearchResultFragment(String keyword) {
+        if (keyword.length() == 0) {
+            Toast.makeText(this, R.string.please_enter_keyword, Toast.LENGTH_SHORT).show();
+            return;
+        }
         recentSearch.add(0, keyword);
         if (recentSearch.size() >= MAX_RECENT_SEARCH)
             recentSearch.remove(MAX_RECENT_SEARCH - 1);
         sharedPreferences.edit().putString(RECENT_SEARCH_SHARED_REF_KEY, gson.toJson(recentSearch)).commit();
         this.keyword = keyword.toLowerCase();
-        getSupportFragmentManager().beginTransaction().replace(R.id.content, searchResultFragment, null).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, searchResultFragment).addToBackStack(null).commit();
     }
 
     public Stream<FilterItemGroup> getStreamOfFilterItemGroups() {

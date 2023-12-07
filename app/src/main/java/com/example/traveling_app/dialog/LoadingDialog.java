@@ -17,6 +17,7 @@ public class LoadingDialog extends Dialog {
     public LoadingDialog(@NonNull Context context, @StringRes int stringRes) {
         super(context);
         this.stringRes = stringRes;
+        setCancelable(false);
     }
 
     @Override

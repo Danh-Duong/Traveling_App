@@ -39,15 +39,15 @@ public class SearchResultFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        FirebaseApp.initializeApp(getContext());
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_search_result, container, false);
         RecyclerView recyclerView = viewGroup.findViewById(R.id.resultContainer);
         adapter = new TourSearchResultAdapter(getContext(), listener.getKeyword(), listener.getStreamOfFilterItemGroups());
         recyclerView.setAdapter(adapter);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if (getActivity() instanceof AppCompatActivity && ((AppCompatActivity)getActivity()).getSupportActionBar() != null) {
             ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-            actionBar.setTitle(getString(R.string.filter));
+            actionBar.setTitle(getString(R.string.search_result));
             int selectedFilterCount = (int)listener.getStreamOfSelectedFilterItem().count();
             actionBar.setSubtitle(selectedFilterCount == 0 ? "" : getString(R.string.item_count, selectedFilterCount));
         }

@@ -30,6 +30,7 @@
     <string name="search_and_filter">Tìm kiếm và lọc</string>
     <string name="selected_filter">Bộ lọc đã được chọn</string>
     <string name="tap_to_delete_out_of_filter">Chạm để xóa khỏi bộ lọc</string>
+    <string name="please_enter_keyword">Vui lòng nhập từ khóa</string>
     <string name="recent_search">Tìm kiếm gần đây</string>
     <string name="feature_places">Địa điểm nổi bật</string>
     <string name="delete_all">Xoá tất cả</string>
@@ -90,4 +91,5 @@
     <string name="fb_login_protocol_scheme">fb3312377312341073</string>
     <string name="facebook_client_token">b6c86bb3382f89f98066d409ced7f443</string>
     <string name="notification_content_placeholder">%1$s đã bình luận vào bài viết của bạn</string>
+    <string name="enter_your_post_content">Nhập nội dung bài viết của bạn</string>
 </resources>

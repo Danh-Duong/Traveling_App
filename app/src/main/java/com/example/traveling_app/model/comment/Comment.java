@@ -2,6 +2,7 @@ package com.example.traveling_app.model.comment;
 import com.google.firebase.database.Exclude;
 import java.util.function.Consumer;
 
+@SuppressWarnings("unused")
 public class Comment {
 
     @Exclude
@@ -76,7 +77,7 @@ public class Comment {
             this.fullName = fullName;
 
         if (onFullNameReady != null) {
-            onFullNameReady.accept(fullName);
+            onFullNameReady.accept(this.fullName);
             onFullNameReady = null;
         }
 
@@ -98,8 +99,6 @@ public class Comment {
         }
 
     }
-
-
 
     public String getPostId() {
         return postId;

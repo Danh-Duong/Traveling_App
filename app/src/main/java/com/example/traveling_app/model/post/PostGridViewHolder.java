@@ -30,7 +30,8 @@ class PostGridViewHolder extends RecyclerView.ViewHolder {
     public void bindDataToView(Post post) {
         this.bindedPost = post;
         post.getFullNameAsync(usernameTextView::setText);
-        imageLoader.load(post.getPostImgUrl()).into(postImageView);
+        if (post.getPostImgUrl() != null)
+            imageLoader.load(post.getPostImgUrl()).into(postImageView);
     }
 
     private void onPostItemClick(View v) {

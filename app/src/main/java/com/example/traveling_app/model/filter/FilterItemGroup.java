@@ -2,7 +2,6 @@ package com.example.traveling_app.model.filter;
 
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.TreeSet;
 import java.util.function.Consumer;
 
 // Group FilterItem by category;
@@ -30,10 +29,6 @@ public class FilterItemGroup {
 
     public FilterItem get(int index) {
         return filterItems.get(index);
-    }
-
-    public boolean isExisted(FilterItem filterItem) {
-        return filterItems.stream().anyMatch(f -> f.equals(filterItem));
     }
 
     public int size() {
@@ -111,5 +106,4 @@ public class FilterItemGroup {
         }
 
     }
-
 }
