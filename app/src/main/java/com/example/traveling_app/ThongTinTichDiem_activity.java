@@ -45,8 +45,14 @@ public class ThongTinTichDiem_activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ThongTinTichDiem_activity.this, luu_book_tour.class);
-                intent.putExtra("key_point", point.getText());
-                databaseReference.child("point").setValue(0);
+                int price = Integer.parseInt(getIntent().getStringExtra("amount"));
+                int pointvar = Integer.parseInt(point.getText().toString());
+                if (price - pointvar < 0) {
+                    pointvar =price/20;
+                }
+                intent.putExtra("key_point", String.valueOf(pointvar));
+
+                databaseReference.child("point").setValue(Integer.parseInt(point.getText().toString())-pointvar);
                 startActivity(intent);
                 finish();
             }
