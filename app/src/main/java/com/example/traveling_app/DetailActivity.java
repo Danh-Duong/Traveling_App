@@ -180,7 +180,6 @@ public class DetailActivity extends AppCompatActivity {
     }
 
 
-
     public void onStarClick(View view) {
         int clickedStar = Integer.parseInt(view.getTag().toString());
         // Đặt trạng thái cho các ngôi sao

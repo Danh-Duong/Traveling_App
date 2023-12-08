@@ -76,9 +76,7 @@ public class Menu_Home extends Fragment{
     TextView username1;
     ImageView imgAvaMain;
     CurrentUser currentUser=null;
-    int numRate=0;
-    int numComment=0;
-    double comment=0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -146,27 +144,30 @@ public class Menu_Home extends Fragment{
         sliderView.setScrollTimeInSec(4);
         sliderView.startAutoCycle();
 
+        LinearLayoutManager ln1=new LinearLayoutManager(mainActivity,RecyclerView.HORIZONTAL,false);;
+        tour_hint_rcv.setLayoutManager(ln1);
+        LinearLayoutManager ln2=new LinearLayoutManager(mainActivity,RecyclerView.HORIZONTAL,false);
+        recent_rcv.setLayoutManager(ln2);
+
+        LinearLayoutManager ln4=new LinearLayoutManager(mainActivity,RecyclerView.HORIZONTAL,false);;
+        hot_rcv.setLayoutManager(ln4);
+        LinearLayoutManager ln5=new LinearLayoutManager(mainActivity,RecyclerView.VERTICAL,false);;
+        near_rcv.setLayoutManager(ln5);
+
         getDataVoucher();
         getData(new DataCallback() {
             @Override
             public void onDataLoaded(List<Tour> tours) {
-                LinearLayoutManager ln1=new LinearLayoutManager(mainActivity,RecyclerView.HORIZONTAL,false);;
-                tour_hint_rcv.setLayoutManager(ln1);
+
                 hintTourAdapter =new HintTourAdapter(mainActivity,tours);
                 tour_hint_rcv.setAdapter(hintTourAdapter);
 
-                LinearLayoutManager ln2=new LinearLayoutManager(mainActivity,RecyclerView.HORIZONTAL,false);
-                recent_rcv.setLayoutManager(ln2);
                 recentTourAdapter =new RecentTourAdapter(mainActivity,tours);
                 recent_rcv.setAdapter(recentTourAdapter);
 
-                LinearLayoutManager ln4=new LinearLayoutManager(mainActivity,RecyclerView.HORIZONTAL,false);;
-                hot_rcv.setLayoutManager(ln4);
                 hotTourAdapter =new HotTourAdapter(mainActivity,tours);
                 hot_rcv.setAdapter(hotTourAdapter);
-
-                LinearLayoutManager ln5=new LinearLayoutManager(mainActivity,RecyclerView.VERTICAL,false);;
-                near_rcv.setLayoutManager(ln5);
+                
                 nearTourAdapter=new NearTourAdapter(mainActivity,tours);
                 near_rcv.setAdapter(nearTourAdapter);
 
@@ -226,44 +227,35 @@ public class Menu_Home extends Fragment{
         });
     }
 
-//    public void updateInfo(String tourName){
-//        numComment=0;
-//        numRate=0;
-//        comment=0;
-//        ref.child("tours").child(tourName).child("reviews").addChildEventListener(new ChildEventListener() {
+//    public void updateInfo(String tourName) {
+//        DatabaseReference tourRef = ref.child("tours").child(tourName);
+//
+//        tourRef.child("reviews").addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
-//            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//                for (DataSnapshot ds: snapshot.getChildren()){
-//                    Review review=ds.getValue(Review.class);
-//                    numComment++;
-//                    numRate+=review.getRate();
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                int numComment = 0;
+//                double numRate = 0;
+//
+//                for (DataSnapshot reviewSnapshot : snapshot.getChildren()) {
+//                    for (DataSnapshot ds : reviewSnapshot.getChildren()) {
+//                        Review review = ds.getValue(Review.class);
+//                        numComment++;
+//                        numRate += review.getRate();
+//                    }
 //                }
-//                comment=numRate*1.0/numComment;
-//                ref.child("tours").child(tourName).child("numComment").setValue(numComment);
-//                ref.child("tours").child(tourName).child("numStar").setValue(comment);
-//            }
 //
-//            @Override
-//            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
+//                double averageRate = numComment > 0 ? numRate / numComment : 0;
+//                tourRef.child("numComment").setValue(numComment);
+//                tourRef.child("numStar").setValue(averageRate);
 //            }
 //
 //            @Override
 //            public void onCancelled(@NonNull DatabaseError error) {
-//
+//                // Xử lý lỗi nếu cần
 //            }
 //        });
 //    }
+
 
     public void getDataVoucher(){
         ref.child("vouchers").addValueEventListener(new ValueEventListener() {
