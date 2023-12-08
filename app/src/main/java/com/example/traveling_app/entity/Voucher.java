@@ -1,28 +1,61 @@
 package com.example.traveling_app.entity;
 
 public class Voucher {
-    private String title;
-    private int img;
+    private String id;
+    private int discount;
+    private int numStar;
+    private String efDatetime;
+    private String pUrl;
 
-    public Voucher(String title, int img) {
-        this.title = title;
-        this.img = img;
+    public Voucher() {
     }
 
-    public String getTitle() {
-        return title;
+    public Voucher(String id, int discount, int numStar, String efDatetime, String pUrl) {
+        this.id = id;
+        this.discount = discount;
+        this.numStar = numStar;
+        this.efDatetime = efDatetime;
+        this.pUrl = pUrl;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public String getId() {
+        return id;
     }
 
-    public int getImg() {
-        return img;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setImg(int img) {
-        this.img = img;
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
+
+    public int getNumStar() {
+        return numStar;
+    }
+
+    public void setNumStar(int numStar) {
+        this.numStar = numStar;
+    }
+
+    public String getEfDatetime() {
+        return efDatetime;
+    }
+
+    public void setEfDatetime(String efDatetime) {
+        this.efDatetime = efDatetime;
+    }
+
+    public String getpUrl() {
+        return pUrl;
+    }
+
+    public void setpUrl(String pUrl) {
+        this.pUrl = pUrl;
     }
 }
 

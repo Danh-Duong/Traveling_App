@@ -12,6 +12,7 @@
             android:id="@+id/img_voucher"
             android:layout_width="200dp"
             android:layout_height="100dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/main_voucher1"></ImageView>
 
         <Button

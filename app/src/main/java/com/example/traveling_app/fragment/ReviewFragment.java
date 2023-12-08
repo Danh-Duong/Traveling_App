@@ -35,6 +35,7 @@ import com.example.traveling_app.entity.Review;
 import com.example.traveling_app.entity.ReviewAdapter;
 import com.example.traveling_app.entity.SharedViewModel;
 import com.example.traveling_app.entity.Tour;
+import com.example.traveling_app.model.user.User;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -297,6 +298,7 @@ public class ReviewFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode==PICK_IMAGE && resultCode==RESULT_OK && data!=null){
             if (data.getClipData() != null) {
+                uriList.clear();
                 ClipData clipData = data.getClipData();
                 int length=clipData.getItemCount()>4?4:clipData.getItemCount();
                 for (int i = 0; i < length; i++) {
@@ -384,6 +386,21 @@ public class ReviewFragment extends Fragment {
                 if(snapshot.exists()){
                     for (DataSnapshot reviewSnapshot : snapshot.getChildren()) {
                         Review review = reviewSnapshot.getValue(Review.class);
+                        review.setNameReviewer(snapshot.getKey());
+
+                        ref.child("users").child(review.getNameReviewer()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshotUser) {
+//                                Log.d("oke",snapshotUser.getValue()+"");
+                                if (snapshotUser.getValue(User.class).getProfileImage()!=null)
+                                    review.setAvatarReviewer(snapshotUser.getValue(User.class).getProfileImage());
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                         switch (review.getRate())
                         {
                             case 1:

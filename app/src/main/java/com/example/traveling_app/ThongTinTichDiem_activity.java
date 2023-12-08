@@ -34,7 +34,6 @@ public class ThongTinTichDiem_activity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 point.setText(snapshot.child("point").getValue(Integer.class).toString());
-
             }
 
             @Override
