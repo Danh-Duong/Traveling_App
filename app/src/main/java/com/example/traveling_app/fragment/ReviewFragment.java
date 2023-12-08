@@ -298,6 +298,7 @@ public class ReviewFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode==PICK_IMAGE && resultCode==RESULT_OK && data!=null){
             if (data.getClipData() != null) {
+                uriList.clear();
                 ClipData clipData = data.getClipData();
                 int length=clipData.getItemCount()>4?4:clipData.getItemCount();
                 for (int i = 0; i < length; i++) {
@@ -387,15 +388,12 @@ public class ReviewFragment extends Fragment {
                         Review review = reviewSnapshot.getValue(Review.class);
                         review.setNameReviewer(snapshot.getKey());
 
-                        ref.child("users").child(review.getNameReviewer()).addValueEventListener(new ValueEventListener() {
+                        ref.child("users").child(review.getNameReviewer()).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshotUser) {
-//                                for (DataSnapshot sU: snapshotUser.getChildren()){
-//                                    Log.d("hello1",sU.toString());
-////                                    review.setAvatarReviewer(sU.getValue(User.class).getProfileImage());
-//                                }
-                                review.setAvatarReviewer(snapshotUser.getValue(User.class).getProfileImage());
-//                                Log.d("hello1",snapshotUser.getValue().toString());
+//                                Log.d("oke",snapshotUser.getValue()+"");
+                                if (snapshotUser.getValue(User.class).getProfileImage()!=null)
+                                    review.setAvatarReviewer(snapshotUser.getValue(User.class).getProfileImage());
                             }
 
                             @Override
