@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_voucher"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -19,7 +20,7 @@
                 android:id="@+id/discount_img"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/luu_magiamgia_pic1"
+                tools:src="@drawable/luu_magiamgia_pic1"
                 android:scaleType="fitXY" />
 
         </com.google.android.material.card.MaterialCardView>

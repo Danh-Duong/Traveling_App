@@ -111,11 +111,11 @@
                 android:src="@drawable/comment" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/commentCountTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="23"
+                tools:text="23"
                 android:textColor="@color/white" />
 
             <ImageView

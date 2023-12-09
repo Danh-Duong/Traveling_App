@@ -4,21 +4,19 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.example.traveling_app.R;
+import com.example.traveling_app.common.Constants;
 import com.example.traveling_app.common.DatabaseReferences;
 import com.example.traveling_app.model.user.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.Calendar;
 
 public class UserInformationFragment extends Fragment {
@@ -30,7 +28,7 @@ public class UserInformationFragment extends Fragment {
     @SuppressWarnings("deprecation")
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        profileId = PreferenceManager.getDefaultSharedPreferences(getContext()).getString("username", "defaultuser0");
+        profileId = PreferenceManager.getDefaultSharedPreferences(getContext()).getString("username", Constants.DEFAULT_USERNAME);
         userProfileRef = DatabaseReferences.USER_DATABASE_REF.child(profileId);
     }
     @Override

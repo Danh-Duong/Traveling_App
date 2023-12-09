@@ -10,16 +10,8 @@ import com.example.traveling_app.fragment.UserInformationFragment;
 
 public class ProfileViewPageAdapter extends FragmentStateAdapter {
 
-    private final String profileId;
-
     public ProfileViewPageAdapter(@NonNull Fragment fragment) {
         super(fragment);
-        this.profileId = null;
-    }
-
-    public ProfileViewPageAdapter(@NonNull Fragment fragment, String profileId) {
-        super(fragment);
-        this.profileId = profileId;
     }
 
     @NonNull

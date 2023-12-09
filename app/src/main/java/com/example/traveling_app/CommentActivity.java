@@ -99,6 +99,10 @@ public class CommentActivity extends AppCompatActivity {
     private void pushComment() {
         Comment comment = new Comment(commentEditText.getText().toString(), currentUser.getUsername(), post.getIdPost(), Calendar.getInstance().getTimeInMillis());
         DatabaseReferences.POST_COMMENT_DATABASE_REF.push().setValue(comment).addOnSuccessListener(nothing -> commentRecyclerView.scrollToPosition(adapter.getItemCount() - 1));
+        DatabaseReferences.POST_DATABASE_REF.child(post.getIdPost()).child("commentCount").get().addOnSuccessListener(dataSnapshot -> {
+            int commentCount = Optional.ofNullable(dataSnapshot.getValue(Integer.class)).orElse(0);
+            dataSnapshot.getRef().setValue(commentCount + 1);
+        });
         if (!post.getUsername().equals(currentUser.getUsername())) {
             String fullName = Optional.ofNullable(currentUser.getFullName()).orElse(currentUser.getUsername());
             String notificationContent = getString(R.string.notification_content_placeholder, fullName);

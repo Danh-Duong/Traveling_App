@@ -83,7 +83,7 @@ public class AdminCreateActivity extends AppCompatActivity {
         loais.add("Team Building");
         loais.add("Mạo hiểm");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,loais);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item,loais);
         adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spinner_loai.setAdapter(adapter);
 
@@ -96,7 +96,7 @@ public class AdminCreateActivity extends AppCompatActivity {
                 int month = calendar.get(Calendar.MONTH);
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
                 DecimalFormat decimalFormat = new DecimalFormat("00");
-                DatePickerDialog datePickerDialog = new DatePickerDialog(AdminCreateActivity.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getApplicationContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         String selectedDate = decimalFormat.format(dayOfMonth) + "/" + decimalFormat.format(monthOfYear + 1) + "/" + year;
@@ -115,7 +115,7 @@ public class AdminCreateActivity extends AppCompatActivity {
                 int month = calendar.get(Calendar.MONTH);
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
                 DecimalFormat decimalFormat = new DecimalFormat("00");
-                DatePickerDialog datePickerDialog = new DatePickerDialog(AdminCreateActivity.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getApplicationContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         String selectedDate = decimalFormat.format(dayOfMonth) + "/" + decimalFormat.format(monthOfYear + 1) + "/" + year;
@@ -150,13 +150,13 @@ public class AdminCreateActivity extends AppCompatActivity {
                                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                                         // thành công
                                         if (error==null){
-                                            AlertDialog.Builder b = new AlertDialog.Builder(AdminCreateActivity.this);
+                                            AlertDialog.Builder b = new AlertDialog.Builder(getApplicationContext());
                                             b.setTitle("Thông báo");
                                             b.setMessage("Tạo mới Tour thành công");
                                             b.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int id) {
                                                     finish();
-                                                    Intent intent=new Intent(AdminCreateActivity.this, AdminActivity.class);
+                                                    Intent intent=new Intent(getApplicationContext(), AdminActivity.class);
                                                     startActivity(intent);
                                                 }
                                             });
@@ -220,14 +220,14 @@ public class AdminCreateActivity extends AppCompatActivity {
         btnLuu=(Button)findViewById(R.id.btnLuu);
         btnUpload=(Button)findViewById(R.id.btnUpload);
         imgUpload=(ImageView) findViewById(R.id.imgUpload);
-        dialog=new Dialog(this);
+        dialog=new Dialog(getApplicationContext());
         calendar_bd=(ImageView) findViewById(R.id.calendar_bd);
         calendar_kt=(ImageView) findViewById(R.id.calendar_kt);
         spinner_loai=(Spinner) findViewById(R.id.spinner_loai);
     }
 
     public void generateTour(final DataCallback dataCallback){
-        progressDialog = new ProgressDialog(AdminCreateActivity.this);
+        progressDialog = new ProgressDialog(getApplicationContext());
         progressDialog.setMessage("Đang tạo mới tour...");
         progressDialog.show();
         String ten=edtTen.getText().toString();
@@ -245,7 +245,7 @@ public class AdminCreateActivity extends AppCompatActivity {
         // nếu đầu vào là 1 ảnh upload từ máy.
         if (edtAnhChinh.getText().toString().equals("")) {
             Calendar calendar = Calendar.getInstance();
-            StorageReference mountainsRef = storageRef.child("images").child("tours").child("image" + calendar.getTimeInMillis() + "png");
+            StorageReference mountainsRef = storageRef.child("images").child("tours").child("im-age" + calendar.getTimeInMillis() + "png");
             imgUpload.setDrawingCacheEnabled(true);
             imgUpload.buildDrawingCache();
             Bitmap bitmap = ((BitmapDrawable) imgUpload.getDrawable()).getBitmap();
@@ -256,7 +256,7 @@ public class AdminCreateActivity extends AppCompatActivity {
             uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
-                    Toast.makeText(AdminCreateActivity.this, "Lỗi !!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Lỗi !!!", Toast.LENGTH_SHORT).show();
                 }
             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -329,7 +329,7 @@ public class AdminCreateActivity extends AppCompatActivity {
 
     public void updateData(){
         // màn hình chờ
-        progressDialog = new ProgressDialog(AdminCreateActivity.this);
+        progressDialog = new ProgressDialog(getApplicationContext());
         progressDialog.setMessage("Đang cập nhập tour...");
         progressDialog.show();
 
@@ -362,7 +362,7 @@ public class AdminCreateActivity extends AppCompatActivity {
             uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
-                    Toast.makeText(AdminCreateActivity.this, "Lỗi !!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Lỗi !!!", Toast.LENGTH_SHORT).show();
                 }
             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -374,7 +374,7 @@ public class AdminCreateActivity extends AppCompatActivity {
                             dataU.put("mainImageUrl",imgAvaUrl);
                             // thành công
                             if (imgAvaUrl!=null)
-                                reference.updateChildren(dataU).addOnSuccessListener(nothing -> {progressDialog.cancel(); startActivity(new Intent(AdminCreateActivity.this, AdminActivity.class));});
+                                reference.updateChildren(dataU).addOnSuccessListener(nothing -> {progressDialog.cancel(); startActivity(new Intent(getApplicationContext(), AdminActivity.class));});
                         }
                     });
                 }
@@ -382,7 +382,7 @@ public class AdminCreateActivity extends AppCompatActivity {
         }
         else{
             dataU.put("mainImageUrl",edtAnhChinh.getText().toString());
-            reference.updateChildren(dataU).addOnSuccessListener(nothing -> {progressDialog.cancel(); startActivity(new Intent(AdminCreateActivity.this, AdminActivity.class));});
+            reference.updateChildren(dataU).addOnSuccessListener(nothing -> {progressDialog.cancel(); startActivity(new Intent(getApplicationContext(), AdminActivity.class));});
         }
     }
 }

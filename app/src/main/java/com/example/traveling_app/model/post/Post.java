@@ -15,6 +15,7 @@ public class Post implements Parcelable {
     private String postImgUrl;
     private String username;
     private String title;
+    private int commentCount;
     private long time;
 
     // Bất đồng bộ, sử dụng listener để lấy giá trị
@@ -40,10 +41,11 @@ public class Post implements Parcelable {
             String postImgUrl = source.readString();
             String username = source.readString();
             String title = source.readString();
+            int commentCount = source.readInt();
             long time = source.readLong();
             String fullName = source.readString();
             String profileImageUrl = source.readString();
-            Post post = new Post(idPost, postImgUrl, username, title, time);
+            Post post = new Post(idPost, postImgUrl, username, title, commentCount, time);
             post.setProfileImageUrl(profileImageUrl);
             post.setFullName(fullName);
             return post;
@@ -60,6 +62,16 @@ public class Post implements Parcelable {
         this.postImgUrl = postImgUrl;
         this.username = username;
         this.title = title;
+        this.commentCount = 0;
+        this.time = time;
+    }
+
+    public Post(String idPost, String postImgUrl, String username, String title, int commentCount, long time) {
+        this.idPost = idPost;
+        this.postImgUrl = postImgUrl;
+        this.username = username;
+        this.title = title;
+        this.commentCount = commentCount;
         this.time = time;
     }
 
@@ -133,6 +145,14 @@ public class Post implements Parcelable {
         this.title = title;
     }
 
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+
     public long getTime() {
         return time;
     }
@@ -152,10 +172,13 @@ public class Post implements Parcelable {
         dest.writeString(postImgUrl);
         dest.writeString(username);
         dest.writeString(title);
+        dest.writeInt(commentCount);
         dest.writeLong(time);
         dest.writeString(fullName);
         dest.writeString(profileImageUrl);
     }
+
+
 
     @Override
     public String toString() {
