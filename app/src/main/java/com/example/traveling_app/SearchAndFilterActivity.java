@@ -105,7 +105,7 @@ public class SearchAndFilterActivity extends AppCompatActivity {
 
     public void switchToSearchResultFragment(String keyword) {
         if (keyword.length() == 0) {
-            Toast.makeText(this, R.string.please_enter_keyword, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.please_enter_keyword, Toast.LENGTH_SHORT).show();
             return;
         }
         recentSearch.add(0, keyword);

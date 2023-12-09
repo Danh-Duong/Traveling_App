@@ -3,10 +3,7 @@ package com.example.traveling_app.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.example.traveling_app.SearchAndFilterActivity;
 import com.example.traveling_app.model.filter.FilterItem;
 import com.google.android.flexbox.FlexboxLayout;
@@ -76,9 +72,8 @@ public class SearchFragment extends Fragment {
 
     @Override
     public void onResume() {
-        if (listener instanceof AppCompatActivity)
-        if (((AppCompatActivity)listener).getSupportActionBar() != null) {
-            ActionBar actionBar = ((AppCompatActivity)listener).getSupportActionBar();
+        if (listener.getSupportActionBar() != null) {
+            ActionBar actionBar = listener.getSupportActionBar();
             actionBar.setTitle(getString(R.string.search));
             actionBar.setSubtitle(null);
         }

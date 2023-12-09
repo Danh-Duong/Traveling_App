@@ -51,7 +51,7 @@ public class FilterFragment extends Fragment {
             Toast.makeText(getContext(), getString(R.string.getting_current_location_status), Toast.LENGTH_SHORT).show();
             Constants.getCurrentAddress(listener,
                     () -> {
-                        Toast.makeText(listener, getString(R.string.getting_current_location_status), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(listener.getApplicationContext(), getString(R.string.getting_current_location_status), Toast.LENGTH_SHORT).show();
                     },
                     (address) -> {
                         String province = address.getAdminArea();

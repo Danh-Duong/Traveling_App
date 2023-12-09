@@ -83,7 +83,6 @@ public class UserPostFragment extends Fragment {
         };
         editProfileButton.setOnClickListener(v -> startActivity(new Intent(getContext(), UpdateUserInformationActivity.class)));
         RecyclerView postRecyclerView = rootView.findViewById(R.id.postRecyclerView);
-        postRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         postRecyclerView.setAdapter(adapter);
         adapter.startListening();
         return rootView;
