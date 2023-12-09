@@ -24,7 +24,6 @@ public class SearchFragment extends Fragment {
     private FlexboxLayout selectedFilterItemContainer;
     private RelativeLayout selectedFilterItemHeader;
     private LinearLayout recentSearchItemsContainer;
-
     private EditText searchBoxEditText;
 
 
@@ -61,7 +60,7 @@ public class SearchFragment extends Fragment {
             ImageView icon = recentSearchViewItem.findViewById(R.id.icon);
             label.setText(str);
             recentSearchViewItem.setOnClickListener(v -> listener.switchToSearchResultFragment(str));
-            icon.setImageDrawable(getActivity().getDrawable(R.drawable.baseline_history_24));
+            icon.setImageDrawable(getContext().getDrawable(R.drawable.baseline_history_24));
             recentSearchItemsContainer.addView(recentSearchViewItem);
         });
         autoHideSectionIfEmpty(selectedFilterItemHeader, selectedFilterItemContainer);

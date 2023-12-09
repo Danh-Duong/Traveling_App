@@ -45,11 +45,11 @@ public class SearchResultFragment extends Fragment {
         if (getActivity() instanceof AppCompatActivity && ((AppCompatActivity)getActivity()).getSupportActionBar() != null) {
             ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
             actionBar.setTitle(getString(R.string.search_result));
-            int selectedFilterCount = (int)listener.getStreamOfSelectedFilterItem().count();
-            actionBar.setSubtitle(selectedFilterCount == 0 ? "" : getString(R.string.item_count, selectedFilterCount));
+            actionBar.setSubtitle(null);
         }
         return viewGroup;
     }
+
 
     @Override
     public void onDestroyView() {
