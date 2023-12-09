@@ -52,6 +52,7 @@ public class DetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String idTour= detailActivity.getIntent().getStringExtra("id");
+
                 Intent intent=new Intent(detailActivity, luu_book_tour.class);
                 intent.putExtra("id",idTour);
                 startActivity(intent);

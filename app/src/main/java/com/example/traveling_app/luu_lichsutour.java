@@ -59,10 +59,8 @@ public class luu_lichsutour extends AppCompatActivity {
                 }
                 adapter.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 
@@ -72,7 +70,6 @@ public class luu_lichsutour extends AppCompatActivity {
         actionBar.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24);
         actionBar.setTitle("Lịch sử tour");
     }
-
 
 
     @Override
