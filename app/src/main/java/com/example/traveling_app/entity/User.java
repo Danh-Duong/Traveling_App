@@ -15,6 +15,7 @@ public class User implements Serializable {
     private boolean gender;
 
     private int role;
+
     public User() {
     }
 
@@ -24,9 +25,10 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public User(String username, String profileImage) {
+    public User(String username, String profileImage, int role) {
         this.username = username;
         this.profileImage = profileImage;
+        this.role=role;
     }
 
     public User(String username, String fullName, String password, String description, int birthday, boolean gender, String profileImage) {

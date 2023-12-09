@@ -41,6 +41,8 @@
                 android:text="a"
                 android:textStyle="bold"></TextView>
             <ImageView
+                android:id="@+id/hint_tour_love"
+                android:tag="hint_tour_love"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="-16dp"
                 android:layout_height="15dp"

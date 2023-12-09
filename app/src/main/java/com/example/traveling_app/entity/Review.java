@@ -1,12 +1,17 @@
 package com.example.traveling_app.entity;
 
+import com.google.firebase.database.Exclude;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 public class Review implements Comparable<Review>{
+
+    @Exclude
     private String nameReviewer;
+    @Exclude
     private String avatarReviewer;
     private int rate;
     private String time;

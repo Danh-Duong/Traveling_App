@@ -38,7 +38,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import java.util.regex.Pattern;
 import java.io.Serializable;
 import java.util.Arrays;
 
@@ -49,8 +49,9 @@ public class activity_dangky extends AppCompatActivity {
     ImageView ggBtn;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
-
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://traveling-app-7d1f0-default-rtdb.asia-southeast1.firebasedatabase.app/");
+    private final String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+            + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,10 +169,48 @@ public class activity_dangky extends AppCompatActivity {
 
                 }
                 else {
-                    User user = new User(fullnametxt, null, matkhautxt, null, User.DEFAULT_BIRTHDAY, false, null);
-                    databaseReference.child("users/" + fullnametxt).setValue(user);
-                    Toast.makeText(activity_dangky.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(activity_dangky.this, activity_dangnhap.class));
+                    User user = new User(fullnametxt, null, matkhautxt, null, User.DEFAULT_BIRTHDAY, false, null,emailtxt);
+                    databaseReference.child("users/" + fullnametxt).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists())
+                                Toast.makeText(activity_dangky.this, "Tên người dùng đã tồn tại", Toast.LENGTH_SHORT).show();
+                            else{
+                                databaseReference.child("users/" + fullnametxt).setValue(user);
+                                Toast.makeText(activity_dangky.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(activity_dangky.this, activity_dangnhap.class));
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+//                    databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//
+//                            if(snapshot.hasChild(emailtxt)){
+//                                Toast.makeText(activity_dangky.this, "email is already regisred", Toast.LENGTH_SHORT).show();
+//
+//                            }
+//                            else {
+//                                databaseReference.child("users").child(emailtxt).child("fullname").setValue(fullnametxt);
+//                                databaseReference.child("users").child(emailtxt).child("fullname").setValue(emailtxt);
+//                                databaseReference.child("users").child(emailtxt).child("fullname").setValue(matkhautxt);
+//
+//                                Toast.makeText(activity_dangky.this,"user succesfully",Toast.LENGTH_SHORT).show();
+//                                finish();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//
+//                        }
+//                    });
 
 
                 }
@@ -199,7 +238,6 @@ public class activity_dangky extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     void  signIn(){
         Intent signInIntent = gsc.getSignInIntent();
         startActivityForResult(signInIntent,1000);
@@ -224,5 +262,11 @@ public class activity_dangky extends AppCompatActivity {
         finish();
         Intent intent = new Intent(activity_dangky.this, Login_google.class);
         startActivity(intent);
+    }
+
+    public static boolean patternMatches(String emailAddress, String regexPattern) {
+        return Pattern.compile(regexPattern)
+                .matcher(emailAddress)
+                .matches();
     }
 }

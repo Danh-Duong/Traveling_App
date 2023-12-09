@@ -1,8 +1,12 @@
 package com.example.traveling_app.entity;
 
+import com.google.firebase.database.Exclude;
+
 import java.util.Date;
 
 public class Tour {
+
+    @Exclude
     private String id;
     private String name;
     private String address;

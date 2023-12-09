@@ -43,6 +43,8 @@ public class luu_book_tour extends AppCompatActivity {
     ImageButton next_mgg_btn,next_point_btn;
     private static String point, sale, dateEnd1, dateStart1, amount, email, name_person, phone_number, price1,idTour;
     private  DatabaseReference ref;
+    private boolean isUpdatingNum = false;
+    private boolean isUpdatingPoint = false;
     private String fee = "0";
     int environment = 0;//developer default
     private String merchantName = "LeQuangLuu";
@@ -82,6 +84,7 @@ public class luu_book_tour extends AppCompatActivity {
             public void onClick(View v) {
                 saveForm();
                 Intent intent = new Intent(luu_book_tour.this, ThongTinTichDiem_activity.class);
+                intent.putExtra("amount",amount);
                 startActivity(intent);
                 amount_tv.setText(amount);
             }
@@ -218,18 +221,51 @@ public class luu_book_tour extends AppCompatActivity {
         historyObj.setStartDate(String.valueOf(dateStart_inp.getText()));
         historyObj.setEndDate(String.valueOf(dateEnd_inp.getText()));
         historyObj.setUsername(CurrentUser.getCurrentUser().getUsername());
-        DatabaseReference ref;
-        ref = FirebaseDatabase.getInstance().getReference().child("booking");
-        ref.child(RandomValue.generateRandomString(6)).setValue(historyObj);
+        DatabaseReference ref1;
+        ref1 = FirebaseDatabase.getInstance().getReference().child("booking");
+        ref1.child(RandomValue.generateRandomString(6)).setValue(historyObj);
         if (getIntent().getStringExtra("key_id")!=null) {
             VoucherHelper voucherHelper = new VoucherHelper();
             voucherHelper.deleteVoucher(getIntent().getStringExtra("key_id").toString());
         }
+        //reset Point
+        resetNumPoint();
+        //increase numBooking
+        resetNumBooking();
+    }
+    private void resetNumPoint() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(CurrentUser.getCurrentUser().getUsername());
-        if (!point_tv.getText().toString().equals("0"))
-        {
-            databaseReference.child("point").setValue(calPoint(Integer.parseInt((String) amount_tv.getText())));
-        }
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!isUpdatingPoint) {
+                    isUpdatingPoint = true;
+                    int numPoint = snapshot.child("point").getValue(Integer.class);
+                    databaseReference.child("point").setValue(numPoint + calPoint(Integer.parseInt((String) amount_tv.getText())));
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+//        databaseReference.child("point").setValue(calPoint(Integer.parseInt((String) amount_tv.getText())));
+    }
+    private void resetNumBooking() {
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!isUpdatingNum) {
+                    isUpdatingNum = true;
+                    int num = snapshot.child("numBooking").getValue(Integer.class);
+                    ref.child("numBooking").setValue(num + 1);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
     private void resetData() {
         saleprice_tour_tv.setText("0");
@@ -275,15 +311,13 @@ public class luu_book_tour extends AppCompatActivity {
             if(data != null) {
                 if(data.getIntExtra("status", -1) == 0) {
                     resetData();
+                    finish();
                     startActivity(new Intent(luu_book_tour.this,luu_notifysuccess.class));
                     }
-
                 }
-
             }
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
@@ -293,7 +327,6 @@ public class luu_book_tour extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId()==android.R.id.home){
-            this.finish();
             return true;
         }
         return super.onOptionsItemSelected(item);

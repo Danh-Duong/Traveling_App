@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.traveling_app.DetailActivity;
 import com.example.traveling_app.R;
+import com.example.traveling_app.common.CheckLove;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -65,6 +66,11 @@ public class HintTourAdapter extends RecyclerView.Adapter<HintTourAdapter.TourHi
                 context.startActivity(intent);
             }
         });
+
+        CheckLove.isLoved(CurrentUser.getCurrentUser().getUsername(),tour.getId(),holder.hint_tour_love);
+        CheckLove.saveData(CurrentUser.getCurrentUser().getUsername(),tour.getId(),holder.hint_tour_love);
+
+
     }
     @Override
     public int getItemCount() {
@@ -73,13 +79,14 @@ public class HintTourAdapter extends RecyclerView.Adapter<HintTourAdapter.TourHi
 
     public static class TourHintViewHolder extends RecyclerView.ViewHolder{
         private TextView txtName, txtRate, txtPrice;
-        private ImageView img;
+        private ImageView img,hint_tour_love;
         public TourHintViewHolder(@NonNull View itemView) {
             super(itemView);
             txtName=itemView.findViewById(R.id.title_hint);
             txtRate=itemView.findViewById(R.id.rate_hint);
             txtPrice=itemView.findViewById(R.id.price_hint);
             img=itemView.findViewById(R.id.image_hint);
+            hint_tour_love=itemView.findViewById(R.id.hint_tour_love);
         }
     }
 }

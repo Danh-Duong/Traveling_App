@@ -36,10 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private BottomNavigationView bottomNavigationView;
 
-    public void goToAdmin(View v) {
-        startActivity(new Intent(getApplicationContext(), AdminActivity.class));
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

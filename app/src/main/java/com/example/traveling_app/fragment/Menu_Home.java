@@ -26,9 +26,9 @@ import com.example.traveling_app.entity.ImageLoader;
 import com.example.traveling_app.entity.NearTourAdapter;
 import com.example.traveling_app.entity.RecentTourAdapter;
 import com.example.traveling_app.entity.Tour;
-import com.example.traveling_app.entity.User;
 import com.example.traveling_app.entity.Voucher;
 import com.example.traveling_app.entity.VoucherTourAdapter;
+import com.example.traveling_app.model.user.User;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -57,7 +57,7 @@ public class Menu_Home extends Fragment{
     DatabaseReference ref=database.getReference();
     TextView username1;
     ImageView imgAvaMain;
-
+    CurrentUser currentUser=null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,15 +78,23 @@ public class Menu_Home extends Fragment{
 
         Activity mainActivity = getActivity();
 
-        CurrentUser currentUser=null;
         if (mainActivity.getIntent().getSerializableExtra("user")!=null){
             User user= (User) mainActivity.getIntent().getSerializableExtra("user");
+            Log.d("danh123",user.toString());
             currentUser=new CurrentUser(mainActivity,user);
         }
 
         username1.setText(currentUser.getCurrentUser().getUsername());
         if (currentUser.getCurrentUser().getProfileImage()!=null)
             ImageLoader.loadImage(currentUser.getCurrentUser().getProfileImage(),imgAvaMain);
+
+        imgAvaMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currentUser.getCurrentUser().getRole()==1)
+                    startActivity(new Intent(mainActivity, AdminActivity.class));
+            }
+        });
 
         // chặn sự kiện Back của trang chủ
         view.setFocusableInTouchMode(true);
@@ -102,14 +110,14 @@ public class Menu_Home extends Fragment{
 
         tour_hint_rcv=view.findViewById(R.id.tour_hint_rcv);
         recent_rcv=view.findViewById(R.id.recent_rcv);
-        vouchers.add(new Voucher("Giảm giá",R.drawable.main_voucher1));
-        vouchers.add(new Voucher("Giảm giá",R.drawable.main_voucher1));
-        vouchers.add(new Voucher("Giảm giá",R.drawable.main_voucher1));
+//        vouchers.add(new Voucher("Giảm giá",R.drawable.main_voucher1));
+//        vouchers.add(new Voucher("Giảm giá",R.drawable.main_voucher1));
+//        vouchers.add(new Voucher("Giảm giá",R.drawable.main_voucher1));
         voucher_rcv=view.findViewById(R.id.voucher_rcv);
         LinearLayoutManager ln3=new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
         voucherTourAdapter =new VoucherTourAdapter(getContext(),vouchers);
         voucher_rcv.setLayoutManager(ln3);
-        voucher_rcv.setAdapter(voucherTourAdapter);
+
         hot_rcv=view.findViewById(R.id.hot_rcv);
         near_rcv=view.findViewById(R.id.near_rcv);
         sliderView = view.findViewById(R.id.imageSlider);
@@ -119,6 +127,17 @@ public class Menu_Home extends Fragment{
         sliderView.setScrollTimeInSec(4);
         sliderView.startAutoCycle();
 
+        LinearLayoutManager ln1=new LinearLayoutManager(mainActivity,RecyclerView.HORIZONTAL,false);;
+        tour_hint_rcv.setLayoutManager(ln1);
+        LinearLayoutManager ln2=new LinearLayoutManager(mainActivity,RecyclerView.HORIZONTAL,false);
+        recent_rcv.setLayoutManager(ln2);
+
+        LinearLayoutManager ln4=new LinearLayoutManager(mainActivity,RecyclerView.HORIZONTAL,false);;
+        hot_rcv.setLayoutManager(ln4);
+        LinearLayoutManager ln5=new LinearLayoutManager(mainActivity,RecyclerView.VERTICAL,false);;
+        near_rcv.setLayoutManager(ln5);
+
+        getDataVoucher();
         getData(new DataCallback() {
             @Override
             public void onDataLoaded(List<Tour> tours) {
@@ -162,8 +181,10 @@ public class Menu_Home extends Fragment{
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Tour tour=snapshot.getValue(Tour.class);
+                tour.setId(snapshot.getKey().toString());
                 String id=snapshot.getKey();
                 tour.setId(id);
+//                updateInfo(id);
                 tours.put(id, tour);
                 callback.onDataLoaded(new ArrayList<>(tours.values()));
             }
@@ -172,6 +193,7 @@ public class Menu_Home extends Fragment{
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 String idTourModified=snapshot.getKey();
                 Tour tourModified=snapshot.getValue(Tour.class);
+                tourModified.setId(snapshot.getKey().toString());
                 tours.put(idTourModified, tourModified);
                 callback.onDataLoaded(new ArrayList<>(tours.values()));
             }
@@ -185,6 +207,56 @@ public class Menu_Home extends Fragment{
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+//    public void updateInfo(String tourName) {
+//        DatabaseReference tourRef = ref.child("tours").child(tourName);
+//
+//        tourRef.child("reviews").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                int numComment = 0;
+//                double numRate = 0;
+//
+//                for (DataSnapshot reviewSnapshot : snapshot.getChildren()) {
+//                    for (DataSnapshot ds : reviewSnapshot.getChildren()) {
+//                        Review review = ds.getValue(Review.class);
+//                        numComment++;
+//                        numRate += review.getRate();
+//                    }
+//                }
+//
+//                double averageRate = numComment > 0 ? numRate / numComment : 0;
+//                tourRef.child("numComment").setValue(numComment);
+//                tourRef.child("numStar").setValue(averageRate);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                // Xử lý lỗi nếu cần
+//            }
+//        });
+//    }
+
+
+    public void getDataVoucher(){
+        ref.child("vouchers").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds: snapshot.getChildren()){
+                    Voucher v=ds.getValue(Voucher.class);
+                    vouchers.add(v);
+                }
+                voucherTourAdapter =new VoucherTourAdapter(mainActivity,vouchers);
+                voucher_rcv.setAdapter(voucherTourAdapter);
 
             }
 

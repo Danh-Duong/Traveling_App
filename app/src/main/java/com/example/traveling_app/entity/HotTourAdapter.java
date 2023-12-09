@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.traveling_app.DetailActivity;
 import com.example.traveling_app.R;
+import com.example.traveling_app.common.CheckLove;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -57,6 +58,10 @@ public class HotTourAdapter extends RecyclerView.Adapter<HotTourAdapter.HotTourV
                 context.startActivity(intent);
             }
         });
+
+        CheckLove.isLoved(CurrentUser.getCurrentUser().getUsername(),tour.getId(),holder.hot_tour_love);
+        CheckLove.saveData(CurrentUser.getCurrentUser().getUsername(),tour.getId(),holder.hot_tour_love);
+
     }
 
     @Override
@@ -67,7 +72,7 @@ public class HotTourAdapter extends RecyclerView.Adapter<HotTourAdapter.HotTourV
     public static class HotTourViewHolder extends RecyclerView.ViewHolder{
 
         private TextView txtTitle, txtPercent, txtRate, txtReview,txtPrice,txtSale;
-        private ImageView img;
+        private ImageView img,hot_tour_love;
         public HotTourViewHolder(@NonNull View itemView) {
             super(itemView);
             txtTitle=itemView.findViewById(R.id.title_hot);
@@ -77,6 +82,7 @@ public class HotTourAdapter extends RecyclerView.Adapter<HotTourAdapter.HotTourV
             txtPrice=itemView.findViewById(R.id.price_hot);
             txtSale=itemView.findViewById(R.id.sale_hot);
             img=itemView.findViewById(R.id.image_hot);
+            hot_tour_love=itemView.findViewById(R.id.hot_tour_love);
         }
     }
 }

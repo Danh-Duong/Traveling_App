@@ -48,7 +48,6 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 public class activity_dangnhap extends AppCompatActivity {
-
     CallbackManager callbackManager;
     ImageView fbBtn;
     ImageView ggBtn;
@@ -159,6 +158,7 @@ public class activity_dangnhap extends AppCompatActivity {
 
 
 
+
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -174,12 +174,13 @@ public class activity_dangnhap extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()) {
-                                Log.d("key", snapshot.toString());
-                                final User info = snapshot.getValue(User.class);
+//                                Log.d("key", snapshot.toString());
+                                User info = snapshot.getValue(User.class);
+                                info.setUsername(snapshot.getKey());
                                 if (info.getPassword().equals(passwordtxt)) {
                                     Toast.makeText(activity_dangnhap.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                                     Intent intent=new Intent(activity_dangnhap.this, MainActivity.class);
-                                    intent.putExtra("user", new com.example.traveling_app.entity.User(null, emailtxt, null));
+                                    intent.putExtra("user",info);
                                     startActivity(intent);
                                     finish();
                                 } else {
@@ -219,8 +220,13 @@ public class activity_dangnhap extends AppCompatActivity {
             }
         });
 
-
-
+//        findViewById(R.id.at2_btn1).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent=new Intent(activity_dangnhap.this, MainActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
     }
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
