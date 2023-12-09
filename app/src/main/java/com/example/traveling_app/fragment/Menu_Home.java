@@ -1,34 +1,22 @@
 package com.example.traveling_app.fragment;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.traveling_app.AdminActivity;
-import com.example.traveling_app.MainActivity;
 import com.example.traveling_app.R;
 import com.example.traveling_app.SearchAndFilterActivity;
-import com.example.traveling_app.entity.AdminTourAdapter;
 import com.example.traveling_app.entity.BannerTourAdapter;
 import com.example.traveling_app.entity.CurrentUser;
 import com.example.traveling_app.entity.DataCallback;
@@ -37,7 +25,6 @@ import com.example.traveling_app.entity.HotTourAdapter;
 import com.example.traveling_app.entity.ImageLoader;
 import com.example.traveling_app.entity.NearTourAdapter;
 import com.example.traveling_app.entity.RecentTourAdapter;
-import com.example.traveling_app.entity.Review;
 import com.example.traveling_app.entity.Tour;
 import com.example.traveling_app.entity.User;
 import com.example.traveling_app.entity.Voucher;
@@ -46,14 +33,11 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
+import com.google.firebase.database.FirebaseDatabase;;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -67,7 +51,6 @@ public class Menu_Home extends Fragment{
     private NearTourAdapter nearTourAdapter;
     HashMap<String, Tour> tours=new HashMap<>();
     private List<Voucher> vouchers=new ArrayList<>();
-    private MainActivity mainActivity;
     private View view;
     private EditText searchInput;
     FirebaseDatabase database=FirebaseDatabase.getInstance();
@@ -88,12 +71,12 @@ public class Menu_Home extends Fragment{
         searchInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(mainActivity, SearchAndFilterActivity.class);
+                Intent intent=new Intent(getContext(), SearchAndFilterActivity.class);
                 startActivity(intent);
             }
         });
 
-        mainActivity= (MainActivity) getActivity();
+        Activity mainActivity = getActivity();
 
         CurrentUser currentUser=null;
         if (mainActivity.getIntent().getSerializableExtra("user")!=null){
@@ -123,8 +106,8 @@ public class Menu_Home extends Fragment{
         vouchers.add(new Voucher("Giảm giá",R.drawable.main_voucher1));
         vouchers.add(new Voucher("Giảm giá",R.drawable.main_voucher1));
         voucher_rcv=view.findViewById(R.id.voucher_rcv);
-        LinearLayoutManager ln3=new LinearLayoutManager(mainActivity,RecyclerView.HORIZONTAL,false);
-        voucherTourAdapter =new VoucherTourAdapter(mainActivity,vouchers);
+        LinearLayoutManager ln3=new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
+        voucherTourAdapter =new VoucherTourAdapter(getContext(),vouchers);
         voucher_rcv.setLayoutManager(ln3);
         voucher_rcv.setAdapter(voucherTourAdapter);
         hot_rcv=view.findViewById(R.id.hot_rcv);
@@ -139,27 +122,27 @@ public class Menu_Home extends Fragment{
         getData(new DataCallback() {
             @Override
             public void onDataLoaded(List<Tour> tours) {
-                LinearLayoutManager ln1=new LinearLayoutManager(mainActivity,RecyclerView.HORIZONTAL,false);;
+                LinearLayoutManager ln1=new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
                 tour_hint_rcv.setLayoutManager(ln1);
-                hintTourAdapter =new HintTourAdapter(mainActivity,tours);
+                hintTourAdapter =new HintTourAdapter(getContext(),tours);
                 tour_hint_rcv.setAdapter(hintTourAdapter);
 
-                LinearLayoutManager ln2=new LinearLayoutManager(mainActivity,RecyclerView.HORIZONTAL,false);
+                LinearLayoutManager ln2=new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
                 recent_rcv.setLayoutManager(ln2);
-                recentTourAdapter =new RecentTourAdapter(mainActivity,tours);
+                recentTourAdapter =new RecentTourAdapter(getContext(),tours);
                 recent_rcv.setAdapter(recentTourAdapter);
 
-                LinearLayoutManager ln4=new LinearLayoutManager(mainActivity,RecyclerView.HORIZONTAL,false);;
+                LinearLayoutManager ln4=new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
                 hot_rcv.setLayoutManager(ln4);
-                hotTourAdapter =new HotTourAdapter(mainActivity,tours);
+                hotTourAdapter =new HotTourAdapter(getContext(),tours);
                 hot_rcv.setAdapter(hotTourAdapter);
 
-                LinearLayoutManager ln5=new LinearLayoutManager(mainActivity,RecyclerView.VERTICAL,false);;
+                LinearLayoutManager ln5=new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);;
                 near_rcv.setLayoutManager(ln5);
-                nearTourAdapter=new NearTourAdapter(mainActivity,tours);
+                nearTourAdapter=new NearTourAdapter(getContext(),tours);
                 near_rcv.setAdapter(nearTourAdapter);
 
-                BannerTourAdapter adapter = new BannerTourAdapter(mainActivity, tours);
+                BannerTourAdapter adapter = new BannerTourAdapter(getContext(), tours);
                 sliderView.setSliderAdapter(adapter);
             }
 

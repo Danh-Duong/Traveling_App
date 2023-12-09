@@ -40,6 +40,7 @@ public class TourSearchResultAdapter extends RecyclerView.Adapter<ResultViewHold
         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
             if (snapshot.child("name").getValue(String.class).toLowerCase().contains(keyword) && Arrays.stream(filters).allMatch(f -> f.isSatisfied(snapshot.child(f.getKey()).getValue()))) {
                 Tour tour = snapshot.getValue(Tour.class);
+                tour.setId(snapshot.getKey());
                 tourList.add(tour);
                 notifyDataSetChanged();
             }
@@ -89,13 +90,14 @@ public class TourSearchResultAdapter extends RecyclerView.Adapter<ResultViewHold
 
 class ResultViewHolder extends RecyclerView.ViewHolder {
     private final TextView title, place, oldPrice, newPrice, bookCount, rateCount;
-    private final ImageView thumbnail;
+    private final ImageView thumbnail, star;
     private final RequestManager imageLoader;
     private Tour tour;
 
     public ResultViewHolder(@NonNull View itemView, RequestManager imageLoader) {
         super(itemView);
         title = itemView.findViewById(R.id.title);
+        star = itemView.findViewById(R.id.star);
         place = itemView.findViewById(R.id.place);
         oldPrice = itemView.findViewById(R.id.oldPrice);
         newPrice = itemView.findViewById(R.id.newPrice);
@@ -115,6 +117,27 @@ class ResultViewHolder extends RecyclerView.ViewHolder {
     void bindToView(Tour tour) {
         this.tour = tour;
         title.setText(tour.getName());
+        switch ((int) Math.round(tour.getNumStar())) {
+            case 0:
+                star.setImageResource(R.drawable.star_0);
+                break;
+            case 1:
+                star.setImageResource(R.drawable.star_1);
+                break;
+            case 2:
+                star.setImageResource(R.drawable.star_2);
+                break;
+            case 3:
+                star.setImageResource(R.drawable.star_3);
+                break;
+            case 4:
+                star.setImageResource(R.drawable.star_4);
+                break;
+            default:
+                star.setImageResource(R.drawable.star_5);
+                break;
+
+        }
         place.setText(tour.getAddress());
         oldPrice.setText(Html.fromHtml("<strike>" + tour.getPrice() + " VND</strike>", HtmlCompat.FROM_HTML_MODE_LEGACY));
         newPrice.setText(tour.getSalePrice() + " VND");

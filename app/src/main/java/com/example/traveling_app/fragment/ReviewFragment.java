@@ -63,7 +63,6 @@ public class ReviewFragment extends Fragment {
 
     private List<Review> reviews=new ArrayList<>();
     private RecyclerView review_rcv;
-    private DetailActivity detailActivity;
     private View view;
     LinearLayout sao1, sao2, sao3, sao4, sao5;
     private static final int PICK_IMAGE = 1;
@@ -82,6 +81,8 @@ public class ReviewFragment extends Fragment {
     TextView numCom1,numCom2,numCom3,numCom4,numCom5;
     int nC1=0,nC2=0,nC3=0,nC4=0,nC5=0;
 
+    private String tourId;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,11 +93,10 @@ public class ReviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        detailActivity= (DetailActivity) getActivity();
         view= inflater.inflate(R.layout.fragment_review, container, false);
 
         review_rcv=view.findViewById(R.id.review_rcv);
-        LinearLayoutManager ln=new LinearLayoutManager(detailActivity, LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager ln=new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
         review_rcv.setLayoutManager(ln);
 
         bl_anh1=view.findViewById(R.id.bl_anh1);
@@ -125,6 +125,8 @@ public class ReviewFragment extends Fragment {
 
         btn_bl1=view.findViewById(R.id.btn_bl1);
         inputBl=view.findViewById(R.id.inputBl);
+
+        tourId = getActivity().getIntent().getStringExtra("id");
 
         bindingData();
         Bundle bundle = getArguments();
@@ -167,7 +169,7 @@ public class ReviewFragment extends Fragment {
         btn_bl1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (inputBl.getText()==null || inputBl.getText().toString().trim().equals("") || viewModel.getNumRate()==0){
-                    AlertDialog.Builder b = new AlertDialog.Builder(detailActivity);
+                    AlertDialog.Builder b = new AlertDialog.Builder(getContext());
                     b.setTitle("Thông báo");
                     b.setMessage("Vui lòng nhập đầy đủ thông tin");
                     b.setPositiveButton("BACK", new DialogInterface.OnClickListener() {
@@ -181,7 +183,7 @@ public class ReviewFragment extends Fragment {
                     al.show();
                 }
                 else {
-                    progressDialog = new ProgressDialog(detailActivity);
+                    progressDialog = new ProgressDialog(getContext());
                     progressDialog.setMessage("Đang tạo đánh giá...");
                     progressDialog.show();
                     Calendar calendar = Calendar.getInstance();
@@ -229,7 +231,7 @@ public class ReviewFragment extends Fragment {
                                         urlImages);
 
                                 // Đẩy dữ liệu lên Firebase
-                                ref.child("tours").child(detailActivity.getIntent().getStringExtra("id")).child("reviews").child(CurrentUser.getCurrentUser().getUsername()).push().setValue(review, new DatabaseReference.CompletionListener() {
+                                ref.child("tours").child(tourId).child("reviews").child(CurrentUser.getCurrentUser().getUsername()).push().setValue(review, new DatabaseReference.CompletionListener() {
                                     @Override
                                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                                         if (error == null) {
@@ -248,7 +250,7 @@ public class ReviewFragment extends Fragment {
                                             bindingData();
                                             // lưu giá trị của numRate và numComment lại
                                             DatabaseReference reference=FirebaseDatabase.getInstance().getReference();
-                                            reference.child("tours").child(detailActivity.getIntent().getStringExtra("id")).addListenerForSingleValueEvent(new ValueEventListener() {
+                                            reference.child("tours").child(tourId).addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                     Tour tour=snapshot.getValue(Tour.class);
@@ -256,9 +258,9 @@ public class ReviewFragment extends Fragment {
                                                     int numCommentCurrent=tour.getNumComment();
                                                     // cập nhập số lượng rate
                                                     double numNewRate=(numRateCurrent*(numCommentCurrent)/(numCommentCurrent+1))+viewModel.getNumRate()*1.0/(numCommentCurrent+1);
-                                                    reference.child("tours").child(detailActivity.getIntent().getStringExtra("id")).child("numStar").setValue(numNewRate);
+                                                    reference.child("tours").child(tourId).child("numStar").setValue(numNewRate);
                                                     // cập nhập số lượng comment
-                                                    reference.child("tours").child(detailActivity.getIntent().getStringExtra("id")).child("numComment").setValue(numCommentCurrent+1);
+                                                    reference.child("tours").child(tourId).child("numComment").setValue(numCommentCurrent+1);
                                                 }
 
                                                 @Override
@@ -268,7 +270,7 @@ public class ReviewFragment extends Fragment {
                                             });
                                         } else {
                                             // Xử lý lỗi khi push dữ liệu lên Firebase
-                                            Toast.makeText(detailActivity, "Lỗi khi đẩy dữ liệu lên Firebase", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getContext(), "Lỗi khi đẩy dữ liệu lên Firebase", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
@@ -378,7 +380,7 @@ public class ReviewFragment extends Fragment {
         nC5=0;
         if (reviews.size()>0)
             reviews.clear();
-        ref.child("tours").child(detailActivity.getIntent().getStringExtra("id")).child("reviews").addChildEventListener(new ChildEventListener() {
+        ref.child("tours").child(tourId).child("reviews").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(snapshot.exists()){
@@ -416,7 +418,7 @@ public class ReviewFragment extends Fragment {
                     Collections.reverse(sortReviews);
 
                     viewModel.setReviews(sortReviews);
-                    reviewAdapter=new ReviewAdapter(detailActivity, sortReviews);
+                    reviewAdapter=new ReviewAdapter(getContext(), sortReviews);
                     review_rcv.setAdapter(reviewAdapter);
                 }
             }
@@ -455,7 +457,8 @@ public class ReviewFragment extends Fragment {
             ln.setBackgroundResource(i==star ? R.color.star : R.drawable.review_border);
         }
         List<Review> list= viewModel.getReviews().stream().filter(r -> r.getRate()==star).collect(Collectors.toList());
-        reviewAdapter=new ReviewAdapter(detailActivity, list);
+        reviewAdapter=new ReviewAdapter(getContext(), list);
         review_rcv.setAdapter(reviewAdapter);
     }
+
 }

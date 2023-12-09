@@ -32,8 +32,6 @@ public class DetailFragment extends Fragment {
     private List<Service> services=new ArrayList<>();
     private RecyclerView service_rcv;
     private View view;
-    private DetailActivity detailActivity;
-
     private TextView book_tour,tour_detail_des;
 
     DatabaseReference ref= FirebaseDatabase.getInstance().getReference("tours");
@@ -42,7 +40,6 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        detailActivity=(DetailActivity)getActivity();
         view= inflater.inflate(R.layout.fragment_detail, container, false);
 
         book_tour=view.findViewById(R.id.book_tour);
@@ -51,8 +48,8 @@ public class DetailFragment extends Fragment {
         book_tour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String idTour= detailActivity.getIntent().getStringExtra("id");
-                Intent intent=new Intent(detailActivity, luu_book_tour.class);
+                String idTour= getActivity().getIntent().getStringExtra("id");
+                Intent intent = new Intent(getContext(), luu_book_tour.class);
                 intent.putExtra("id",idTour);
                 startActivity(intent);
             }
@@ -64,15 +61,15 @@ public class DetailFragment extends Fragment {
         services.add(new Service(R.drawable.face_smile,"Ngủ 1 đêm tại khách sạn tại phòng Standard"));
         services.add(new Service(R.drawable.face_smile,"Nhận voucher 500.000 đ"));
 
-        ServiceTourAdapter serviceTourAdapter=new ServiceTourAdapter(detailActivity,services);
-        LinearLayoutManager ln=new LinearLayoutManager(detailActivity, RecyclerView.VERTICAL, false);
+        ServiceTourAdapter serviceTourAdapter=new ServiceTourAdapter(getContext(),services);
+        LinearLayoutManager ln=new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         service_rcv.setLayoutManager(ln);
         service_rcv.setAdapter(serviceTourAdapter);
         return view;
     }
 
     public void bindingData(){
-        String idTour= detailActivity.getIntent().getStringExtra("id");
+        String idTour= getActivity().getIntent().getStringExtra("id");
         ref.child(idTour).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -85,6 +82,10 @@ public class DetailFragment extends Fragment {
 
             }
         });
+    }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 }

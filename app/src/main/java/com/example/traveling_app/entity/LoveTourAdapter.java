@@ -15,11 +15,12 @@ import com.example.traveling_app.R;
 import java.text.DecimalFormat;
 import java.util.List;
 
+@Deprecated
 public class LoveTourAdapter extends RecyclerView.Adapter<LoveTourAdapter.LoveTourAdapterViewHolder>{
     private List<Tour> tours;
     private Context context;
 
-    public LoveTourAdapter( Context context,List<Tour> tours) {
+    public LoveTourAdapter(Context context,List<Tour> tours) {
         this.tours = tours;
         this.context = context;
     }

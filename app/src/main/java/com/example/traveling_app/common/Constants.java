@@ -2,6 +2,7 @@ package com.example.traveling_app.common;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -45,11 +46,12 @@ public class Constants {
     public static final List<MenuSectionItem> MENU_SECTION_ITEMS;
 
     public static final void getCurrentAddress(Activity activity, Runnable onFailedListener, Consumer<Address> onSuccessListener) {
+        Context context = activity.getApplicationContext();
         if (activity.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity);
             fusedLocationProviderClient.getCurrentLocation(Priority.PRIORITY_LOW_POWER, null).addOnSuccessListener(activity, location -> {
                 if (location != null) {
-                    Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
+                    Geocoder geocoder = new Geocoder(context, Locale.getDefault());
                     Address address;
                     try {
                         address = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1).get(0);

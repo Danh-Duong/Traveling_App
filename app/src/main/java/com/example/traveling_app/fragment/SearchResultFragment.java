@@ -3,10 +3,10 @@ package com.example.traveling_app.fragment;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import com.example.traveling_app.R;
 import com.example.traveling_app.SearchAndFilterActivity;
 import com.example.traveling_app.model.TourSearchResultAdapter;
-import com.google.firebase.FirebaseApp;
 
 public class SearchResultFragment extends Fragment {
 
@@ -22,7 +21,7 @@ public class SearchResultFragment extends Fragment {
     private TourSearchResultAdapter adapter;
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         if (context instanceof SearchAndFilterActivity)
             this.listener = (SearchAndFilterActivity)context;
         else
@@ -43,8 +42,6 @@ public class SearchResultFragment extends Fragment {
         RecyclerView recyclerView = viewGroup.findViewById(R.id.resultContainer);
         adapter = new TourSearchResultAdapter(getContext(), listener.getKeyword(), listener.getStreamOfFilterItemGroups());
         recyclerView.setAdapter(adapter);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if (getActivity() instanceof AppCompatActivity && ((AppCompatActivity)getActivity()).getSupportActionBar() != null) {
             ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
             actionBar.setTitle(getString(R.string.search_result));

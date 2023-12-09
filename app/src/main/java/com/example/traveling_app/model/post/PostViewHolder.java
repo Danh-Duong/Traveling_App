@@ -2,7 +2,6 @@ package com.example.traveling_app.model.post;
 
 import java.text.DateFormat;
 import java.util.Date;
-
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,12 +38,7 @@ class PostViewHolder extends RecyclerView.ViewHolder {
         Date time = new Date(post.getTime());
         timeTextView.setText(dateFormat.format(time) + " " + timeFormat.format(time));
 
-        post.getProfileImageUrlAsync(url -> {
-            if (url == null)
-                imageLoader.load(R.drawable.user_profile_icon).into(userAvatarImageView);
-            else
-                imageLoader.load(url).circleCrop().into(userAvatarImageView);
-        });
+        post.getProfileImageUrlAsync(url -> (url == null ? imageLoader.load(R.drawable.user_profile_icon) : imageLoader.load(url)).into(userAvatarImageView));
 
         if (post.getPostImgUrl() != null) {
             cardView.setVisibility(View.VISIBLE);

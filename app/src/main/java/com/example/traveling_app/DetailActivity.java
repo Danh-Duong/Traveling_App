@@ -5,23 +5,18 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-
 import com.bumptech.glide.Glide;
 import com.example.traveling_app.entity.CurrentUser;
-import com.example.traveling_app.entity.ImageLoader;
 import com.example.traveling_app.entity.Tour;
 import com.example.traveling_app.entity.ViewPagerAdapter;
 import com.example.traveling_app.fragment.ReviewFragment;
@@ -31,7 +26,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.text.DecimalFormat;
 
 public class DetailActivity extends AppCompatActivity {
@@ -43,8 +37,6 @@ public class DetailActivity extends AppCompatActivity {
     private ImageView tour_detail_ava, tour_detail_ava1, tour_detail_ava2, tour_detail_ava3, tour_detail_ava4;
     private TextView tour_detail_tit, tour_detail_add, tour_detail_price, tour_detail_star, tour_detail_com;
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("tours");
-
-    int numRate=0, numComment=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,18 +145,14 @@ public class DetailActivity extends AppCompatActivity {
                     tour_detail_tit.setText(tour.getName());
                     tour_detail_add.setText(tour.getAddress());
                     tour_detail_price.setText(formatter.format(tour.getSalePrice()) + " VNĐ");
-//                    ImageLoader.loadImage(tour.getMainImageUrl(), tour_detail_ava);
-//                    ImageLoader.loadImage(tour.getMainImageUrl(), tour_detail_ava1);
-//                    ImageLoader.loadImage(tour.getMainImageUrl(), tour_detail_ava2);
-//                    ImageLoader.loadImage(tour.getMainImageUrl(), tour_detail_ava3);
-//                    ImageLoader.loadImage(tour.getMainImageUrl(), tour_detail_ava4);
-                    Glide.with(DetailActivity.this).load(tour.getMainImageUrl()).into(tour_detail_ava);
-                    Glide.with(DetailActivity.this).load(tour.getMainImageUrl()).into(tour_detail_ava1);
-                    Glide.with(DetailActivity.this).load(tour.getMainImageUrl()).into(tour_detail_ava2);
-                    Glide.with(DetailActivity.this).load(tour.getMainImageUrl()).into(tour_detail_ava3);
-                    Glide.with(DetailActivity.this).load(tour.getMainImageUrl()).into(tour_detail_ava4);
 
-                    tour_detail_star.setText(String.valueOf(df.format(tour.getNumStar()).replace(',', '.')));
+                    Glide.with(getApplicationContext()).load(tour.getMainImageUrl()).into(tour_detail_ava);
+                    Glide.with(getApplicationContext()).load(tour.getMainImageUrl()).into(tour_detail_ava1);
+                    Glide.with(getApplicationContext()).load(tour.getMainImageUrl()).into(tour_detail_ava2);
+                    Glide.with(getApplicationContext()).load(tour.getMainImageUrl()).into(tour_detail_ava3);
+                    Glide.with(getApplicationContext()).load(tour.getMainImageUrl()).into(tour_detail_ava4);
+
+                    tour_detail_star.setText(df.format(tour.getNumStar()).replace(',', '.'));
                     tour_detail_com.setText(String.valueOf(tour.getNumComment()));
 
                     phone=tour.getPhone();
