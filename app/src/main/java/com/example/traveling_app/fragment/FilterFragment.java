@@ -48,14 +48,14 @@ public class FilterFragment extends Fragment {
             rootView.addView(linearLayout);
         });
         getCurrentLocationTextView.setOnClickListener(v -> {
-            Toast.makeText(getContext(), getString(R.string.getting_current_location_status), Toast.LENGTH_SHORT).show();
             Constants.getCurrentAddress(listener,
                     () -> {
-                        Toast.makeText(listener.getApplicationContext(), getString(R.string.getting_current_location_status), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(listener.getApplicationContext(), getString(R.string.get_location_failed), Toast.LENGTH_SHORT).show();
                     },
                     (address) -> {
                         String province = address.getAdminArea();
-                        listener.getStreamOfFilterItemGroups().filter(g -> g.getKey().equals("province")).forEach(g -> new KeywordFilterItem(g, province).selectSelf());
+                        listener.getStreamOfFilterItemGroups().filter(g -> g.getKey().equals("address")).forEach(g -> new KeywordFilterItem(g, province).selectSelf());
+                        Toast.makeText(getContext(), province, Toast.LENGTH_SHORT).show();
                     });
         });
         return rootView;

@@ -124,6 +124,10 @@ public class SearchAndFilterActivity extends AppCompatActivity {
     public String getKeyword() {
         return keyword;
     }
+    public void clearRecentSearch() {
+        recentSearch.clear();
+        sharedPreferences.edit().putString(RECENT_SEARCH_SHARED_REF_KEY, gson.toJson(recentSearch)).commit();
+    }
 
 
 }

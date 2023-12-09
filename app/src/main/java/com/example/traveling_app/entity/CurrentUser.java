@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import com.example.traveling_app.model.user.User;
-
 public class CurrentUser {
 
     private static SharedPreferences preferences;

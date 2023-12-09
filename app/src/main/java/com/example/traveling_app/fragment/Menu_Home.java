@@ -26,7 +26,7 @@ import com.example.traveling_app.entity.ImageLoader;
 import com.example.traveling_app.entity.NearTourAdapter;
 import com.example.traveling_app.entity.RecentTourAdapter;
 import com.example.traveling_app.entity.Tour;
-import com.example.traveling_app.entity.User;
+import com.example.traveling_app.model.user.User;
 import com.example.traveling_app.entity.Voucher;
 import com.example.traveling_app.entity.VoucherTourAdapter;
 import com.google.firebase.database.ChildEventListener;
@@ -81,7 +81,7 @@ public class Menu_Home extends Fragment{
         CurrentUser currentUser=null;
         if (mainActivity.getIntent().getSerializableExtra("user")!=null){
             User user= (User) mainActivity.getIntent().getSerializableExtra("user");
-            currentUser=new CurrentUser(mainActivity,user);
+            currentUser=new CurrentUser(mainActivity, user);
         }
 
         username1.setText(currentUser.getCurrentUser().getUsername());
@@ -102,9 +102,9 @@ public class Menu_Home extends Fragment{
 
         tour_hint_rcv=view.findViewById(R.id.tour_hint_rcv);
         recent_rcv=view.findViewById(R.id.recent_rcv);
-        vouchers.add(new Voucher("Giảm giá",R.drawable.main_voucher1));
-        vouchers.add(new Voucher("Giảm giá",R.drawable.main_voucher1));
-        vouchers.add(new Voucher("Giảm giá",R.drawable.main_voucher1));
+//        vouchers.add(new Voucher("Giảm giá",R.drawable.main_voucher1));
+//        vouchers.add(new Voucher("Giảm giá",R.drawable.main_voucher1));
+//        vouchers.add(new Voucher("Giảm giá",R.drawable.main_voucher1));
         voucher_rcv=view.findViewById(R.id.voucher_rcv);
         LinearLayoutManager ln3=new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
         voucherTourAdapter =new VoucherTourAdapter(getContext(),vouchers);
