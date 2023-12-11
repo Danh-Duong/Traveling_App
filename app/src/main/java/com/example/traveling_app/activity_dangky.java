@@ -94,7 +94,7 @@ public class activity_dangky extends AppCompatActivity {
                                                             }
 
                                                             // Chuyển đến MainActivity với thông tin người dùng
-                                                            com.example.traveling_app.entity.User currentUser = new com.example.traveling_app.entity.User();
+                                                            User currentUser = new User();
                                                             currentUser.setUsername(userName);
                                                             intent.putExtra("user", (Serializable) currentUser);
                                                             startActivity(intent);
