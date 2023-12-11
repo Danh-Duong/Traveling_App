@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.traveling_app.entity.User;
+import com.example.traveling_app.model.user.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -38,7 +38,10 @@ public class Login_google extends AppCompatActivity {
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
         signoutbtn = findViewById(R.id.signoutbtn);
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestServerAuthCode("424359554202-fgthtsl6ehka47r0r2g354obeh9sj35e.apps.googleusercontent.com")  // Thay đổi bằng Client ID của dự án mới
+                .build();
         gsc = GoogleSignIn.getClient(this,gso);
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
@@ -59,7 +62,7 @@ public class Login_google extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Login_google.this, MainActivity.class);
-                com.example.traveling_app.entity.User user = new User();
+                User user = new User();
                 user.setUsername(personUsername);
                 intent.putExtra("user", (Serializable) user);
                 startActivity(intent);
