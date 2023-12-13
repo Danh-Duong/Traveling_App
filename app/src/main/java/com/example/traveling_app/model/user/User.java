@@ -1,8 +1,9 @@
 package com.example.traveling_app.model.user;
 import com.google.firebase.database.Exclude;
-
 import java.io.Serializable;
+import androidx.annotation.Keep;
 
+@Keep
 public class User implements Serializable {
     @Exclude
     private String username;
@@ -13,6 +14,7 @@ public class User implements Serializable {
     private String description;
     private boolean gender;
     private String profileImageUrl;
+    private int point = 0;
     private int role;
     private String token;
     @Exclude
@@ -126,6 +128,14 @@ public class User implements Serializable {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
     }
 
     @Override

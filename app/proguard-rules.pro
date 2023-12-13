@@ -19,3 +19,12 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keep public class com.example.traveling_app.model.comment.Comment
+-keep public class com.example.traveling_app.model.notification.Notification
+-keep public class com.example.traveling_app.model.post.Post
+-keep public class com.example.traveling_app.model.savedtours.SavedTour
+-keep public class com.example.traveling_app.model.tour.Discount
+-keep public class com.example.traveling_app.model.tour.HistoryTour
+-keep public class com.example.traveling_app.model.tour.Review
+-keep public class com.example.traveling_app.model.tour.Tour

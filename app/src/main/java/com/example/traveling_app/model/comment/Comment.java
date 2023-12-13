@@ -1,7 +1,10 @@
 package com.example.traveling_app.model.comment;
+
 import com.google.firebase.database.Exclude;
 import java.util.function.Consumer;
+import androidx.annotation.Keep;
 
+@Keep
 @SuppressWarnings("unused")
 public class Comment {
 

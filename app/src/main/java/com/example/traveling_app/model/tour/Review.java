@@ -1,10 +1,11 @@
 package com.example.traveling_app.model.tour;
 
 import com.google.firebase.database.Exclude;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
+import java.util.List;import androidx.annotation.Keep;
+
+@Keep
 
 public class Review implements Comparable<Review>{
 

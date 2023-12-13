@@ -1,8 +1,9 @@
 package com.example.traveling_app.model.notification;
 import com.google.firebase.database.Exclude;
-
 import java.util.function.Consumer;
+import androidx.annotation.Keep;
 
+@Keep
 public class Notification {
     @Exclude
     private String id;

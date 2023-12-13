@@ -2,13 +2,12 @@ package com.example.traveling_app.model.post;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import androidx.annotation.NonNull;
-
 import com.google.firebase.database.Exclude;
-
 import java.util.function.Consumer;
+import androidx.annotation.Keep;
 
+@Keep
 public class Post implements Parcelable {
     @Exclude
     private String idPost;

@@ -35,6 +35,7 @@ public class SearchAndFilterActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private static final int MAX_RECENT_SEARCH = 5;
     private static final String RECENT_SEARCH_SHARED_REF_KEY = "recentSearch";
+    public static final String TYPE_FILTER_PARAMS = "type_filter";
 
     private String keyword = "";
 
@@ -63,12 +64,27 @@ public class SearchAndFilterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
         ActionBar actionBar = getSupportActionBar();
         FragmentManager fragmentManager = getSupportFragmentManager();
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        recentSearch = gson.fromJson(sharedPreferences.getString(RECENT_SEARCH_SHARED_REF_KEY, "[]"), ArrayList.class);
+
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        if (getIntent().getStringExtra(TYPE_FILTER_PARAMS) != null) {
+            String keyword = getIntent().getStringExtra(TYPE_FILTER_PARAMS);
+            FilterItemGroup typeFilterItemGroup = new FilterItemGroup("type", null);
+            FilterItem filterItem = new KeywordFilterItem(typeFilterItemGroup, keyword);
+            filterItem.selectSelf();
+            filterGroups.add(typeFilterItemGroup);
+            fragmentManager.beginTransaction().replace(R.id.content, searchResultFragment).commit();
+            return;
+        }
+
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        recentSearch = gson.fromJson(sharedPreferences.getString(RECENT_SEARCH_SHARED_REF_KEY, "[]"), ArrayList.class);
+
         fragmentManager.beginTransaction().replace(R.id.content, searchFragment).commit();
     }
 

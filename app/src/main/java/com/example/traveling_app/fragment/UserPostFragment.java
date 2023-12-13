@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.traveling_app.R;
+import com.example.traveling_app.activity.CreateBlogActivity;
 import com.example.traveling_app.activity.UpdateUserInformationActivity;
 import com.example.traveling_app.common.Constants;
 import com.example.traveling_app.common.DatabaseReferences;
@@ -56,7 +57,9 @@ public class UserPostFragment extends Fragment {
         TextView usernameTextView = rootView.findViewById(R.id.username),
                 descriptionTextView = rootView.findViewById(R.id.description);
         ImageView avatarPicture = rootView.findViewById(R.id.avatarImage);
-        Button editProfileButton = rootView.findViewById(R.id.editProfileButton);
+        Button editProfileButton = rootView.findViewById(R.id.editProfileButton),
+            addPostButton = rootView.findViewById(R.id.addPostButton);
+
 
         if (valueEventListener != null)
             userProfileRef.removeEventListener(valueEventListener);
@@ -81,6 +84,7 @@ public class UserPostFragment extends Fragment {
             }
         };
         editProfileButton.setOnClickListener(v -> startActivity(new Intent(getContext(), UpdateUserInformationActivity.class)));
+        addPostButton.setOnClickListener(v -> startActivity(new Intent(getContext(), CreateBlogActivity.class)));
         RecyclerView postRecyclerView = rootView.findViewById(R.id.postRecyclerView);
         postRecyclerView.setAdapter(adapter);
         adapter.startListening();
