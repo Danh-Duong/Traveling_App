@@ -28,19 +28,19 @@
                 android:textColor="#0099FF"
                 android:layout_weight="1"/>
             <TextView
+                android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="VND "
+                android:text="1.500.000"
                 android:textSize="16sp"
                 android:textColor="#5B5656"
                 android:layout_weight="1"
                 android:gravity="right"
                 android:textStyle="bold"/>
             <TextView
-                android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="1.500.000"
+                android:text="  VND"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="#5B5656"

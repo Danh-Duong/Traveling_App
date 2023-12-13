@@ -131,6 +131,7 @@ public class BookTourActivity extends AppCompatActivity {
                 price_tour_tv.setText(price1+"đ");
                 if (getIntent().getStringExtra("key_saleprice")==null && getIntent().getStringExtra("key_point")==null) {
                     amount_tv.setText(price1);
+                    amount = amount_tv.getText().toString();
                     saleprice_tour_tv.setText("0");
                     point_tv.setText("0");
                 }
