@@ -5,11 +5,13 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.traveling_app.R;
@@ -24,11 +26,19 @@ import com.google.firebase.database.Query;
 public class Menu_Love extends Fragment {
 
     private SavedTourAdapter savedTourAdapter;
+    private ImageView back_detail_blog;
     @Override
     @SuppressWarnings("deprecation")
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
         View rootView = inflater.inflate(R.layout.fragment_menu__love, container, false);
         TextView itemCountTextView = rootView.findViewById(R.id.totalCountTextView);
+        back_detail_blog=rootView.findViewById(R.id.back_detail_blog);
+        back_detail_blog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goHomeMenu();
+            }
+        });
         RecyclerView savedTourRecyclerView = rootView.findViewById(R.id.love_rcv);
         String profileId = PreferenceManager.getDefaultSharedPreferences(getContext()).getString("username", Constants.DEFAULT_USERNAME);
         Query query = DatabaseReferences.USER_SAVED_TOURS_DATABASE_REF.child(profileId).orderByKey();
@@ -45,5 +55,12 @@ public class Menu_Love extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         savedTourAdapter.stopListening();
+    }
+
+
+
+    public void goHomeMenu(){
+        ViewPager viewPager= getActivity().findViewById(R.id.view_pager_main);
+        viewPager.setCurrentItem(0);
     }
 }
