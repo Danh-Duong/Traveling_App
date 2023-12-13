@@ -1,9 +1,10 @@
 package com.example.traveling_app.model.tour;
 
 import com.google.firebase.database.Exclude;
-
 import java.util.Date;
+import androidx.annotation.Keep;
 
+@Keep
 public class Tour {
     @Exclude
     private String id;

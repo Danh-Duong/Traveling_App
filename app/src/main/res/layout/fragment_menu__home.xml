@@ -161,6 +161,9 @@
                             android:orientation="horizontal">
 
                             <LinearLayout
+                                android:id="@+id/vanHoaContainer"
+                                android:clickable="true"
+                                android:focusable="true"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
@@ -181,6 +184,9 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/bienContainer"
+                                android:clickable="true"
+                                android:focusable="true"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
@@ -201,6 +207,9 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/nuiContainer"
+                                android:clickable="true"
+                                android:focusable="true"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
@@ -221,6 +230,9 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/daoContainer"
+                                android:clickable="true"
+                                android:focusable="true"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
@@ -243,6 +255,9 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/amThucContainer"
+                            android:clickable="true"
+                            android:focusable="true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
@@ -271,6 +286,9 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/teamBuildingContainer"
+                                android:clickable="true"
+                                android:focusable="true"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
@@ -292,6 +310,9 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/maoHiemContainer"
+                                android:clickable="true"
+                                android:focusable="true"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
@@ -312,6 +333,9 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/voucherContainer"
+                                android:clickable="true"
+                                android:focusable="true"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"

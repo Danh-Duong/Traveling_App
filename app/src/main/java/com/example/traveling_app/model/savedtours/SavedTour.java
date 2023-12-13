@@ -3,7 +3,9 @@ package com.example.traveling_app.model.savedtours;
 import com.example.traveling_app.model.tour.Tour;
 import com.google.firebase.database.Exclude;
 import java.util.function.Consumer;
+import androidx.annotation.Keep;
 
+@Keep
 public class SavedTour {
 
     @Exclude

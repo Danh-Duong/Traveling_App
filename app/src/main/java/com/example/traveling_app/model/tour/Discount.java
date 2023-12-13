@@ -1,5 +1,7 @@
 package com.example.traveling_app.model.tour;
+import androidx.annotation.Keep;
 
+@Keep
 public class Discount {
 
     private String id;

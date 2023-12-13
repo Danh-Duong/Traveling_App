@@ -31,10 +31,11 @@ class NotificationViewHolder extends RecyclerView.ViewHolder {
         layoutDelete.setOnClickListener(v -> NOTIFICATION_REF.child(notification.getId()).removeValue());
     }
 
-    public void bindToView(Notification notification, DateFormat dateFormat) {
+    public void bindToView(Notification notification, DateFormat dateFormat, DateFormat timeFormat) {
         this.notification = notification;
+        Date date = new Date(notification.getTime());
         txtContent.setText(notification.getContent());
-        txtTime.setText(dateFormat.format(new Date(notification.getTime())));
+        txtTime.setText(dateFormat.format(date) + " " + timeFormat.format(date));
         senderAvatarPicture.setImageResource(0);
         notification.getProfileImageUrlAsync(url -> {
             if (url == null)

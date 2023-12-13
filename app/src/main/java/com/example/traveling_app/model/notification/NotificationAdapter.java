@@ -18,17 +18,19 @@ import java.text.DateFormat;
 public class NotificationAdapter extends FirebaseRecyclerAdapter<Notification, NotificationViewHolder> {
 
     private final DateFormat dateFormat;
+    private final DateFormat timeFormat;
     private final RequestManager imageLoader;
 
     public NotificationAdapter(@NonNull FirebaseRecyclerOptions<Notification> options, Context context) {
         super(options);
         dateFormat = android.text.format.DateFormat.getLongDateFormat(context);
+        timeFormat = android.text.format.DateFormat.getTimeFormat(context);
         imageLoader = Glide.with(context);
     }
 
     @Override
     protected void onBindViewHolder(@NonNull NotificationViewHolder holder, int position, @NonNull Notification model) {
-        holder.bindToView(model, dateFormat);
+        holder.bindToView(model, dateFormat, timeFormat);
     }
 
     @NonNull

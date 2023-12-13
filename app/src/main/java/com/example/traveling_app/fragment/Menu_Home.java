@@ -1,5 +1,6 @@
 package com.example.traveling_app.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,14 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.traveling_app.R;
 import com.example.traveling_app.activity.AdminActivity;
 import com.example.traveling_app.activity.MainActivity;
@@ -24,6 +24,8 @@ import com.example.traveling_app.adapter.HintTourAdapter;
 import com.example.traveling_app.adapter.HotTourAdapter;
 import com.example.traveling_app.adapter.NearTourAdapter;
 import com.example.traveling_app.adapter.RecentTourAdapter;
+import com.example.traveling_app.model.filter.FilterItemGroup;
+import com.example.traveling_app.model.filter.KeywordFilterItem;
 import com.example.traveling_app.adapter.VoucherTourAdapter;
 import com.example.traveling_app.common.CurrentUser;
 import com.example.traveling_app.common.DataCallback;
@@ -40,7 +42,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,6 +71,21 @@ public class Menu_Home extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_menu__home, container, false);
+        LinearLayout vanHoaContainer = view.findViewById(R.id.vanHoaContainer),
+                bienContainer = view.findViewById(R.id.bienContainer),
+                nuiContainer = view.findViewById(R.id.nuiContainer),
+                daoContainer = view.findViewById(R.id.daoContainer),
+                amThucContainer = view.findViewById(R.id.amThucContainer),
+                teamBuildingContainer = view.findViewById(R.id.teamBuildingContainer),
+                maoHiemContainer = view.findViewById(R.id.maoHiemContainer);
+
+        setOnClickToSearchActivity(vanHoaContainer, "Văn hóa");
+        setOnClickToSearchActivity(bienContainer, "Biển");
+        setOnClickToSearchActivity(nuiContainer, "Núi");
+        setOnClickToSearchActivity(daoContainer, "Đảo");
+        setOnClickToSearchActivity(amThucContainer, "Ẩm thực");
+        setOnClickToSearchActivity(teamBuildingContainer, "Building");
+        setOnClickToSearchActivity(maoHiemContainer, "Mạo hiểm");
 
         searchInput=view.findViewById(R.id.searchInput);
         username1=view.findViewById(R.id.username1);
@@ -154,6 +171,8 @@ public class Menu_Home extends Fragment{
             }
 
         });
+
+
 
 
         return view;
@@ -247,6 +266,15 @@ public class Menu_Home extends Fragment{
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+        });
+    }
+
+    private static void setOnClickToSearchActivity(View view, String keyword) {
+        view.setOnClickListener(v -> {
+            Context context = v.getContext();
+            Intent intent = new Intent(context, SearchAndFilterActivity.class);
+            intent.putExtra(SearchAndFilterActivity.TYPE_FILTER_PARAMS, keyword);
+            context.startActivity(intent);
         });
     }
 }

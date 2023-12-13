@@ -1,6 +1,7 @@
 package com.example.traveling_app.common;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import com.example.traveling_app.model.user.User;
@@ -8,9 +9,9 @@ public class CurrentUser {
     private static SharedPreferences preferences;
     private static SharedPreferences.Editor editor;
 
-    public CurrentUser(Activity activity, User user) {
+    public CurrentUser(Context context, User user) {
         if (preferences == null) {
-            preferences = PreferenceManager.getDefaultSharedPreferences(activity);
+            preferences = PreferenceManager.getDefaultSharedPreferences(context);
             editor = preferences.edit();
         }
 
