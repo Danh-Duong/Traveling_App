@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.traveling_app.R;
-import com.example.traveling_app.SearchAndFilterActivity;
+import com.example.traveling_app.activity.SearchAndFilterActivity;
 import com.example.traveling_app.common.Constants;
 import com.example.traveling_app.model.filter.FilterItemGroup;
 import com.example.traveling_app.model.filter.KeywordFilterItem;

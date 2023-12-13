@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".AdminActivity">
+    tools:context=".activity.AdminActivity">
 
     <TextView
         android:layout_width="match_parent"

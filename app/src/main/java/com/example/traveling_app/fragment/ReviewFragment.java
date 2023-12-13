@@ -9,7 +9,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,20 +26,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.traveling_app.DetailActivity;
 import com.example.traveling_app.R;
-import com.example.traveling_app.entity.CurrentUser;
-import com.example.traveling_app.entity.ImageLoader;
-import com.example.traveling_app.entity.Review;
-import com.example.traveling_app.entity.ReviewAdapter;
-import com.example.traveling_app.entity.SharedViewModel;
-import com.example.traveling_app.entity.Tour;
+import com.example.traveling_app.common.ReviewConstants;
+import com.example.traveling_app.common.CurrentUser;
+import com.example.traveling_app.model.tour.Review;
+import com.example.traveling_app.adapter.ReviewAdapter;
+import com.example.traveling_app.model.other.SharedViewModel;
+import com.example.traveling_app.model.tour.Tour;
 import com.example.traveling_app.model.user.User;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -54,10 +51,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ReviewFragment extends Fragment {
@@ -80,10 +78,9 @@ public class ReviewFragment extends Fragment {
     SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy", Locale.getDefault());
     String now=sdf.format(new Date());
     TextView numCom1,numCom2,numCom3,numCom4,numCom5;
-    int nC1=0,nC2=0,nC3=0,nC4=0,nC5=0;
+    String tourId;
 
-    private String tourId;
-
+    private Map<Integer, Integer> ratingCountMap = new HashMap<>();
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,9 +123,7 @@ public class ReviewFragment extends Fragment {
 
         btn_bl1=view.findViewById(R.id.btn_bl1);
         inputBl=view.findViewById(R.id.inputBl);
-
-        tourId = getActivity().getIntent().getStringExtra("id");
-
+        tourId=getActivity().getIntent().getStringExtra("id");
         bindingData();
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -167,6 +162,10 @@ public class ReviewFragment extends Fragment {
             }
         });
 
+
+        if (!CurrentUser.getCurrentUser().getProfileImage().equals(""))
+            Glide.with(getContext()).load(CurrentUser.getCurrentUser().getProfileImage()).into(image_user_review);
+
         btn_bl1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (inputBl.getText()==null || inputBl.getText().toString().trim().equals("") || viewModel.getNumRate()==0){
@@ -178,7 +177,7 @@ public class ReviewFragment extends Fragment {
 
                         }
                     });
-                    
+
                     b.setIcon(R.drawable.error);
                     AlertDialog al = b.create();
                     al.show();
@@ -248,7 +247,6 @@ public class ReviewFragment extends Fragment {
                                             // set giá trị để xem list danh sách
                                             getDataByStar(0);
                                             // vì giá trị này không lưu trong db nên t gọi hàm
-                                            bindingData();
                                             // lưu giá trị của numRate và numComment lại
                                             DatabaseReference reference=FirebaseDatabase.getInstance().getReference();
                                             reference.child("tours").child(tourId).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -262,6 +260,7 @@ public class ReviewFragment extends Fragment {
                                                     reference.child("tours").child(tourId).child("numStar").setValue(numNewRate);
                                                     // cập nhập số lượng comment
                                                     reference.child("tours").child(tourId).child("numComment").setValue(numCommentCurrent+1);
+                                                    bindingData();
                                                 }
 
                                                 @Override
@@ -279,7 +278,7 @@ public class ReviewFragment extends Fragment {
                         }
                     });
                 }
-        }
+            }
 
         });
 
@@ -294,7 +293,7 @@ public class ReviewFragment extends Fragment {
         });
         return view;
     }
-    
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -375,83 +374,43 @@ public class ReviewFragment extends Fragment {
     }
 
     public void bindingData(){
-        nC1=0;
-        nC2=0;
-        nC3=0;
-        nC4=0;
-        nC5=0;
-        if (reviews.size()>0)
-            reviews.clear();
-        ref.child("tours").child(tourId).child("reviews").addChildEventListener(new ChildEventListener() {
+        reviews.clear();
+        ratingCountMap.clear();
+        ref.child("tours").child(tourId).child("reviews").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    for (DataSnapshot reviewSnapshot : snapshot.getChildren()) {
-                        Review review = reviewSnapshot.getValue(Review.class);
-                        review.setNameReviewer(snapshot.getKey());
+                    for (DataSnapshot listSnapshot : snapshot.getChildren()) {
+                        for (DataSnapshot reviewSnapshot : listSnapshot.getChildren()) {
+                            Review review = reviewSnapshot.getValue(Review.class);
+                            review.setNameReviewer(listSnapshot.getKey());
+//                            fetchUserAndSetAvatar(review);
+                            int rate = review.getRate();
+                            ratingCountMap.put(rate, ratingCountMap.getOrDefault(rate, 0) + 1);
+                            reviews.add(review);
 
-                        ref.child("users").child(review.getNameReviewer()).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshotUser) {
-//                                Log.d("oke",snapshotUser.getValue()+"");
-                                if (snapshotUser.getValue(User.class).getProfileImage()!=null)
-                                    review.setAvatarReviewer(snapshotUser.getValue(User.class).getProfileImage());
-                            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
+                            ref.child("users").child(review.getNameReviewer()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshotUser) {
+                                    User user = snapshotUser.getValue(User.class);
+                                    if (user != null && user.getProfileImage() != null) {
+                                        review.setAvatarReviewer(user.getProfileImage());
+                                    }
+                                    updateRatingCountUI();
+                                    displaySortedReviews();
+                                }
 
-                            }
-                        });
-                        switch (review.getRate())
-                        {
-                            case 1:
-                                nC1++;
-                                break;
-                            case 2:
-                                nC2++;
-                                break;
-                            case 3:
-                                nC3++;
-                                break;
-                            case 4:
-                                nC4++;
-                                break;
-                            case 5:
-                                nC5++;
-                                break;
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    // Handle onCancelled
+                                }
+                            });
+
                         }
-                        reviews.add(review);
+
                     }
-                    numCom1.setText(nC1+"");
-                    numCom2.setText(nC2+"");
-                    numCom3.setText(nC3+"");
-                    numCom4.setText(nC4+"");
-                    numCom5.setText(nC5+"");
-
-                    List<Review> sortReviews = reviews.stream()
-                            .sorted()
-                            .collect(Collectors.toList());
-                    Collections.reverse(sortReviews);
-
-                    viewModel.setReviews(sortReviews);
-                    reviewAdapter=new ReviewAdapter(getContext(), sortReviews);
-                    review_rcv.setAdapter(reviewAdapter);
                 }
-            }
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
             }
 
             @Override
@@ -459,11 +418,6 @@ public class ReviewFragment extends Fragment {
 
             }
         });
-
-        if (!CurrentUser.getCurrentUser().getProfileImage().equals(""))
-            //ImageLoader.loadImage(CurrentUser.getCurrentUser().getProfileImage(),image_user_review);
-            Glide.with(getContext()).load(CurrentUser.getCurrentUser().getProfileImage()).into(image_user_review);
-
     }
 
 
@@ -478,4 +432,39 @@ public class ReviewFragment extends Fragment {
         review_rcv.setAdapter(reviewAdapter);
     }
 
+
+    private void fetchUserAndSetAvatar(Review review) {
+        ref.child("users").child(review.getNameReviewer()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshotUser) {
+                User user = snapshotUser.getValue(User.class);
+                if (user != null && user.getProfileImage() != null) {
+                    review.setAvatarReviewer(user.getProfileImage());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle onCancelled
+            }
+        });
+    }
+
+    private void updateRatingCountUI() {
+        numCom1.setText(ratingCountMap.getOrDefault(ReviewConstants.RATE_1, 0) + "");
+        numCom2.setText(ratingCountMap.getOrDefault(ReviewConstants.RATE_2, 0) + "");
+        numCom3.setText(ratingCountMap.getOrDefault(ReviewConstants.RATE_3, 0) + "");
+        numCom4.setText(ratingCountMap.getOrDefault(ReviewConstants.RATE_4, 0) + "");
+        numCom5.setText(ratingCountMap.getOrDefault(ReviewConstants.RATE_5, 0) + "");
+    }
+
+    private void displaySortedReviews() {
+        List<Review> sortedReviews = reviews.stream()
+                .sorted()
+                .collect(Collectors.toList());
+        Collections.reverse(sortedReviews);
+        viewModel.setReviews(sortedReviews);
+        reviewAdapter = new ReviewAdapter(getContext(), sortedReviews);
+        review_rcv.setAdapter(reviewAdapter);
+    }
 }

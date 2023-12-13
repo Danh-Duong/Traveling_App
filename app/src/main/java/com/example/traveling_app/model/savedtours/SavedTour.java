@@ -1,6 +1,6 @@
 package com.example.traveling_app.model.savedtours;
 
-import com.example.traveling_app.entity.Tour;
+import com.example.traveling_app.model.tour.Tour;
 import com.google.firebase.database.Exclude;
 import java.util.function.Consumer;
 

@@ -1,6 +1,6 @@
 package com.example.traveling_app.model.savedtours;
 import com.bumptech.glide.Glide;
-import com.example.traveling_app.DetailActivity;
+import com.example.traveling_app.activity.DetailActivity;
 import com.example.traveling_app.R;
 import com.example.traveling_app.common.DatabaseReferences;
 

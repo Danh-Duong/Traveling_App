@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.example.traveling_app.SearchAndFilterActivity;
+import com.example.traveling_app.activity.SearchAndFilterActivity;
 import com.example.traveling_app.model.filter.FilterItem;
 import com.google.android.flexbox.FlexboxLayout;
 import com.example.traveling_app.R;

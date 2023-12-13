@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AdminCreateActivity">
+    tools:context=".activity.AdminCreateActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -337,7 +337,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:hint="Khuyến mại"
-                        android:inputType="number"
                         android:padding="0dp"
                         android:textColorHint="#AFAFAF"
                         android:textCursorDrawable="@drawable/color_cursor"></com.google.android.material.textfield.TextInputEditText>

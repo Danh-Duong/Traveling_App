@@ -3,7 +3,7 @@ package com.example.traveling_app.model.savedtours;
 import androidx.annotation.NonNull;
 
 import com.example.traveling_app.common.DatabaseReferences;
-import com.example.traveling_app.entity.Tour;
+import com.example.traveling_app.model.tour.Tour;
 import com.firebase.ui.database.SnapshotParser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

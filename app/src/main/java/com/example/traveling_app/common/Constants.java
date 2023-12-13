@@ -12,9 +12,14 @@ import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 
+import com.example.traveling_app.activity.LoginActivity;
 import com.example.traveling_app.R;
-import com.example.traveling_app.ThongTinTichDiem_activity;
-import com.example.traveling_app.model.MenuSectionItem;
+import com.example.traveling_app.activity.ShareAppActivity;
+import com.example.traveling_app.activity.PointActivity;
+import com.example.traveling_app.activity.TourHistoryActivity;
+import com.example.traveling_app.activity.AboutActivity;
+import com.example.traveling_app.activity.ProfileActivity;
+import com.example.traveling_app.model.other.MenuSectionItem;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
@@ -30,16 +35,16 @@ public class Constants {
 
     static {
         ArrayList<MenuSectionItem> menuSectionItems = new ArrayList<>();
-        menuSectionItems.add(new MenuSectionItem(R.drawable.baseline_person_outline_24, R.string.profile_page, com.example.traveling_app.ProfileActivity.class));
+        menuSectionItems.add(new MenuSectionItem(R.drawable.baseline_person_outline_24, R.string.profile_page, ProfileActivity.class));
         menuSectionItems.add(new MenuSectionItem(R.drawable.baseline_bookmark_border_24, R.string.saved, null));
-        menuSectionItems.add(new MenuSectionItem(R.drawable.baseline_directions_car_24, R.string.place_went, com.example.traveling_app.luu_lichsutour.class));
-        menuSectionItems.add(new MenuSectionItem(R.drawable.baseline_share_24_1, R.string.share_app, com.example.traveling_app.GioiThieuBanBe.class));
+        menuSectionItems.add(new MenuSectionItem(R.drawable.baseline_directions_car_24, R.string.place_went, TourHistoryActivity.class));
+        menuSectionItems.add(new MenuSectionItem(R.drawable.baseline_share_24_1, R.string.share_app, ShareAppActivity.class));
         menuSectionItems.add(new MenuSectionItem(R.drawable.baseline_star_border_24, R.string.rate_app, null));
         menuSectionItems.add(new MenuSectionItem(R.drawable.baseline_support_agent_24, R.string.support_center, null));
-        menuSectionItems.add(new MenuSectionItem(R.drawable.luu_xacnhanthe_cardsecurityic, R.string.accumulate_points_infomation, ThongTinTichDiem_activity.class));
+        menuSectionItems.add(new MenuSectionItem(R.drawable.luu_xacnhanthe_cardsecurityic, R.string.accumulate_points_infomation, PointActivity.class));
         menuSectionItems.add(new MenuSectionItem(R.drawable.baseline_settings_24, R.string.settings, null));
-        menuSectionItems.add(new MenuSectionItem(R.drawable.baseline_info_24_1, R.string.about_us, com.example.traveling_app.AboutActivity.class));
-        menuSectionItems.add(new MenuSectionItem(R.drawable.baseline_logout_24, R.string.log_out, com.example.traveling_app.activity_dangnhap.class));
+        menuSectionItems.add(new MenuSectionItem(R.drawable.baseline_info_24_1, R.string.about_us, AboutActivity.class));
+        menuSectionItems.add(new MenuSectionItem(R.drawable.baseline_logout_24, R.string.log_out, LoginActivity.class));
         MENU_SECTION_ITEMS = Collections.unmodifiableList(menuSectionItems);
     }
 

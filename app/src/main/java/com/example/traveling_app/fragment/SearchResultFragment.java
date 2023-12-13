@@ -12,8 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.traveling_app.R;
-import com.example.traveling_app.SearchAndFilterActivity;
-import com.example.traveling_app.model.TourSearchResultAdapter;
+import com.example.traveling_app.activity.SearchAndFilterActivity;
+import com.example.traveling_app.adapter.TourSearchResultAdapter;
 
 public class SearchResultFragment extends Fragment {
 

@@ -8,14 +8,13 @@ public class User implements Serializable {
     private String username;
     private String fullName;
     private String password;
-
     private String email;
     private int birthday = DEFAULT_BIRTHDAY;
     private String description;
     private boolean gender;
     private String profileImageUrl;
-
     private int role;
+    private String token;
     @Exclude
     public static int DEFAULT_BIRTHDAY = 20000001;
 
@@ -119,6 +118,14 @@ public class User implements Serializable {
 
     public void setProfileImage(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     @Override

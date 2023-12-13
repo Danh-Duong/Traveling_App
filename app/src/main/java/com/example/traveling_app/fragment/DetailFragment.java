@@ -12,13 +12,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.traveling_app.DetailActivity;
 import com.example.traveling_app.R;
-import com.example.traveling_app.entity.ImageLoader;
-import com.example.traveling_app.entity.Service;
-import com.example.traveling_app.entity.ServiceTourAdapter;
-import com.example.traveling_app.entity.Tour;
-import com.example.traveling_app.luu_book_tour;
+import com.example.traveling_app.model.other.Service;
+import com.example.traveling_app.adapter.ServiceTourAdapter;
+import com.example.traveling_app.model.tour.Tour;
+import com.example.traveling_app.activity.BookTourActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,7 +47,7 @@ public class DetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String idTour= getActivity().getIntent().getStringExtra("id");
-                Intent intent = new Intent(getContext(), luu_book_tour.class);
+                Intent intent = new Intent(getContext(), BookTourActivity.class);
                 intent.putExtra("id",idTour);
                 startActivity(intent);
             }

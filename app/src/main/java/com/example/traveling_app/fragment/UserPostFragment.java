@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.preference.PreferenceManager;
@@ -18,7 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.traveling_app.R;
-import com.example.traveling_app.UpdateUserInformationActivity;
+import com.example.traveling_app.activity.UpdateUserInformationActivity;
 import com.example.traveling_app.common.Constants;
 import com.example.traveling_app.common.DatabaseReferences;
 import com.example.traveling_app.model.post.Post;

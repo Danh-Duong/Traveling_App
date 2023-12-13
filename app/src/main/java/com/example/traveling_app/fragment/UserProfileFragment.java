@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.traveling_app.R;
-import com.example.traveling_app.model.ProfileViewPageAdapter;
+import com.example.traveling_app.adapter.ProfileViewPageAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import org.jetbrains.annotations.NotNull;

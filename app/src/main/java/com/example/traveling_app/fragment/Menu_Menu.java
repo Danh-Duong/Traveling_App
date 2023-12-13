@@ -17,12 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.traveling_app.MainActivity;
+import com.example.traveling_app.activity.MainActivity;
 import com.example.traveling_app.R;
 import com.example.traveling_app.common.Constants;
 import com.example.traveling_app.common.DatabaseReferences;
-import com.example.traveling_app.model.MenuListAdapter;
-import com.example.traveling_app.model.MenuSectionItem;
+import com.example.traveling_app.adapter.MenuListAdapter;
+import com.example.traveling_app.model.other.MenuSectionItem;
 import com.example.traveling_app.model.user.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

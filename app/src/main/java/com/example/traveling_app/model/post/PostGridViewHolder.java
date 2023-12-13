@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
 import com.example.traveling_app.R;
-import com.example.traveling_app.Status_activity;
+import com.example.traveling_app.activity.PostInfoActivity;
 
 class PostGridViewHolder extends RecyclerView.ViewHolder {
     private final TextView usernameTextView;
@@ -38,8 +38,8 @@ class PostGridViewHolder extends RecyclerView.ViewHolder {
 
     private void onPostItemClick(View v) {
         Context context = v.getContext();
-        Intent intent = new Intent(context, Status_activity.class);
-        intent.putExtra(Status_activity.POST_PARAM, bindedPost);
+        Intent intent = new Intent(context, PostInfoActivity.class);
+        intent.putExtra(PostInfoActivity.POST_PARAM, bindedPost);
         context.startActivity(intent);
     }
 }
