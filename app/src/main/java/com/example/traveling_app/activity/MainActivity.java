@@ -1,5 +1,6 @@
 package com.example.traveling_app.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -77,4 +78,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+    }
+
 }
