@@ -144,8 +144,7 @@
             android:exported="false"
             android:label="@string/update_user_information"/>
 
-        <activity android:name=".activity.SetDefaultSharedPreferences"
-            android:exported="false"/>
+
         <activity android:name=".activity.Login_google">
             <!-- Các thuộc tính khác của hoạt động -->
         </activity>
