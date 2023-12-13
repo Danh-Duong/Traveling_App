@@ -28,3 +28,8 @@
 -keep public class com.example.traveling_app.model.tour.HistoryTour
 -keep public class com.example.traveling_app.model.tour.Review
 -keep public class com.example.traveling_app.model.tour.Tour
+#When using android mail, keep those classes used by reflection
+-keep class javax.mail.** { *; }
+-keep class com.sun.mail.** { *; }
+-keep class myjava.awt.datatransfer.** { *; }
+-keep class org.apache.harmony.awt.** { *; }
