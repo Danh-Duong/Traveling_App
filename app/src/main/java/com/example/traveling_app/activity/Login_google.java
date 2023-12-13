@@ -38,7 +38,10 @@ public class Login_google extends AppCompatActivity {
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
         signoutbtn = findViewById(R.id.signoutbtn);
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestServerAuthCode("424359554202-fgthtsl6ehka47r0r2g354obeh9sj35e.apps.googleusercontent.com")  // Thay đổi bằng Client ID của dự án mới
+                .build();
         gsc = GoogleSignIn.getClient(this,gso);
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
@@ -72,7 +75,7 @@ public class Login_google extends AppCompatActivity {
             @Override
             public void onComplete(Task<Void> task) {
                 finish();
-                startActivity(new Intent(Login_google.this, WelcomeActivity.class));
+                startActivity(new Intent(Login_google.this,WelcomeActivity.class));
             }
         });
     }
