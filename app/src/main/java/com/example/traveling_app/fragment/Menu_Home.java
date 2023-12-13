@@ -15,10 +15,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.example.traveling_app.R;
 import com.example.traveling_app.activity.AdminActivity;
 import com.example.traveling_app.activity.MainActivity;
 import com.example.traveling_app.activity.SearchAndFilterActivity;
+import com.example.traveling_app.activity.VoucherActivity;
 import com.example.traveling_app.adapter.BannerTourAdapter;
 import com.example.traveling_app.adapter.HintTourAdapter;
 import com.example.traveling_app.adapter.HotTourAdapter;
@@ -74,7 +77,8 @@ public class Menu_Home extends Fragment{
                 daoContainer = view.findViewById(R.id.daoContainer),
                 amThucContainer = view.findViewById(R.id.amThucContainer),
                 teamBuildingContainer = view.findViewById(R.id.teamBuildingContainer),
-                maoHiemContainer = view.findViewById(R.id.maoHiemContainer);
+                maoHiemContainer = view.findViewById(R.id.maoHiemContainer),
+                voucherContainer=view.findViewById(R.id.voucherContainer);
 
         setOnClickToSearchActivity(vanHoaContainer, "Văn hóa");
         setOnClickToSearchActivity(bienContainer, "Biển");
@@ -84,6 +88,13 @@ public class Menu_Home extends Fragment{
         setOnClickToSearchActivity(teamBuildingContainer, "Building");
         setOnClickToSearchActivity(maoHiemContainer, "Mạo hiểm");
 
+        voucherContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(), VoucherActivity.class);
+                startActivity(intent);
+            }
+        });
         searchInput=view.findViewById(R.id.searchInput);
         username1=view.findViewById(R.id.username1);
         imgAvaMain=view.findViewById(R.id.imgAvaMain);
@@ -103,8 +114,25 @@ public class Menu_Home extends Fragment{
         }
 
         username1.setText(currentUser.getCurrentUser().getUsername());
-        if (currentUser.getCurrentUser().getProfileImage()!=null)
-            ImageLoader.loadImage(currentUser.getCurrentUser().getProfileImage(),imgAvaMain);
+
+        ref.child("users").child(CurrentUser.getCurrentUser().getUsername()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    User user=snapshot.getValue(User.class);
+                    if (user.getProfileImage()!=null && !user.getProfileImage().equals(""))
+                        Glide.with(getContext()).load(user.getProfileImage()).into(imgAvaMain);
+                }
+                else
+                    imgAvaMain.setImageResource(R.drawable.main_avatar);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         imgAvaMain.setOnClickListener(new View.OnClickListener() {
             @Override

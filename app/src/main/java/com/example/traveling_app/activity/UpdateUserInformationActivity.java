@@ -160,7 +160,6 @@ public class UpdateUserInformationActivity extends AppCompatActivity {
         if (profileImageUrl != null)
             updateValues.put("profileImage", profileImageUrl);
         userProfileInfoReference.updateChildren(updateValues).addOnSuccessListener(nothing -> Toast.makeText(getApplicationContext(), R.string.update_user_information_successfully, Toast.LENGTH_SHORT).show());
-        new CurrentUser(getApplicationContext(), new User(profileId, profileImageUrl, 0)); // Cập nhật lại profile image vô sharedref, nhưng mà làm vậy chi Danh?
         finish();
     }
 }

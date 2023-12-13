@@ -162,9 +162,19 @@ public class ReviewFragment extends Fragment {
             }
         });
 
+        ref.child("users").child(CurrentUser.getCurrentUser().getUsername()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user=snapshot.getValue(User.class);
+                if (user.getProfileImage()!=null && !user.getProfileImage().equals(""))
+                    Glide.with(getContext()).load(user.getProfileImage()).into(image_user_review);
+            }
 
-        if (!CurrentUser.getCurrentUser().getProfileImage().equals(""))
-            Glide.with(getContext()).load(CurrentUser.getCurrentUser().getProfileImage()).into(image_user_review);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         btn_bl1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

@@ -58,7 +58,6 @@ public class DetailActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.view_pager);
         idTour= getIntent().getStringExtra("id");
         bindingData();
-//        checkLove();
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);

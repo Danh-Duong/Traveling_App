@@ -15,9 +15,8 @@ public class CurrentUser {
             editor = preferences.edit();
         }
 
-        // Tiếp tục với phần còn lại của hàm khởi tạo
         editor.putString("username", user.getUsername());
-        editor.putString("imageUrl", user.getProfileImage());
+//        editor.putString("imageUrl", user.getProfileImage());
         editor.putInt("role", user.getRole());
         editor.apply();
     }
