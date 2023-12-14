@@ -31,9 +31,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Menu_Menu extends Fragment {
 
-    MainActivity mainActivity;
-    View view;
-
     private TextView usernameTextView, statusTextView;
     private ImageView userAvatarImageView;
     private DatabaseReference userRef;
@@ -46,7 +43,7 @@ public class Menu_Menu extends Fragment {
             String avatarImageUrl = user.getProfileImage();
             String name = user.getFullName() == null ? user.getUsername() : user.getFullName();
             String description = user.getDescription() == null ? getContext().getString(R.string.online) : user.getDescription();
-            if (userAvatarImageView == null)
+            if (avatarImageUrl == null)
                 userAvatarImageView.setImageResource(R.drawable.user_profile_icon);
             else
                 Glide.with(userAvatarImageView).load(avatarImageUrl).circleCrop().into(userAvatarImageView);
@@ -66,17 +63,16 @@ public class Menu_Menu extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mainActivity = (MainActivity) getActivity();
-        view = inflater.inflate(R.layout.fragment_menu__menu, container, false);
+        View view = inflater.inflate(R.layout.fragment_menu__menu, container, false);
         MenuListAdapter menuListAdapter = new MenuListAdapter(Constants.MENU_SECTION_ITEMS);
         ListView listView = view.findViewById(R.id.menuListItem);
-        userRef = DatabaseReferences.USER_DATABASE_REF.child(PreferenceManager.getDefaultSharedPreferences(mainActivity).getString("username", Constants.DEFAULT_USERNAME));
+        userRef = DatabaseReferences.USER_DATABASE_REF.child(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("username", Constants.DEFAULT_USERNAME));
         usernameTextView = view.findViewById(R.id.usernameTextView);
         statusTextView = view.findViewById(R.id.statusTextView);
         userAvatarImageView = view.findViewById(R.id.userAvatar);
         listView.setAdapter(menuListAdapter);
         listView.setOnItemClickListener(
-                (AdapterView<?> parent, View view, int position, long id) -> {
+                (AdapterView<?> parent, View v, int position, long id) -> {
                     MenuSectionItem menuSectionItem = (MenuSectionItem) parent.getItemAtPosition(position);
                     if (menuSectionItem.getActivityClass() == null)
                         Toast.makeText(getContext(), getString(R.string.not_implemented), Toast.LENGTH_SHORT).show();
