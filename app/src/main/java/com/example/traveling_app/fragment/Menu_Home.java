@@ -122,9 +122,10 @@ public class Menu_Home extends Fragment{
                     User user=snapshot.getValue(User.class);
                     if (user.getProfileImage()!=null && !user.getProfileImage().equals(""))
                         Glide.with(getContext()).load(user.getProfileImage()).into(imgAvaMain);
+                    else
+                        imgAvaMain.setImageResource(R.drawable.main_avatar);
                 }
-                else
-                    imgAvaMain.setImageResource(R.drawable.main_avatar);
+
 
             }
 

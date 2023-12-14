@@ -79,7 +79,7 @@ public class ResetPassActivity extends AppCompatActivity {
                         user.setToken("");
                         user.setPassword(pass);
                         ref.child(snapshot.getKey()).setValue(user);
-                        Intent intent=new Intent(ResetPassActivity.this, LoginActivity.class);
+                        Intent intent=new Intent(ResetPassActivity.this, ResetPassSuccessActivity.class);
                         startActivity(intent);
                     }
                 }
