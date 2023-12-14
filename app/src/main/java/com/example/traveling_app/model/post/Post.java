@@ -113,7 +113,7 @@ public class Post implements Parcelable {
             this.fullName = fullName;
 
         if (onFullNameReady != null) {
-            onFullNameReady.accept(fullName);
+            onFullNameReady.accept(this.fullName);
             onFullNameReady = null;
         }
 
