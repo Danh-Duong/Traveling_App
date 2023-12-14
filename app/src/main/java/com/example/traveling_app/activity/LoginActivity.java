@@ -1,5 +1,6 @@
 package com.example.traveling_app.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -153,10 +154,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -255,9 +252,16 @@ public class LoginActivity extends AppCompatActivity {
         }
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
-    void  navigateToSecondActivity(){
+    void navigateToSecondActivity(){
         finish();
         Intent intent = new Intent(LoginActivity.this, Login_google.class);
+        startActivity(intent);
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+        Intent intent=new Intent(LoginActivity.this, WelcomeActivity.class);
         startActivity(intent);
     }
 }

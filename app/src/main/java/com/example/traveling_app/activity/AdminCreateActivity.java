@@ -174,7 +174,7 @@ public class AdminCreateActivity extends AppCompatActivity {
                                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                                         // thành công
                                         if (error==null){
-                                            AlertDialog.Builder b = new AlertDialog.Builder(getApplicationContext());
+                                            AlertDialog.Builder b = new AlertDialog.Builder(AdminCreateActivity.this);
                                             b.setTitle("Thông báo");
                                             b.setMessage("Tạo mới Tour thành công");
                                             b.setPositiveButton("OK", new DialogInterface.OnClickListener() {
