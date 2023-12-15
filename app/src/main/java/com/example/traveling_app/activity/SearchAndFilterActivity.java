@@ -122,12 +122,13 @@ public class SearchAndFilterActivity extends AppCompatActivity {
     }
 
     public void switchToSearchResultFragment(String keyword) {
-        if (keyword.length() > 0 && recentSearch.contains(keyword)) {
-            recentSearch.add(0, keyword);
+        if (keyword.length() > 0 && !recentSearch.contains(keyword)) {
             if (recentSearch.size() >= MAX_RECENT_SEARCH)
                 recentSearch.remove(MAX_RECENT_SEARCH - 1);
+            recentSearch.add(0, keyword);
+            sharedPreferences.edit().putString(RECENT_SEARCH_SHARED_REF_KEY, gson.toJson(recentSearch)).commit();
         }
-        sharedPreferences.edit().putString(RECENT_SEARCH_SHARED_REF_KEY, gson.toJson(recentSearch)).commit();
+
         this.keyword = keyword.toLowerCase();
         getSupportFragmentManager().beginTransaction().replace(R.id.content, searchResultFragment).addToBackStack(null).commit();
     }
